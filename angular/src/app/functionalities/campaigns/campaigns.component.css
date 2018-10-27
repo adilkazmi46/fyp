@@ -1,0 +1,10 @@
+a:hover{
+cursor: pointer;
+text-decoration: underline;    
+}
+
+.template_card{
+    width: 500px;
+    height:100px;
+    margin-bottom: 5px;
+}

@@ -1,0 +1,78 @@
+
+
+<mat-card class="tenant-card">
+    <mat-card-header>
+      <mat-card-title>
+         
+           <span id="title"><h3 color="primary">Enter you bussiness name</h3></span> 
+      </mat-card-title>
+      
+    </mat-card-header> 
+    
+    <mat-card-content>
+          
+        <form [formGroup]="tenant_form" (ngSubmit)="onSubmit()" 
+        class="form-container" id="tenant_div">   
+         
+        <mat-form-field>
+            <input  matInput placeholder="name" 
+             id="name" formControlName="name"
+             [(ngModel)]="value_name" [errorStateMatcher]="matcher">
+
+                
+             <button mat-button *ngIf="value_name" 
+             matSuffix mat-icon-button aria-label="Clear"  
+             (click)="value_name=''">
+               <mat-icon>close</mat-icon>  
+             </button>    
+           
+              <mat-error *ngIf="tenant_form.controls['name'].hasError('minlength') &&
+               !tenant_form.controls['name'].hasError('required')">
+                      Please enter a name of at least 6 characters.  
+                    </mat-error>  
+                  
+                    
+              <mat-error *ngIf="tenant_form.controls['name'].hasError('maxlength') &&
+              !tenant_form.controls['name'].hasError('required')">
+                     Please enter a name of at most 25 characters.  
+                   </mat-error>  
+
+
+
+                    <mat-error *ngIf="tenant_form.controls['name'].hasError('required')">
+                      name is <strong>required</strong>
+                    </mat-error>
+             
+            </mat-form-field>  
+       
+         <mat-list> 
+                 <mat-list-item><b>URL:localhost:4200{{url}}{{value_name}}</b></mat-list-item>
+                </mat-list>
+       
+        
+          </form>
+         
+    </mat-card-content>  
+
+    
+    <mat-card-actions> 
+  
+        <button  id="Add Business"  
+        mat-button color="primary" type="button"
+         (click)="onAdd_Business()">Add Business</button>
+      
+         <button id="Back"    
+         mat-button color="primary" type="button"
+          (click)="onBack()">Back</button> 
+         
+ 
+    </mat-card-actions> 
+    
+  </mat-card>   
+      
+     
+    
+<button id="logout" mat-button type="button" 
+(click)="onLogout()" color="primary">logout</button>
+
+ 

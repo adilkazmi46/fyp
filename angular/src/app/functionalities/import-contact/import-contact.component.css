@@ -1,0 +1,9 @@
+.import-card {
+    
+    position:fixed; 
+    top: 30%;
+    left: 40%;
+    width:20em;
+    height:15em;
+    text-align: left;
+  }  

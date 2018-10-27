@@ -1,0 +1,49 @@
+.signin-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 200px;
+
+}
+
+.signin-full-width {
+  width: 200px;
+}
+
+.signin-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.signin-full-width {
+  width: 100%;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container > * {
+  width: 100%;
+} 
+.form-field {
+  width: 200px; 
+}
+ 
+.signin-card {
+  max-width: 400px;
+  position:fixed; 
+  top: 50%;
+  left: 50%;
+  width:30em;
+  height:20em;
+  margin-top: -10em; /*set to a negative number 1/2 of your height*/
+  margin-left: -15em; /*set to a negative number 1/2 of your width*/
+   
+}
+mat-form-field{
+  padding: 5% 
+}
+#title{
+  color:#3F51B5; 
+}

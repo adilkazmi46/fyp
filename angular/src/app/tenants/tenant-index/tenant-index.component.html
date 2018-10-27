@@ -1,0 +1,14 @@
+
+  
+      <!-- Name Column -->
+    
+        <div *ngIf="show">          
+          <mat-card  style="margin:2em;" id="index"  *ngFor="let tenant of tenants_collection">
+            <mat-card-header *ngIf="show">{{ tenant | titlecase }}</mat-card-header>
+    <mat-card-actions > 
+      <button mat-button type="button" (click)="onOpen(tenant)">open</button>
+      <button mat-button type="button" (click)="onDelete(tenant)">delete</button>  
+      <button mat-button type="button" (click)="onEdit(tenant)">edit</button>
+    </mat-card-actions>
+        </mat-card>
+      </div>

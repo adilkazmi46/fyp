@@ -1,0 +1,11 @@
+<h1>Insights</h1>
+ 
+<mat-card  class="template_card" *ngFor="let d of data">
+    
+  <mat-card-title class="over_flow">
+      {{d.campaign_id.name}}
+  </mat-card-title>
+<mat-card-content>
+  Open Rates {{d.open_rate}}
+</mat-card-content>
+</mat-card>

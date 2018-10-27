@@ -1,0 +1,36 @@
+.signup-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .signup-full-width {
+    width: 100%;
+  }
+  .form-container {
+    display: flex; 
+    flex-direction: column;
+  }
+  
+  .form-container > * { 
+    width: 100%;
+  }
+  .form-field {
+    width: 200px; 
+  }
+  .signupdiv {
+    max-width: 400px;
+    position:fixed;
+    top: 50%;  
+    left: 50%;
+    width:30em;
+    height:24em;
+    margin-top: -12em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    
+     
+}
+
+#title{
+  color:#3F51B5; 
+}

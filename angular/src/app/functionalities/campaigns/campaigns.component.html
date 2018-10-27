@@ -1,0 +1,79 @@
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="NameFormGroup">
+
+    <form [formGroup]="NameFormGroup">
+      <ng-template matStepLabel>Fill out your  Campaign name</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Campaign Name" formControlName="name" [(ngModel)]="value_name" [errorStateMatcher]="matcher">
+        <button mat-button *ngIf="value_name" matSuffix mat-icon-button aria-label="Clear" (click)="value_name=''">
+            <mat-icon>close</mat-icon> 
+ 
+          </button>   
+          <mat-error *ngIf="NameFormGroup.controls['name'].hasError('required')">
+                  name is <strong>required</strong>
+                </mat-error>   
+                <mat-error *ngIf="NameFormGroup.controls['name'].hasError('minlength') && !NameFormGroup.controls['name'].hasError('required')">
+                      Please enter a name of min 3 characters 
+                    </mat-error> 
+                     
+                
+                    <mat-error *ngIf="NameFormGroup.controls['name'].hasError('maxlength') && !signupform.controls['name'].hasError('required')">
+                          Please enter a name of max 20 characters 
+                        </mat-error> 
+
+      </mat-form-field>
+      <div> 
+        <button [disabled]="!NameFormGroup.valid"  mat-button color="primary" type="button"  mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step   [stepControl]="TemplateFormGroup">
+  <form [formGroup]="TemplateFormGroup">
+      
+    <ng-template matStepLabel>Select Template</ng-template>
+           <mat-card  class="template_card" *ngFor="let d of data">
+       
+        <mat-card-title class="over_flow">
+<mat-radio-button formControlName="template_name" (change)="oncheck(d.name)"  attr.value={{d.name}}  color="primary" ngDefaultControl></mat-radio-button>
+          <a  color="primary" attr.id={{d.name}}   data-toggle="modal" attr.data-target='#{{d.id}}'>{{ d.name }}</a>
+        
+        </mat-card-title>
+        <div class="modal" attr.id={{d.id}}>
+                     <mat-card>
+                              <mat-card-title> 
+                            <div class="modal__header">{{d.name}}</div>
+                        </mat-card-title>  
+                        <mat-card-content>
+                            <div class="modal__content">
+                            <div class="html_content" [innerHTML]="d.html | myPipe"></div>
+                            </div>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <div class="modal__footer">
+                                    <button  mat-button type="button"  color="primary" type="button" data-dismiss="modal">Close</button>
+                            </div>
+                        </mat-card-actions>
+                        </mat-card>  
+                        </div>
+             
+     </mat-card>
+     </form>
+
+     <button  mat-button matStepperPrevious>Back</button>
+     <button [disabled]="!TemplateFormGroup.valid"  mat-button color="primary" type="button" matStepperNext>Next</button>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Start Campaign</ng-template>
+    Click on submit to start campagin
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="onsubmit()">start</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+ 
+<br>
+
+ 

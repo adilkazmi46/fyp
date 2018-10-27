@@ -1,0 +1,19 @@
+ 
+#tenant_div {
+    max-width: 400px;
+    
+
+    left: 50%;
+    width:30em;
+    
+    margin-top: 5em; /*set to a negative number 1/2 of your height*/
+    margin-bottom: 5em;
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+     
+  }
+  #logout{
+      text-align: center;
+      position: fixed; /* or position: absolute; */
+      top: 0;
+      right: 0;
+  }

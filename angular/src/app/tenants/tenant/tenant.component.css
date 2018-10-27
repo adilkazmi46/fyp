@@ -1,0 +1,36 @@
+#logout{
+    max-width: 400px;
+    position:absolute; 
+    top: 80%;
+    left: 43%;
+}
+ 
+.tenant-card {
+    word-wrap: break-word;
+    max-width: 400px;
+    position:absolute; 
+    top: 50%;
+    left: 50%;
+    width:30em;
+    height:20em;
+    margin-top: -10em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+     
+  }
+  mat-card-content{
+    word-wrap: break-word;
+      height: 180px;
+      text-align: center;
+      margin: 2%
+  }
+  
+#title{
+    color:#3F51B5; 
+  }
+  .mat-list-icon {
+    color: rgba(0, 0, 0, 0.54);
+  }
+  mat-list-item{
+    word-break: break-all;
+    margin-top: 4%;
+  }

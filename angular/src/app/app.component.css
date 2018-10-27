@@ -1,0 +1,14 @@
+
+
+span  {
+  flex: 1 1 auto;
+} 
+
+
+a  {
+  flex: .010 0 auto;
+}
+
+div{
+  overflow-y: scroll;
+}

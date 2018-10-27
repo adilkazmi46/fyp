@@ -1,0 +1,37 @@
+<h1>Email Templates</h1>
+
+<mat-card  class="template_card" *ngFor="let d of data">
+    
+    <mat-card-title class="over_flow">
+        {{ d.name }}
+    </mat-card-title>
+  
+ 
+    <mat-card-actions >  
+            <button  mat-button color="primary" attr.id={{d.name}} type="button"  data-toggle="modal" attr.data-target='#{{d.id}}'>
+                    open   
+                  </button> 
+                    
+                  <div class="modal" attr.id={{d.id}}>
+                      <mat-card>  
+                          <mat-card-title> 
+                        <div class="modal__header">{{d.name}}</div>
+                    </mat-card-title>  
+                    <mat-card-content>
+                        <div class="modal__content">
+                        <div id="html_content" [innerHTML]="d.html | myPipe"></div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <div class="modal__footer">
+                                <button  mat-button type="button"  color="primary" type="button" data-dismiss="modal">Close</button>
+                        </div>
+                    </mat-card-actions>
+                    </mat-card>  
+                    </div>
+       <!---- <button mat-button (click)="onedit(d.name)" color="primary" type="button">edit</button>-->
+        <button mat-button (click)="ondelete(d.name)"color="primary" type="button">delete</button>
+    </mat-card-actions> 
+         
+</mat-card>   
+ 

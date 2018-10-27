@@ -1,0 +1,38 @@
+
+  
+ <div id="toolbar-container"></div>
+ 
+
+ <div id="editor" >
+         <textarea [innerHTML]="data"  autofocus>
+          
+             
+             </textarea>     
+     
+     </div>       
+    
+        
+<form [formGroup]="templateform" (ngSubmit)="get_data()" class="form-container" >
+    <mat-form-field> 
+            <input matInput placeholder="Name"  id="name" formControlName="name"  [(ngModel)]="value_name" [errorStateMatcher]="matcher">
+            <button mat-button *ngIf="value_name" matSuffix mat-icon-button aria-label="Clear" (click)="value_name=''">
+                <mat-icon>close</mat-icon> 
+     
+              </button>   
+              <mat-error *ngIf="templateform.controls['name'].hasError('required')">
+                      name is <strong>required</strong>
+                    </mat-error> 
+                    <mat-error *ngIf="templateform.controls['name'].hasError('minlength') && !templateform.controls['name'].hasError('required')">
+                          Please enter a name of min 3 characters 
+                        </mat-error> 
+                          
+                    <mat-error *ngIf="templateform.controls['name'].hasError('maxlength') && !templateform.controls['name'].hasError('required')">
+                              Please enter a name of max 25 characters 
+                             </mat-error> 
+    
+  
+   
+  
+      </mat-form-field>
+      <button class="save_button_ckeditor" (click)="get_data()" mat-button color="primary">update</button>
+    </form>  
