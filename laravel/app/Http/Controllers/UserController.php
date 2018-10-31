@@ -39,9 +39,6 @@ class UserController extends Controller
     else{
 
         $credentials =$request->only('email','password');
-
-
-
         try{
         	$token = JWTAuth::attempt($credentials);
             $user = Auth::User();
@@ -142,16 +139,30 @@ class UserController extends Controller
         return response()->json([$user->email]);
     }
 
+    
 
-    public function social_auth(Request $request)
+
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
     {
-        return Socialite::driver ( $request->service )->stateless()->redirect ();
+        return Socialite::driver('facebook')->stateless()->redirect();
     }
- 
 
-    public function social_callback($service) { 
-        $user = Socialite::with ( $service )->user ();
-        return view ( 'home' )->withDetails ( $user )->withService ( $service );  }
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('facebook')->stateless()->user();
+
+        return  $user->token;
+    }
 
     /**  
      * Display the specified resource.
@@ -187,6 +198,32 @@ class UserController extends Controller
         //
     }
 
+
+
+    public function socail_auth_CreateUser_or_login(Request $request)
+    {  
+        //return response()->json([$request->email]); 
+        $authUser = User::where('email', $request->email)->first();
+        if ($authUser) {  
+         $token= JWTAuth::fromUser($authUser);    
+            return response()->json([
+            $token  
+            ]);      
+        }   
+        else{   
+         
+        $user= new User;
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->save();
+        $token= JWTAuth::fromUser($user);
+        return response()->json([
+        $token
+        ]);  
+  
+       
+    }
+}
 
 
 }

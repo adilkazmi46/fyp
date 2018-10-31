@@ -87,8 +87,29 @@ export class UserService {
      localStorage.setItem('email',email); 
    }
   
-
-
-
+   social_auth(user) 
+   {
+     
+    return this.http.post('http://localhost:8000/api/auth_social',user).subscribe(  
+      (res : Response) =>   { 
+        this.set_token(res);     
+        
+        this.http.get('http://localhost:8000/api/get_email').subscribe
+        (
+          (res:Response)=>
+          { 
+            this.set_email(res);
+          },
+          (err:Error)=>console.log(err)
+  
+        );
+      console.log(res); 
+      this.router.navigate([localStorage.getItem('email')]);
+  },  
+      (err: Error) => console.log(JSON.stringify(err)) 
+          
+    ); 
+   
+   }
 
 }

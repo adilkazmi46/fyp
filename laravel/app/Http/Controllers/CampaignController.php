@@ -7,7 +7,7 @@ use App\Campaign;
 use App\Tenant;
 use App\EmailTemplate;
 use Auth;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Validator;  
 use App\Jobs\SendEmail;
 use DB;
 use App\Emails_list;
@@ -36,7 +36,7 @@ class CampaignController extends Controller
       $tenant=DB::table('tenants')->where([
          ['name','=',$request->tenant_name],
          ['user_email','=',Auth::User()->email]
-      ])->first();
+      ])->first(); 
 
              
       //$emails=DB::table('emails_lists')->where('tenant_id','=',$tenant->id)->get(['email']);
@@ -108,4 +108,4 @@ public function index(Request $request)
 
 
 }
-  
+    

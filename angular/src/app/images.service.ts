@@ -3,22 +3,25 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Image } from './image';
 import { Tenant } from './tenant';
 import { text } from '@angular/core/src/render3/instructions';
+import { Observable } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImagesService {
-
-  constructor(private http:HttpClient) { }  
-
-  get_images(tenant_name)
+headers:Headers;
+  constructor(private http:HttpClient,private router:Router,private route:ActivatedRoute) { }  
+ 
+  get_images()
   {
-    return this.http.get('http://localhost:8000/api/image_display/hjkjl/kazmi.png');
+    return this.http.get('http://localhost:8000/api/image_index/'+localStorage.getItem('tenant_name'));
   }   
-
-  get_image(path)
+    
+  get_image(name)
   { 
-    return this.http.post('http://localhost:8000/api/image_display',path);
+    return this.http.get('http://localhost:8000/api/image_display/'+localStorage.getItem('tenant_name')+'/'+name);
   }
 
   upload_image(img:Image,file:File)
@@ -27,29 +30,31 @@ export class ImagesService {
   let fd=new FormData();
   fd.append('name',img.name);
   fd.append('tenant_name',img.tenant_name);
-  fd.append('image_file',file,img.image_file.name);   
+  fd.append('image_file',file,img.name);    
   
 
-    return this.http.post('http://localhost:8000/api/image_upload',fd,{responseType: 'text'
-  }). 
+    return this.http.post('http://localhost:8000/api/image_upload',fd). 
     subscribe( 
-      (res) =>    
+      (res:Response) =>    
        {    
-         document.getElementById('output').setAttribute('src',res);
+         this.router.navigate(['image_gallery'],{
+        relativeTo: this.route.parent
+      });
         console.log(res)         
-      },   
+      },         
       (err:Error)=>
       {
         console.log("err"+err.message)
       }
     );  
   }
-  delete_image(img:Image)
+  delete_image(name)
   {
-    return this.http.post('http://localhost:8000/api/image_delete',img)
+    return this.http.delete('http://localhost:8000/api/image_delete/'+localStorage.getItem('tenant_name')+'/'+name);
   }
+    
 
-  
+    
 
 
 }

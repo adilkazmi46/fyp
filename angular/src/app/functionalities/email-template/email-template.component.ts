@@ -10,6 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormGroupDirective, NgForm } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { EmailTemplateService } from '../../email-template.service';
+import { ImagesService } from '../../images.service';
 
 
 
@@ -32,12 +33,25 @@ export class EmailTemplateComponent implements OnInit {
   email_template:EmailTemplate;   
   value_name='';
   templateform:FormGroup;
-  name:FormControl;
- 
-constructor(private template_service:EmailTemplateService,private route:ActivatedRoute,private router:Router)  { } 
+  name:FormControl;  
+  data:any; 
+constructor(private image_service:ImagesService,private template_service:EmailTemplateService,private route:ActivatedRoute,private router:Router)  { } 
   
   ngOnInit() {      
      
+    this.image_service.get_images().
+    subscribe(
+      (res:Response)=> 
+      { 
+      this.data=Object.entries(res[0]);
+
+      console.log(this.data)
+      },
+      (err:Error)=>{  
+       console.log(err);      
+      }
+    );
+
     this.templateform=new FormGroup({  
       'name' :new FormControl(null,[Validators.required,Validators.minLength(3),Validators.maxLength(25)])
         });

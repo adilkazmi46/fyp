@@ -38,9 +38,10 @@ class SendEmail implements ShouldQueue
         Mail::send(array(), array(), function ($message) use ($html) {
             $message->to($this->emails)
               ->subject($this->campaign_name)
-              
+               
               ->setBody($html, 'text/html');
           });
+              
      
         /*$data = array(["ashaksj","asmkhakmms"]); 
     Mail::raw($this->template,$data, function($message)  

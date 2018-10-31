@@ -10,10 +10,13 @@ use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use URL;
+use Response;
+ 
+
 class ImageController extends Controller
 {
     //
-
+  
     public function upload(Request $request)
     {    
       //return response()->json([$request->all()]);
@@ -25,12 +28,12 @@ class ImageController extends Controller
          ]);  
          
          if ($validator->fails()) {
-        return response()->json([
+        return response()->json([ 
          $validator->errors()
-        ]);
+        ]); 
         }
 
-        else{
+        else{   
 
         
         $tenant=DB::table('tenants')->where([['name','=',$request->tenant_name],['user_email','=',Auth::User()->email]])->exists();
@@ -39,9 +42,9 @@ class ImageController extends Controller
         {
             $tenant_id=DB::table('tenants')->where([['name','=',$request->tenant_name],['user_email','=',Auth::User()->email]])->first();
 
-        $path = ''.'/images/'.Auth::User()->email.'/'.$request->tenant_name ;
+        $path = ''.'/public/images/'.Auth::User()->email.'/'.$request->tenant_name ;
         
-        if(is_dir(''.'/images/'.Auth::User()->email.'/'.$request->tenant_name)==false)
+        if(is_dir(''.'/public/images/'.Auth::User()->email.'/'.$request->tenant_name)==false)
         {
             Storage::makeDirectory($path);
         }
@@ -59,8 +62,8 @@ class ImageController extends Controller
        $image->save(); 
        $request->file('image_file')->storeAs(  
          $path,$image_name.'.'.$request->image_file->extension()  
-    );
-
+    );          
+ 
     
 
        return  response()->file(storage_path('app'.$image->src));    
@@ -84,48 +87,47 @@ class ImageController extends Controller
             ['user_email','=',Auth::User()->email]
         ])->first();
 
-        $path = ''.'/images/'.Auth::User()->email.'/'.$tenant->name ;
- 
-        $files = Storage::files($path);
-        return $files;
-        foreach($files as $file)
-        {  
-            return response()->file(storage_path('app/'.$file));
-        } 
-
-        return response()->json([$files]);  
-
-     
-
-     $images=DB::table('images')->where('tenant_id','=',$tenant->id)->get();
-     $count=DB::table('images')->where('tenant_id','=',$tenant->id)->count();
-  
-     $imgs;
-     foreach($images as $image)  
-     {
-          $imgs[$image->name]= $image->src;  
-         
-            
-     } 
-
-     return response()->json([$imgs]);    
+        $path =''.'/storage/images/'.Auth::User()->email.'/'.$tenant_name ;      
+        $name=Image::select('name')->where('tenant_id','=',$tenant->id)->pluck('name');
+        $paths=array();
       
-    }   
+        foreach($name as $value)
+        {     
+          $path_temp=$path;
+          $path_temp.='/'.$value;   
+           $paths[$value]=$path_temp;        
+          // array_push($paths,($path_temp));          
+        }
+           
+
+        //return response()->json([$files]);  
+
+     //return $paths;
+     return response()->json([
+        $paths,
+     ]);   
+      
+    }    
 
     public function display_image($tenant_name,$name)    
     {   
-        $path = ''.'/images/'.Auth::User()->email.'/'.$tenant_name ;
+        $path =''.'/storage/images/'.Auth::User()->email.'/'.$tenant_name ;
         $path=$path.'/'.$name;   
          
-        return response()->file(storage_path('app'.$path));     
+        //return response()->json([$path]); 
+    //  return response()->file(storage_path('app'.$path));     
+      return "<img  src='localhost:8000$path'/>";             
+        //return $img;
+           
     }   
 
-    public function delete_image(Request $request)
+    public function delete_image($tenant_name,$name)
     {
-        $path = ''.'/images/'.Auth::User()->email.'/'.$request->tenant_name ;
-        $path=$path.'/'.$request->name;        
-        Storage::delete($path);
+         $path = ''.'/public/images/'.Auth::User()->email.'/'.$tenant_name.'/'.$name ;
+         $image=Image::where('name','=',$name)->first();
+         $image->delete();
+        Storage::delete($path);    
     }  
-}
+}  
     
 

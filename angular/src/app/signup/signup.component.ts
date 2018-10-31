@@ -12,6 +12,11 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
+import {
+  AuthService,
+  FacebookLoginProvider,
+  GoogleLoginProvider
+} from 'angular-6-social-login';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -47,7 +52,7 @@ export class SignupComponent implements OnInit  {
   password_confirmation:FormControl;
   user:User;
      
-  constructor(private router:Router,private user_service:UserService) { }
+  constructor(private socialAuthService: AuthService,private router:Router,private user_service:UserService) { }
   
  
  
@@ -102,7 +107,28 @@ export class SignupComponent implements OnInit  {
        
     this.user_service.register(this.user);
     
-  }  
+  } 
+  
+  
+  public socialSignup(socialPlatform : string) {
+    let socialPlatformProvider;  
+    if(socialPlatform == "facebook"){
+      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+    }else if(socialPlatform == "google"){
+      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    } 
+    
+    this.socialAuthService.signIn(socialPlatformProvider).then(
+      (userData) => {
+        console.log(socialPlatform+" sign in data : " , userData);
+         this.user_service.social_auth(userData);     
+        // Now sign-in with userData
+        // ...
+            
+      }
+    );
+  }
+
 
 }
 

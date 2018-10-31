@@ -29,7 +29,7 @@ a:hover {
   cursor: pointer;
 }
  
-.sidenav a {
+.sidenav a { 
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 20px;
@@ -48,4 +48,9 @@ a:hover {
    
   overflow-x: hidden;
   padding-top: 20px;
+}
+
+
+.spacer {
+  flex: 1 1 auto;
 }

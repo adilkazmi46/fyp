@@ -15,8 +15,30 @@ import { AuthGuard } from './auth.guard';
 import { UserService } from './user.service';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+} from "angular-6-social-login";
 
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
+
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+      [
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider("342198426542806")
+        },
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider("415141360761-kv0gbi8eia2hqd1cnhak16k6fohqpbme.apps.googleusercontent.com")
+        },
+      ]    
+  );
+  return config;
+}
 
 
 @NgModule({ 
@@ -29,7 +51,7 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
      
   ], 
   imports: [
-    
+    SocialLoginModule,
     HttpClientModule,
     JwtModule.forRoot({ 
       config: { 
@@ -93,7 +115,11 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     MatMenuModule, 
     
   ],
-  providers: [AuthGuard,UserService],
+  providers: [AuthGuard,UserService, {
+    provide: AuthServiceConfig,
+    useFactory: getAuthServiceConfigs 
+  }
+],
   bootstrap: [AppComponent] ,
 })
 export class AppModule { }

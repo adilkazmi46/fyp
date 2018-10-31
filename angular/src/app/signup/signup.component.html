@@ -81,7 +81,7 @@
                       Password does not <strong>match</strong>   
                     </mat-error>   
                     
-   
+    
  
 </mat-form-field>
 
@@ -91,6 +91,9 @@
 <mat-label>  
         <a mat-button  (click)="ngOnDestroy()" routerLink="">Already have an account?</a>
         <button [disabled]="!signupform.valid"  mat-button color="primary" type="button" (click)="onSubmit()"> signup</button>
+        
+       <button mat-button (click)="socialSignup('facebook')">Sign up with Facebook</button>
+       <button mat-button (click)="socialSignup('google')">Sign up with Google</button> 
 </mat-label>
  
 </mat-card-actions> 

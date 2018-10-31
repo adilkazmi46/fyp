@@ -40,7 +40,7 @@
           <button mat-button *ngIf="value_pwd" matSuffix mat-icon-button 
           aria-label="Clear" (click)="value_pwd=''">
               <mat-icon>close</mat-icon>
-            </button>   
+            </button>    
           
           
             <mat-error *ngIf="signinform.controls['password'].hasError('minlength') &&
@@ -51,7 +51,7 @@
                     password is <strong>required</strong>
                   </mat-error>
           
-          </mat-form-field> 
+          </mat-form-field>   
         </form>
   </mat-card-content>
   <mat-card-actions>
@@ -59,10 +59,13 @@
     
   <mat-label>  
       <a mat-button  (click)="ngOnDestroy()" routerLink="">Don't have an account?</a>
+     
       <button [disabled]="!signinform.valid"   
       mat-button color="primary" type="button"
        (click)="onSubmit()">signin</button>
-    </mat-label> 
+       <button mat-button (click)="socialSignIn('facebook')">Sign in with Facebook</button>
+       <button mat-button (click)="socialSignIn('google')">Sign in with Google</button> 
+    </mat-label>  
   </mat-card-actions> 
 
 </mat-card>  

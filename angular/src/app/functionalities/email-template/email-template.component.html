@@ -1,20 +1,24 @@
+<div class="ck row">
 
- <div id="toolbar-container"></div>
- 
+  <div id="toolbar-container"></div>
+  
 
 <div id="editor">
         <textarea autofocus>This is the initial editor content.
             
         </textarea>
+    </div>    
+
+    <h1>Images</h1>
+<br>
+    <div *ngFor="let d of data" id="ck_img"  >      
+      <img src="http://localhost:8000{{d[1]}}" />
+    </div>
+  
+  
+  </div>
+     
     
-    </div>     
-   
-       
-    
- 
-
-
-
     <form [formGroup]="templateform" (ngSubmit)="get_data()" class="form-container" >
             <mat-form-field> 
                     <input matInput placeholder="Name"  id="name" formControlName="name"  [(ngModel)]="value_name" [errorStateMatcher]="matcher">
@@ -40,6 +44,8 @@
               <button class="save_button_ckeditor" (click)="get_data()" mat-button color="primary">save</button>
             </form> 
   
+
+
      
  
   
