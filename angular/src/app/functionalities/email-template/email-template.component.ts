@@ -11,7 +11,10 @@ import { FormGroupDirective, NgForm } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { EmailTemplateService } from '../../email-template.service';
 import { ImagesService } from '../../images.service';
+import * as $ from "jquery-ui";
 
+
+  
 
 
 
@@ -28,7 +31,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./email-template.component.css']
 })
 export class EmailTemplateComponent implements OnInit { 
-
+ 
   ckeditor_data:any;
   email_template:EmailTemplate;   
   value_name='';
@@ -37,21 +40,24 @@ export class EmailTemplateComponent implements OnInit {
   data:any; 
 constructor(private image_service:ImagesService,private template_service:EmailTemplateService,private route:ActivatedRoute,private router:Router)  { } 
   
+
+    
   ngOnInit() {      
-     
+    
     this.image_service.get_images().
     subscribe(
       (res:Response)=> 
       { 
       this.data=Object.entries(res[0]);
-
+      
       console.log(this.data)
       },
       (err:Error)=>{  
        console.log(err);      
       }
-    );
 
+    );
+   // $( ".draggable" ).draggable();
     this.templateform=new FormGroup({  
       'name' :new FormControl(null,[Validators.required,Validators.minLength(3),Validators.maxLength(25)])
         });
@@ -92,7 +98,10 @@ constructor(private image_service:ImagesService,private template_service:EmailTe
 
 
   
-  
+ 
+    
+   
+ 
   matcher = new MyErrorStateMatcher(); 
 
 get_data()

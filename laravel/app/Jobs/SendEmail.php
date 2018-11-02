@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\SerializesModels;  
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -25,7 +25,7 @@ class SendEmail implements ShouldQueue
         $this->emails=$emails;
         $this->template=$template;
         $this->campaign_name=$campaign_name;
-    }
+    } 
 
     /**
      * Execute the job.
@@ -34,14 +34,15 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        $html=$this->template;  
-        Mail::send(array(), array(), function ($message) use ($html) {
+        $html=$this->template;   
+        Mail::send('welcome', [], function ($message) use ($html) {
             $message->to($this->emails)
-              ->subject($this->campaign_name)
-               
-              ->setBody($html, 'text/html');
+              ->subject($this->campaign_name) 
+              ->setBody($html, 'text/html'); 
           });
               
+ 
+
      
         /*$data = array(["ashaksj","asmkhakmms"]); 
     Mail::raw($this->template,$data, function($message)  

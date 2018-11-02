@@ -149,6 +149,7 @@ return [
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        willvincent\Feeds\FeedsServiceProvider::class,
         
         /*
          * Package Service Providers...
@@ -215,7 +216,7 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class, 
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        
+        'Feeds'    => willvincent\Feeds\Facades\FeedsFacade::class,
     ], 
  
 ]; 

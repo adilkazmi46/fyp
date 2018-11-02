@@ -12,6 +12,7 @@ use App\Jobs\SendEmail;
 use DB;
 use App\Emails_list;
 use App\Insight; 
+use Mail; 
 class CampaignController extends Controller
 {
     //
@@ -58,22 +59,29 @@ class CampaignController extends Controller
      $insight->campaign_id=$campaign->id;
      $insight->open_rate=0; 
      $insight->save();
-   
     
-     $template->html.="<img src='http://localhost:8000/api/insights_update/".$tenant->id."/".$campaign->id."' >";
-/*
-     return response()->json([
-        $template->html
-          ]);*/
-     $template->save();  
-
      
+     $template->html.="<img src='http://localhost:8000/api/insights_update/".$tenant->id."/".$campaign->id."'  hidden>";
+/*  
+     return response()->json([
+        $template->html 
+          ]);*/
+     $template->save();    
+ 
+     $html=$template->html;
+     $campaign_name=$campaign->name;
       
      $emails=Emails_list::select('email')->where('tenant_id', $tenant->id)->pluck('email')->toArray();
      
-     dispatch(new SendEmail($emails,$template->html,$campaign->name));  
 
-    return response('done');
+
+     
+     dispatch(new SendEmail($emails,$template->html,$campaign->name));   
+
+
+    return response()->json([ 
+        "done"  
+    ]); 
     
     }
 
@@ -88,7 +96,7 @@ public function index(Request $request)
         if($validator->fails())
         { 
             return response()->json([$validator->errors()]);
-        }
+        }  
         else{
  
            $tenant=Tenant::where([

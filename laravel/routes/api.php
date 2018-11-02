@@ -17,38 +17,39 @@ use App\Emails_list;
 Route::post('user_authenticate','UserController@authenticate'); 
 Route::post('user_registration',['uses'=>'UserController@register']);
 Route::get('insights_update/{tenant_id}/{campaign_id}',['uses'=>'InsightController@update']);
-
 Route::post('auth_social','UserController@socail_auth_CreateUser_or_login'); 
-    
 Route::middleware(['laravel.jwt'])->group(function () {  
 
-Route::get('get_email',['uses' => 'UserController@getemail']);
+    Route::get('get_email',['uses' => 'UserController@getemail']);
 Route::post('tenant_create',['uses' => 'TenantController@create']);   
 Route::post('tenant_read',['uses' => 'TenantController@read']);  
 Route::put('tenant_update/{old_name}',['uses' => 'TenantController@update']);   
 Route::delete('tenant_delete/{name}',['uses' => 'TenantController@delete']);
 Route::get('tenant_index',['uses' => 'TenantController@index']);
- 
+  
 Route::post('save_contacts',['uses' => 'EmailsListController@read_csv']); 
- 
 Route::post('send_emails',['uses' => 'EmailsListController@send_emails']); 
  
 Route::post('create_ckeditor_content',['uses' => 'EmailTemplateController@create']);
+
 Route::get('read_ckeditor_content/{name}/{tenant_name}',['uses' => 'EmailTemplateController@read']);
 Route::post('update_ckeditor_content',['uses' => 'EmailTemplateController@update']);
 Route::delete('delete_ckeditor_content/{name}/{tenant_name}',['uses' => 'EmailTemplateController@delete']);   
 Route::get('index_ckeditor/{tenant_name}',['uses' => 'EmailTemplateController@index']);
-
 Route::post('get_insights',['uses' => 'InsightController@index']);
- 
 Route::post('get_insight',['uses' => 'InsightController@get_insight']);
 
-   
-
+Route::post('rss_feed_reader',['uses'=> 'RssFeedController@feed_read']);
+Route::post('rss_feed_create',['uses'=> 'RssFeedController@rss_create']);
+Route::get('rss_feed_read',['uses'=> 'RssFeedController@rss_read']); 
+Route::post('rss_feed_update',['uses'=> 'RssFeedController@rss_update']);
+Route::delete('rss_feed_delete',['uses'=> 'RssFeedController@rss_delete']);
+ 
 Route::post('create_campaign',['uses'=>'CampaignController@create']);
 Route::post('campaign_index',['uses'=>'CampaignController@index']);
 Route::get('image_index/{tenant_name}',['uses' => 'ImageController@image_index']); 
 Route::post('image_upload',['uses' => 'ImageController@upload']);
 Route::delete('image_delete/{tenant_name}/{name}',['uses' => 'ImageController@delete_image']);
 Route::get('image_display/{tenant_name}/{name}',['uses' => 'ImageController@display_image']); 
+
 } );   

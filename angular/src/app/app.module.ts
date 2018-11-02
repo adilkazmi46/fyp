@@ -25,7 +25,7 @@ import {
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
 
 export function getAuthServiceConfigs() {
-  let config = new AuthServiceConfig(
+  let config = new AuthServiceConfig( 
       [
         {
           id: FacebookLoginProvider.PROVIDER_ID,
