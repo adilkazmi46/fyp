@@ -17,8 +17,10 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatGridListModule} from '@angular/material/grid-list';
-export class MyOwnCustomMaterialModule { }
-const modules=[MatGridListModule,MatRadioModule,MatStepperModule,MatChipsModule,MatExpansionModule,ScrollDispatchModule,MatSortModule,MatListModule,MatDividerModule,MatDialogModule,MatCardModule,MatSidenavModule,MatButtonModule, MatCheckboxModule,MatToolbarModule,MatIconModule,MatInputModule,MatFormFieldModule,MatTabsModule];
+import {MatTableModule} from '@angular/material/table';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+export class MyOwnCustomMaterialModule { } 
+const modules=[MatProgressSpinnerModule,MatTableModule,MatGridListModule,MatRadioModule,MatStepperModule,MatChipsModule,MatExpansionModule,ScrollDispatchModule,MatSortModule,MatListModule,MatDividerModule,MatDialogModule,MatCardModule,MatSidenavModule,MatButtonModule, MatCheckboxModule,MatToolbarModule,MatIconModule,MatInputModule,MatFormFieldModule,MatTabsModule];
 @NgModule({ 
   imports: [
  

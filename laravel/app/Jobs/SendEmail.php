@@ -35,13 +35,13 @@ class SendEmail implements ShouldQueue
     public function handle()
     {
         $html=$this->template;   
-        Mail::send('welcome', [], function ($message) use ($html) {
+        Mail::send(array(), array(), function ($message) use ($html) {
             $message->to($this->emails)
               ->subject($this->campaign_name) 
-              ->setBody($html, 'text/html'); 
+              ->setBody($html, 'text/html');     
           });
               
- 
+   
 
      
         /*$data = array(["ashaksj","asmkhakmms"]); 

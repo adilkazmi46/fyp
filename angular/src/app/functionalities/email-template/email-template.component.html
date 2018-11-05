@@ -1,6 +1,6 @@
 <div class="col-md-12 row">
 <div class=" col-md-10 ">
-
+ 
   <div id="toolbar-container"></div>
 
   <div id="editor">
@@ -49,7 +49,7 @@
           
           
               </mat-form-field>
-              <button class="save_button_ckeditor" (click)="get_data()" mat-button color="primary">save</button>
+              <button [disabled]="!templateform.valid" class="save_button_ckeditor" (click)="get_data()" mat-button color="primary">save</button>
             </form> 
   
           </div>

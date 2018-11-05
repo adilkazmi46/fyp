@@ -53,7 +53,7 @@ class ImageController extends Controller
        
        $image_file=$request->image_file;
        $image_name=$request->name;
-        
+          
        $image=new Image;
        $image->name=$request->name.'.'.$request->image_file->extension();  
        $image->src=$path.'/'.$image_name.'.'.$request->image_file->extension();
@@ -66,7 +66,9 @@ class ImageController extends Controller
  
     
 
-       return  response()->file(storage_path('app'.$image->src));    
+       return  response()->json([
+           "done"
+       ]);    
                
     }             
     else if($tenant==false){

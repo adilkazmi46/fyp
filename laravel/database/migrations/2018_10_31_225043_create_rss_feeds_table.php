@@ -20,7 +20,7 @@ class CreateRssFeedsTable extends Migration
             $table->string('feed_url');
             $table->string('name');
             $table->unique(['tenant_id','feed_url']);      
-            $table->unique(['tenant_id','name']);
+            $table->unique(['tenant_id','name']); 
             $table->timestamps();   
         });
     }

@@ -33,10 +33,11 @@ export class ImageGalleryComponent implements OnInit {
    image_file:FormControl;
    delete_image_name:string='';
    delete_status:boolean=false;
-
+   loading:boolean=false; 
    data:any; 
   ngOnInit() {
 
+    
     this.image_service.get_images().
     subscribe(
       (res:Response)=> 
@@ -63,13 +64,27 @@ export class ImageGalleryComponent implements OnInit {
  
   onupload()
 {
+  this.loading=true;
   console.log("sdkjskdj");
   console.log(this.image_form.get('image_name').value)
   this.image={ name:this.image_form.get('image_name').value,
    tenant_name:localStorage.getItem('tenant_name')};
  console.log(this.selectedFile);
-  this.image_service.upload_image(this.image,this.selectedFile);
-} 
+  this.image_service.upload_image(this.image,this.selectedFile).subscribe( 
+      (res:Response) => {    
+         this.loading=false;
+         this.router.navigate(['image_gallery'],{
+        relativeTo: this.route.parent
+      });
+        console.log(res)         
+      },          
+      (err:Error)=>
+      {
+        this.loading=false;
+        console.log("err"+err.message) 
+      }  
+    );  
+}   
 
 
 

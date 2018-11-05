@@ -8,6 +8,7 @@ import { EmailTemplateService } from '../../email-template.service';
 
 import {ErrorStateMatcher} from '@angular/material/core';
 import { CampaignService } from '../../campaign.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 
@@ -32,7 +33,7 @@ export class CampaignsComponent implements OnInit {
   value_name:string=''; 
   value_template_name:'';
   
-  constructor(private template_service:EmailTemplateService,private campaign_service:CampaignService) {}
+  constructor(private router:Router,private route:ActivatedRoute,private template_service:EmailTemplateService,private campaign_service:CampaignService) {}
 
   ngOnInit() {
     this.NameFormGroup = new FormGroup({  
@@ -42,7 +43,7 @@ export class CampaignsComponent implements OnInit {
 
     this.TemplateFormGroup = new FormGroup({
    'template_name' : new FormControl(null,Validators.required)
-    });
+    }); 
 
     this.template_service.get_index(localStorage.getItem('tenant_name')).subscribe(
 
@@ -50,7 +51,7 @@ export class CampaignsComponent implements OnInit {
       { 
         
         this.data=(res[0]);  
-        
+         
 
         
       console.log(this.data)               
@@ -66,19 +67,22 @@ export class CampaignsComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();   
 
-  
+    
 
-  oncheck(name)
-  {
-    console.log(name)
-   this.value_template_name=name;  
-   console.log(this.value_template_name)
-  }
  
   onsubmit()
   {
     console.log(this.value_template_name)
     this.campaign_service.start_campaign(this.value_name,this.value_template_name);
+    this.router.navigate(['campaigns'],{
+      relativeTo:this.route.parent
+    });
   }
+
+  oncheck(name){
+    this.value_template_name=name;
+  }
+
+
 }
    

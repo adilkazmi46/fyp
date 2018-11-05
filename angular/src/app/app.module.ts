@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http'; 
 import { RouterModule, Routes } from '@angular/router'; 
 import { JwtModule } from '@auth0/angular-jwt';
-import { TenantsModule } from './tenants/tenants.module';
+import { TenantsModule } from './tenants/tenants.module'; 
 import { AuthGuard } from './auth.guard';
 import { UserService } from './user.service';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';

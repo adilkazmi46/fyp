@@ -26,7 +26,7 @@ class CampaignController extends Controller
     $validator=Validator::make($request->all(),[
         'name' => 'required|min:3|max:25',
         'tenant_name' => 'required',
-        'template_name' => 'required',
+        'template_name' => 'required',   
         ]);
 
         if($validator->fails())
@@ -61,7 +61,7 @@ class CampaignController extends Controller
      $insight->save();
     
      
-     $template->html.="<img src='http://localhost:8000/api/insights_update/".$tenant->id."/".$campaign->id."'  hidden>";
+     $template->html.="<img src='http://localhost:8000/api/insights_update_campaign/".$tenant->id."/".$campaign->id."'  hidden>";
 /*  
      return response()->json([
         $template->html 
@@ -72,7 +72,7 @@ class CampaignController extends Controller
      $campaign_name=$campaign->name;
       
      $emails=Emails_list::select('email')->where('tenant_id', $tenant->id)->pluck('email')->toArray();
-     
+      
 
 
      

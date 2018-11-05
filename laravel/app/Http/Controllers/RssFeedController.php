@@ -5,19 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Feeds;
 use View;
-use Illuminate\Validation\Validator;
 use App\Tenant;
 use App\Rss_feed;
+use Illuminate\Support\Facades\Validator; 
+use Auth;
+use App\Jobs\SendEmail;
+use App\Emails_list; 
 class RssFeedController extends Controller
 {
-    //
-
+    // 
     public function feed_read(Request $request){
         $validator=Validator::make($request->all(),[
             'tenant_name' => 'required',
             'name'        =>  'required|min:3|max:25'
 
-        ]); 
+        ]);   
 
         if($validator->fails())
         {
@@ -26,50 +28,58 @@ class RssFeedController extends Controller
             ]);
         }
         else{
-            
+             
     $tenant=Tenant::where([
-                ['tenant_name','=',$request->tenant_name],
+                ['name','=',$request->tenant_name],
                 ['user_email','=',Auth::User()->email]
             ])->first();
     
         
-        $rss=RssFeed::where([
+        $rss=Rss_feed::where([
             ['name','=',$request->name],
             ['tenant_id','=',$tenant->id]
         ])->first();
   
-        $feed = Feeds::make($rss->feed_url,0,true); // if RSS Feed has invalid mime types, force to read
+        
+        $feed = Feeds::make($rss->feed_url,true); // if RSS Feed has invalid mime types, force to read
         $data = array(
           'title'     => $feed->get_title(),
-          'permalink' => $feed->get_permalink(),
+          'permalink' => $feed->get_permalink(), 
           'items'     => $feed->get_items(),
         );
     
               
         //$contents1=file_get_contents($data['permalink']); 
          $html='';
+         
         foreach($feed->get_items() as $item)  
         {
-            $html=$item->get_permalink();
+            $html=$item->get_permalink();  
             break;
         }
-        $contents1=file_get_contents($html); 
-        return response(
-            $contents1
-         ); 
+      
+ 
+        $contents1=file_get_contents($html);       
+        $contents1.="<img src='http://localhost:8000/api/insights_update_rss/".$tenant->id."/".$campaign->id."'  hidden>";
+        $emails=Emails_list::select('email')->where('tenant_id', $tenant->id)->pluck('email')->toArray();
+        
+        dispatch(new SendEmail($emails,$contents1,$rss->name));
+   
+        return response()->json([
+            "done"
+        ]); 
  
     }
 }
     
-    public function create(Request $request)
+    public function rss_create(Request $request)
     {
         $validator=Validator::make($request->all(),[
             'tenant_name' => 'required',
             'feed_url'    =>  'required|url',
             'name'        =>  'required|min:3|max:25'
-
         ]); 
-
+  
         if($validator->fails())
         {
             return response()->json([
@@ -78,52 +88,42 @@ class RssFeedController extends Controller
         }
         else{
         $tenant=Tenant::where([
-            ['tenant_name','=',$request->tenant_name],
+            ['name','=',$request->tenant_name],
             ['user_email','=',Auth::User()->email]
         ])->first();
 
-        $rss_feed=new RssFeed;
+        $rss_feed=new Rss_feed;
         $rss_feed->tenant_id=$tenant->id;
         $rss_feed->feed_url=$request->feed_url;
         $rss_feed->name=$request->name;
         $rss_feed->save();
 
-        return response(true);
-    }
-
-    }
-    public function read(Request $request)
-    {
-        $validator=Validator::make($request->all(),[
-            'tenant_name' => 'required',
-            
-
+        return response()->json([
+            true
         ]);
+    }
+
+    }
+    public function rss_read($tenant_name)
+    {
+        
  
-        if($validator->fails())
-        {
-            return response()->json([
-              $validator->errors()
-            ]);
-        }
-        else{
         $tenant=Tenant::where([
-            ['tenant_name','=',$request->tenant_name],
+            ['name','=',$tenant_name],
             ['user_email','=',Auth::User()->email]
         ])->first(); 
 
 
-        $feed_urls=RssFeed::where('tenant_id','=',$tenant->id)->get();
-        
+        $feed_urls=Rss_feed::where('tenant_id','=',$tenant->id)->get(); 
         return response()->json([
-            $feed_urls 
+             $feed_urls  
         ]);
-          
-        }
+            
+        
     }
 
 
-    public function update(Request $request)
+    public function rss_update(Request $request)
     {
         $validator=Validator::make($request->all(),[
             'tenant_name' => 'required',
@@ -142,59 +142,51 @@ class RssFeedController extends Controller
         }
         else{
         $tenant=Tenant::where([
-            ['tenant_name','=',$request->tenant_name],
+            ['name','=',$request->tenant_name],
             ['user_email','=',Auth::User()->email]
         ])->first(); 
 
-        $rss_feed=RssFeed::where([
+        $rss_feed=Rss_feed::where([
             ['tenant_id','=',$tenant->id],
-            ['user_email','=',Auth::User()->email]
+            ['name','=',$request->name_old],
+            ['feed_url','=',$request->feed_url_old]
+            
         ])->first();  
 
 
        $rss_feed->feed_url=$request->feed_url_new;
        $rss_feed->name=$request->name_new;
        $rss_feed->save();
-       return response(true);  
+       return response()->json([
+           true
+       ]);
 
     }
 
     }
 
 
-    public function delete($tenant_name,$feed_name)
+    public function rss_delete(Request $request)
     {
-        $validator=Validator::make($request->all(),[
-            'tenant_name' => 'required',
-            'name'        =>  'required|min:3|max:25'
-
-        ]);   
-
-        if($validator->fails())
-        {
-            return response()->json([
-              $validator->errors()
-            ]);
-        }
-        else{
+       
         $tenant=Tenant::where([
-            ['tenant_name','=',$request->query('tenant_name')],
+            ['name','=',$request->tenant_name],
             ['user_email','=',Auth::User()->email]
         ])->first();
 
-        $rss_feed=RssFeed::where([
+        $rss_feed=Rss_feed::where([
             ['tenant_id','=',$tenant->id],
-            ['name','=',$request->query('name')]
+            ['name','=',$request->name]
         ])->first();
         
         $rss_feed->delete(); 
          
         return response()->json([
           true
-        ]);
+        ]); 
     
+     
     
-    }
 
     }
 }

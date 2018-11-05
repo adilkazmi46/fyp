@@ -29,18 +29,18 @@
 </mat-card-actions>
 
 </mat-card>
-
+<mat-spinner *ngIf="loading"></mat-spinner>
 
   <!-- Button to Open the Modal -->
   <button  style="display:none;" id="modal_toggle" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
     Open modal
-  </button>
+  </button>     
   <!-- The Modal -->
   <div class="modal fade" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
       
-        <mat-card>
+        <mat-card> 
         <mat-card-title>
             <h3>Number of uploaded Emails</h3>
         </mat-card-title>

@@ -61,7 +61,7 @@ class EmailTemplateController extends Controller
          
          $templates=EmailTemplate::where('tenant_id','=',$tenant->id)->get();
 
-         return response()->json([ 
+         return response()->json([    
              $templates
          ]);   
   

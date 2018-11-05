@@ -35,7 +35,7 @@ export class EmailTemplatesComponent implements OnInit {
         
       console.log(this.data)               
       }  ,
- 
+  
       (err:Error)=>
       { 
         console.log(err); 
@@ -53,7 +53,9 @@ subscribe(
 (res)=>{
   if(res==true)
   {
-    this.ngOnInit();
+    this.router.navigate(['campaigns'],{
+      relativeTo:this.route.parent
+    });
   }
   else if(res==false)
   {

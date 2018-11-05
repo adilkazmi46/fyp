@@ -24,7 +24,7 @@ return this.http.post('http://localhost:8000/api/create_campaign',campaign).subs
   }
 );
   }
-
+ 
   campaign_index(name)
   { 
     let campaign={
@@ -32,4 +32,4 @@ return this.http.post('http://localhost:8000/api/create_campaign',campaign).subs
     }; 
     return this.http.post('http://localhost:8000/api/campaign_index',campaign);
   }
-}
+} 

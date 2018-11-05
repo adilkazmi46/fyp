@@ -29,26 +29,11 @@ headers:Headers;
   
   let fd=new FormData();
   fd.append('name',img.name);
-  fd.append('tenant_name',img.tenant_name);
+  fd.append('tenant_name',img.tenant_name); 
   fd.append('image_file',file,img.name);    
-  
-
-    return this.http.post('http://localhost:8000/api/image_upload',fd). 
-    subscribe( 
-      (res:Response) =>    
-       {    
-         this.router.navigate(['image_gallery'],{
-        relativeTo: this.route.parent
-      });
-        console.log(res)         
-      },         
-      (err:Error)=>
-      {
-        console.log("err"+err.message)
-      }
-    );  
+    return this.http.post('http://localhost:8000/api/image_upload',fd); 
   }
-  delete_image(name)
+  delete_image(name) 
   {
     return this.http.delete('http://localhost:8000/api/image_delete/'+localStorage.getItem('tenant_name')+'/'+name);
   }

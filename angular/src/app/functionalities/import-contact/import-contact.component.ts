@@ -14,6 +14,7 @@ export class ImportContactComponent implements OnInit {
   importform:FormGroup;
   unique_emails_counter:any=0;  
   selected_file:File=null;
+  loading:boolean=false;
   constructor(private import_contact_service:ImportContactsService) { }
 
   ngOnInit() {
@@ -22,19 +23,23 @@ export class ImportContactComponent implements OnInit {
       'contacts' : new FormControl(null,[Validators.required])
     }); 
   }
-
+ 
   uploadcontacts()
   {
+    this.loading=true;
     this.import_contact_service.import_contacts(
     this.selected_file).subscribe(
+      
       (res:Response)=>
       { 
+            this.loading=false;
             this.unique_emails_counter=res;
             this.importform.reset();
             document.getElementById('modal_toggle').click();
       },  
       (err:Error)=>
       { 
+        this.loading=false; 
         console.log(err)   
       }
     );  

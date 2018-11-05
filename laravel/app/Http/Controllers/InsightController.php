@@ -19,7 +19,7 @@ class InsightController extends Controller
             ['campaign_id','=',$campaign->id]
         ])->first();
         $count=$insight->open_rate; 
-        $count=$count+1;
+        $count=$count+1; 
         $insight->open_rate=$count; 
         $insight->save();
    
