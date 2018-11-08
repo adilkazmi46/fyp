@@ -109,7 +109,38 @@ class ImageController extends Controller
         $paths,
      ]);   
       
-    }    
+    }
+    
+    
+
+    
+    public function image_index_ck($tenant_name)
+    {
+        $tenant=DB::table('tenants')->where([
+            ['name','=',$tenant_name],
+            ['user_email','=',Auth::User()->email]
+        ])->first();
+
+        $path =''.'/storage/images/'.Auth::User()->email.'/'.$tenant_name ;      
+        $name=Image::select('name')->where('tenant_id','=',$tenant->id)->pluck('name');
+        $paths=array();
+      
+        foreach($name as $value)
+        {     
+          $path_temp=$path;
+          $path_temp.='/'.$value;   
+           $paths[$value]=$path_temp;        
+          // array_push($paths,($path_temp));          
+        }        
+
+        //return response()->json([$files]);  
+
+     //return $paths;
+     return response()->json([
+        $paths,
+     ]);   
+      
+    }
 
     public function display_image($tenant_name,$name)    
     {   

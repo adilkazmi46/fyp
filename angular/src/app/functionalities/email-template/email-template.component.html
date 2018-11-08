@@ -3,31 +3,31 @@
  
   <div id="toolbar-container"></div>
 
-  <div id="editor">
+  <div id="editor"> 
         <textarea autofocus>This is the initial editor content.</textarea>
     </div>    
 
     </div>
     
-    <div class="col-md-2">
+    <div class="col-md-2"> 
     <h1 color="primary">Images</h1>
 <br>
     <div class="draggable" *ngFor="let d of data" id="ck_img"  >      
       <img src="http://localhost:8000{{d[1]}}" />
     </div>
-  
+     
    
   </div>
-
+  
   <div class="col-md-12"></div>
   <div class="col-md-12"></div>
+  <div class="col-md-12"></div> 
   <div class="col-md-12"></div>
-  <div class="col-md-12"></div>
-  <div class="col-md-12"></div>
+  <div class="col-md-12"></div>  
 
 <div class="col-md-6 ">
 
-    <form [formGroup]="templateform" (ngSubmit)="get_data()" class="form-container" >
+    <form [formGroup]="templateform" (ngSubmit)="get_data" class="form-container" >
             <mat-form-field> 
                     <input matInput placeholder="Name"  id="name" formControlName="name"  [(ngModel)]="value_name" [errorStateMatcher]="matcher">
                     <button mat-button *ngIf="value_name" matSuffix mat-icon-button aria-label="Clear" (click)="value_name=''">

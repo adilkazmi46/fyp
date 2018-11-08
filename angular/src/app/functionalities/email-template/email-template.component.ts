@@ -73,7 +73,7 @@ constructor(private image_service:ImagesService,private template_service:EmailTe
     //ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json
        
   }
- 
+  
 )  
      .then( editor => { 
 
@@ -92,7 +92,7 @@ constructor(private image_service:ImagesService,private template_service:EmailTe
 
         console.error( error );
 
-    } ); 
+    } );  
     
   }
 
@@ -101,31 +101,19 @@ constructor(private image_service:ImagesService,private template_service:EmailTe
  
     
    
- 
+  
   matcher = new MyErrorStateMatcher(); 
 
 get_data()
 {
-
-  
-  var i;
-  for( i=0;i<document.getElementById('editor').getElementsByTagName('a').length;i++)
-  {
-    
-    document.getElementById('editor').getElementsByTagName('a')[i].setAttribute('onclick','http://localhost:8000/api/insights/ctr');
-    console.log(document.getElementById('editor').getElementsByTagName('a')[i]);  
-  }    
-
 this.email_template ={  
    name:this.templateform.get('name').value,
 html:this.ckeditor_data.getData(),
 tenant_name:localStorage.getItem('tenant_name')
-}; 
-  
+};
  
-
-
 console.log(this.email_template);
+
 this.template_service.save_template(this.email_template).
 subscribe(
   (res:Response)=>{

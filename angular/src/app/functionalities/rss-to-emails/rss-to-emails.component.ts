@@ -60,17 +60,8 @@ export class RssToEmailsComponent implements OnInit {
           'url_new' : new FormControl(null,[Validators.required,Validators.pattern(this.url_regex)])
         } 
         ); 
-   this.feed_service.rss_feeds_index().
-   subscribe(
-     (res:Response)=>{
 
-      console.log(((res[0])));        
-      this.data=(res[0]);
-     }, 
-     (err:Error)=>{
-       console.log(err)
-     }
-   );
+        this.getData();
   }
 
   ondelete(name)
@@ -85,6 +76,8 @@ this.feed_service.rss_feed_delete(name).subscribe(
   }
 );
 
+this.getData()
+
   }
  
   onedit()
@@ -96,9 +89,12 @@ this.feed_service.rss_feed_delete(name).subscribe(
      },
      (err:Response)=>{
        console.log(err)
-     }
+     } 
    );
 
+   
+   this.getData();
+   
   } 
 
   oncreate(name,url)
@@ -111,7 +107,9 @@ this.feed_service.rss_feed_delete(name).subscribe(
       (err:Error)=>{  
         console.log(err)
       }
-    );
+    ); 
+    this.rssform.reset();
+    this.getData();
   }
 
   
@@ -139,9 +137,11 @@ this.feed_service.rss_feed_delete(name).subscribe(
       },
       (err:Error)=>
       {
-        console.log(err)
+        console.log(err) 
       }
     );
+
+    this.getData()
   }
 
 
@@ -150,6 +150,24 @@ this.feed_service.rss_feed_delete(name).subscribe(
     this.value_url_old=url;
     this.value_name_new=name;
     this.value_url_new=url;
+  }
+ 
+  getData()
+  {
+    
+   // this.rssform.reset();
+    this.feed_service.rss_feeds_index().
+    subscribe(
+      (res:Response)=>{
+ 
+       console.log(((res[0])));        
+       this.data=(res[0]);   
+      }, 
+      (err:Error)=>{
+        console.log(err)
+      } 
+    );
+  
   }
 
 

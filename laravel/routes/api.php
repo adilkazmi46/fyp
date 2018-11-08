@@ -16,13 +16,14 @@ use App\Emails_list;
 */
 Route::post('user_authenticate','UserController@authenticate'); 
 Route::post('user_registration',['uses'=>'UserController@register']);
-Route::get('insights_update_campaign/{tenant_id}/{campaign_id}',['uses'=>'InsightController@update']);
-Route::get('insights_update_rss/{tenant_id}/{rss_id}',['uses'=>'InsightController@update']);
+Route::get('insights_update_campaign/{tenant_id}/{campaign_id}',['uses'=>'InsightController@update_campaign']);
+Route::get('insights_update_campaign_image/{tenant_id}/{campaign_name}',['uses'=>'InsightController@update_campaign_image']);
+Route::get('insights_update_rss/{tenant_id}/{rss_id}',['uses'=>'InsightController@update_rss']);
 Route::post('auth_social','UserController@socail_auth_CreateUser_or_login'); 
-Route::middleware(['laravel.jwt'])->group(function () {  
+Route::middleware(['laravel.jwt'])->group(function () {   
 
     Route::get('get_email',['uses' => 'UserController@getemail']);
-Route::post('tenant_create',['uses' => 'TenantController@create']);   
+Route::post('tenant_create',['uses' => 'TenantController@create']);     
 Route::post('tenant_read',['uses' => 'TenantController@read']);  
 Route::put('tenant_update/{old_name}',['uses' => 'TenantController@update']);   
 Route::delete('tenant_delete/{name}',['uses' => 'TenantController@delete']);
@@ -39,7 +40,7 @@ Route::delete('delete_ckeditor_content/{name}/{tenant_name}',['uses' => 'EmailTe
 Route::get('index_ckeditor/{tenant_name}',['uses' => 'EmailTemplateController@index']);
 Route::post('get_insights',['uses' => 'InsightController@index']);
 Route::post('get_insight',['uses' => 'InsightController@get_insight']);
-
+ 
 Route::post('rss_feed_reader',['uses'=> 'RssFeedController@feed_read']); 
 Route::post('rss_feed_create',['uses'=> 'RssFeedController@rss_create']);
 Route::get('rss_feed_read/{tenant_name}',['uses'=> 'RssFeedController@rss_read']); 

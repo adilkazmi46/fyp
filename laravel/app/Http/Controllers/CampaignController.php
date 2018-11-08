@@ -58,12 +58,13 @@ class CampaignController extends Controller
      $insight->tenant_id=$tenant->id;
      $insight->campaign_id=$campaign->id;
      $insight->open_rate=0; 
+     $insight->img_click=0; 
      $insight->save();
     
      
      $template->html.="<img src='http://localhost:8000/api/insights_update_campaign/".$tenant->id."/".$campaign->id."'  hidden>";
 /*  
-     return response()->json([
+      return response()->json([
         $template->html 
           ]);*/
      $template->save();    
@@ -91,7 +92,7 @@ public function index(Request $request)
 {
     $validator=Validator::make($request->all(),[  
         'tenant_name' => 'required',
-        ]);
+        ]); 
 
         if($validator->fails())
         { 

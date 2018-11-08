@@ -14,10 +14,15 @@ export class ImagesService {
 headers:Headers;
   constructor(private http:HttpClient,private router:Router,private route:ActivatedRoute) { }  
  
-  get_images()
+  get_images()  
   {
     return this.http.get('http://localhost:8000/api/image_index/'+localStorage.getItem('tenant_name'));
-  }   
+  }
+  
+  get_images_ck()
+  {
+    return this.http.get('http://localhost:8000/api/image_index_ck/'+localStorage.getItem('tenant_name'));
+  }
     
   get_image(name)
   { 

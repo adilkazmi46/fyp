@@ -24,50 +24,23 @@ export class EmailTemplatesComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.template_service.get_index(localStorage.getItem('tenant_name')).subscribe(
-
-      (res:Response) => 
-      { 
-         
-        this.data=(res[0]);  
-        
-
-        
-      console.log(this.data)               
-      }  ,
-  
-      (err:Error)=>
-      { 
-        console.log(err); 
-      }
-
-  );  
-    
+    this.getData();
   }
   
   ondelete(name) 
-  {
+  { 
 console.log(name);
 this.template_service.delete_template(name).
 subscribe(
-(res)=>{
-  if(res==true)
-  {
-    this.router.navigate(['campaigns'],{
-      relativeTo:this.route.parent
-    });
-  }
-  else if(res==false)
-  {
-  this.deleted=false; 
-  }
+(res)=>{  
+  console.log(res);
 },
 (err)=>{
-  this.error=true;
-  
+  console.log(err)
 }
-  
+   
 );
+this.getData();
   } 
 
   onedit(name)
@@ -82,7 +55,29 @@ subscribe(
 
   
 
- 
+ getData()
+ {
+  this.template_service.get_index(localStorage.getItem('tenant_name')).subscribe(
+
+    (res:Response) => 
+    { 
+       
+      this.data=(res[0]);  
+      
+
+      
+    console.log(this.data)               
+    }  ,
+
+    (err:Error)=>
+    { 
+      console.log(err); 
+    }
+
+);  
+
+
+ }
 
 
 }

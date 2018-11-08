@@ -17,6 +17,19 @@ export class CampaignIndexComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.getData();
+    
+  }
+
+  oncreate()
+  {
+this.router.navigate(['create_campaign'],{
+  relativeTo:this.route.parent  
+});
+  }
+
+  getData()
+  {
     this.campaign_service.campaign_index(localStorage.getItem('tenant_name')).subscribe(  
 
       (res:Response) =>  
@@ -36,12 +49,4 @@ export class CampaignIndexComponent implements OnInit {
 
   );
   }
-
-  oncreate()
-  {
-this.router.navigate(['create_campaign'],{
-  relativeTo:this.route.parent
-});
-  }
-
 }

@@ -12,7 +12,7 @@ use Auth;
 use App\Jobs\SendEmail;
 use App\Emails_list; 
 class RssFeedController extends Controller
-{
+{  
     // 
     public function feed_read(Request $request){
         $validator=Validator::make($request->all(),[
@@ -25,9 +25,9 @@ class RssFeedController extends Controller
         {
             return response()->json([
               $validator->errors()
-            ]);
+            ]); 
         }
-        else{
+        else{ 
              
     $tenant=Tenant::where([
                 ['name','=',$request->tenant_name],
@@ -60,13 +60,13 @@ class RssFeedController extends Controller
       
  
         $contents1=file_get_contents($html);       
-        $contents1.="<img src='http://localhost:8000/api/insights_update_rss/".$tenant->id."/".$campaign->id."'  hidden>";
+        $contents1.="<img src='http://localhost:8000/api/insights_update_rss/".$tenant->id."/".$rss->id."'  hidden>";
         $emails=Emails_list::select('email')->where('tenant_id', $tenant->id)->pluck('email')->toArray();
-        
+         
         dispatch(new SendEmail($emails,$contents1,$rss->name));
    
-        return response()->json([
-            "done"
+        return response()->json([ 
+            "done" 
         ]); 
  
     }

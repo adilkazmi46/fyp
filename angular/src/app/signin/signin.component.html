@@ -63,8 +63,8 @@
       <button [disabled]="!signinform.valid"   
       mat-button color="primary" type="button"
        (click)="onSubmit()">signin</button>
-       <button mat-button (click)="socialSignIn('facebook')">Sign in with Facebook</button>
-       <button mat-button (click)="socialSignIn('google')">Sign in with Google</button> 
+       <button mat-button color="primary" (click)="socialSignIn('facebook')">Connect with Facebook</button>
+       <button mat-button color="primary" (click)="socialSignIn('google')">Connect with Google</button> 
     </mat-label>  
   </mat-card-actions> 
 

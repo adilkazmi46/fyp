@@ -36,7 +36,7 @@
            <mat-card  class="template_card" *ngFor="let d of data">
        
         <mat-card-title class="over_flow">
-<mat-radio-button formControlName="template_name" (change)="oncheck(d.name)"  attr.value={{d.name}}  color="primary" ngDefaultControl></mat-radio-button>
+<mat-radio-button formControlName="template_name" (change)="oncheck(d.name,d.id)"  attr.value={{d.name}}  color="primary" ngDefaultControl></mat-radio-button>
           <a  color="primary" attr.id={{d.name}}   data-toggle="modal" attr.data-target='#{{d.id}}'>{{ d.name }}</a>
         
         </mat-card-title>

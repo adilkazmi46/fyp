@@ -29,14 +29,43 @@
   
   </mat-toolbar>
 
-  <div class="col-md-12 row container-fluid">  
+  
   
  
-      <div class="col-md-12">   
+       
           
-        <router-outlet></router-outlet>  
-         
-      </div>
+       
+  <mat-sidenav-container >
+  
+    <mat-sidenav mode="side" opened>
+        <a  (click)="campaigns()">Campaigns</a>
 
-  </div>
+        
+      
+        <a  (click)="email_templates_editor()">Email Templates</a>
+        
+      
+        <a  (click)="insights()">Insights</a>
+        
+      
+        <a  (click)="rss_to_emails()">RSS to Emails</a>
+        
+      
+        <a  (click)="image_gallery()">Image Gallery</a>
+        
+      
+        <a (click)="ontenant_logout()">logout</a>
+    </mat-sidenav>
+  
+  
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  
+  </mat-sidenav-container>
+ 
+           
+      
+
+  
    

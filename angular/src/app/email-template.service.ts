@@ -19,14 +19,14 @@ export class EmailTemplateService {
   {
     return this.http.get('http://localhost:8000/api/index_ckeditor/'+tenant_name);
   }  
-
-  delete_template(name)
+  
+  delete_template(name)  
   {
-    return this.http.delete('http://localhost:8000/api/delete_ckeditor_content/'+name+'/'+localStorage.getItem('tenant_name')); 
+    return this.http.delete('http://localhost:8000/api/delete_ckeditor_content/'+localStorage.getItem('tenant_name')+'/'+name); 
   }
 
   get_template(name)
-  { 
+  {   
     return this.http.get('http://localhost:8000/api/read_ckeditor_content/'+name+'/'+localStorage.getItem('tenant_name'));
   }
 }

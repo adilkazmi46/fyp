@@ -38,19 +38,7 @@ export class ImageGalleryComponent implements OnInit {
   ngOnInit() {
 
     
-    this.image_service.get_images().
-    subscribe(
-      (res:Response)=> 
-      { 
-      this.data=Object.entries(res[0]);
-
-      console.log(this.data)
-      },
-      (err:Error)=>{
-       console.log(err);      
-      }
-    );
-
+    this.getData();
     this.image_form= new FormGroup({
 
       'image_name' : new FormControl(null,[Validators.required,Validators.minLength(3),Validators.maxLength(25)]),
@@ -73,9 +61,7 @@ export class ImageGalleryComponent implements OnInit {
   this.image_service.upload_image(this.image,this.selectedFile).subscribe( 
       (res:Response) => {    
          this.loading=false;
-         this.router.navigate(['image_gallery'],{
-        relativeTo: this.route.parent
-      });
+         this.image_form.reset();
         console.log(res)         
       },          
       (err:Error)=>
@@ -83,7 +69,8 @@ export class ImageGalleryComponent implements OnInit {
         this.loading=false;
         console.log("err"+err.message) 
       }  
-    );  
+    );
+   this.getData();
 }   
 
 
@@ -91,7 +78,7 @@ export class ImageGalleryComponent implements OnInit {
 onDelete_modal(name)
 {
   this.delete_image_name=name;
-  
+   
 }
 
 onDelete()
@@ -101,15 +88,14 @@ onDelete()
   {
   this.image_service.delete_image(this.delete_image_name).subscribe(
     (res:Response)=>{
-      this.router.navigate(['image_gallery'],{
-        relativeTo: this.route.parent
-      });
+     
       console.log(res)
     },(err:Error)=>{ 
       console.log(err)
     }
-  );  
+  );     
   }
+  this.getData();
   console.log(this.delete_image_name)
 }
 onCencel()
@@ -119,9 +105,29 @@ onCencel()
 }
 onFileSelected(event)
 { 
+
   console.log(event.target.files[0]);
   this.selectedFile=<File>event.target.files[0];  
+   
   
+}
+
+getData()
+{
+  this.image_service.get_images().
+    subscribe(
+      (res:Response)=> 
+      {  
+      this.data=Object.entries(res[0]);
+
+      console.log(this.data)
+      },  
+      (err:Error)=>{
+       console.log(err);      
+      }
+    );
+
+     
 }
 
 

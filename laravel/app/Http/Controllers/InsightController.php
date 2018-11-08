@@ -10,7 +10,7 @@ use Auth;
 class InsightController extends Controller
 {
     //
-    public function update($tenant_id,$campaign_id)
+    public function update_campaign($tenant_id,$campaign_id)
     {            
         $tenant=Tenant::where('id','=',$tenant_id)->first();
         $campaign=Campaign::where('id','=',$campaign_id)->first();
@@ -24,14 +24,49 @@ class InsightController extends Controller
         $insight->save();
    
     }
+
+
+    public function update_campaign_image($tenant_id,$campaign_name)
+    {            
+        $tenant=Tenant::where('id','=',$tenant_id)->first();
+        $campaign=Campaign::where([
+            ['tenant_id','=',$tenant->id],
+            ['name','=',$campaign_name]
+            ])->first();
+        $insight=Insight::where([
+            ['tenant_id','=',$tenant->id],
+            ['campaign_id','=',$campaign->id]
+        ])->first();
+        $count=$insight->img_click; 
+        $count=$count+1;   
+        $insight->img_click=$count; 
+        $insight->save(); 
+   
+    }
+
+
+    public function update_rss($tenant_id,$rss_id)
+    {            
+        $tenant=Tenant::where('id','=',$tenant_id)->first();
+        $rss=Rss_feed::where('id','=',$rss_id)->first();
+        $insight=Insight::where([
+            ['tenant_id','=',$tenant->id],
+            ['rss_feed_id','=',$rss->id]
+        ])->first();
+        $count=$insight->open_rate;  
+        $count=$count+1; 
+        $insight->open_rate=$count; 
+        $insight->save();  
+   
+    }
     
     public function index(Request $request) 
-    {
+    { 
         //return response()->json([$request->tenant_name]);
         $tenant=Tenant::where([
             ['name','=',$request->tenant_name],
             ['user_email','=',Auth::User()->email]
-            ])->first();
+            ])->first(); 
   
     
 

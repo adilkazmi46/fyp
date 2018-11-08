@@ -8,13 +8,14 @@ use App\Tenant;
 use App\EmailTemplate;
 use Illuminate\Support\Facades\Validator;
 use Auth;
-
+use App\Insight;
+use App\Campaign;
 class EmailTemplateController extends Controller
 {
     //
 
 
-    public function create(Request $request)
+    public function create(Request $request) 
     {
 
         //return response()->json([$request->all()]); 
@@ -27,11 +28,11 @@ class EmailTemplateController extends Controller
             if ($validator->fails()) 
          { 
             return response()->json([ 
-                $validator->errors() ,422   
+                $validator->errors()  
                 
             ]); 
         }
-
+ 
         else{ 
 
       $template= new EmailTemplate;
@@ -46,8 +47,8 @@ class EmailTemplateController extends Controller
       
         
       $template->tenant_id=$tenant->id; 
-      $template->save();    
-      return response()->json([$template->html]);     
+      $template->save();     
+      return response()->json(["done"]);     
     }
       
 }
@@ -123,10 +124,10 @@ class EmailTemplateController extends Controller
          }
     }
 
-    public function delete($name,$tenant_name)
+    public function delete($tenant_name,$name)
     {
         
-        $tenant=Tenant::where([  
+        $tenant=Tenant::where([   
             ['name','=',$tenant_name], 
             ['user_email','=',Auth::User()->email],  
          ])->first();  
@@ -134,21 +135,40 @@ class EmailTemplateController extends Controller
          $email_template=EmailTemplate::where([
              ['name','=',$name],
              ['tenant_id','=',$tenant->id], 
-         ]);         
+         ])->first();         
       
-        $check=$email_template->delete();
+         if(Campaign::where([
+            ['tenant_id','=',$tenant->id],
+            ['template_id','=',$email_template->id]
+        ])->exists()
+)
+{
+    $campaign=Campaign::where([
+        ['tenant_id','=',$tenant->id],
+        ['template_id','=',$email_template->id]
+    ])->first();
 
-        if($check==0)
-        {
-            return response()->json([false]);   
-        }
-        else if($check==1)
-        {
-            return response()->json([true]);   
-        }
+              
 
+          
+         $insights=Insight::where([
+            ['tenant_id','=',$tenant->id],
+            ['campaign_id','=',$campaign->id] 
+         ])->first(); 
 
-         
+         $insights->delete();
+         $campaign->delete();
+    
+
+}
+    $email_template->delete();
+
+    return response()->json([
+     "done"
+    ]);
+
+   
+          
 
     }
 

@@ -32,6 +32,7 @@ export class CampaignsComponent implements OnInit {
   data:any;
   value_name:string=''; 
   value_template_name:'';
+  elem_id='';
   
   constructor(private router:Router,private route:ActivatedRoute,private template_service:EmailTemplateService,private campaign_service:CampaignService) {}
 
@@ -72,14 +73,18 @@ export class CampaignsComponent implements OnInit {
  
   onsubmit()
   {
+    
     console.log(this.value_template_name)
     this.campaign_service.start_campaign(this.value_name,this.value_template_name);
     this.router.navigate(['campaigns'],{
       relativeTo:this.route.parent
     });
-  }
+  }    
 
-  oncheck(name){
+  oncheck(name,id){ 
+    this.elem_id=id;
+
+
     this.value_template_name=name;
   }
 

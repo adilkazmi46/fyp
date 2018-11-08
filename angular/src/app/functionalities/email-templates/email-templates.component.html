@@ -29,8 +29,28 @@
                     </mat-card-actions>
                     </mat-card>  
                     </div>
-       <!---- <button mat-button (click)="onedit(d.name)" color="primary" type="button">edit</button>-->
-        <button mat-button (click)="ondelete(d.name)"color="primary" type="button">delete</button>
+       
+                    <!---- <button mat-button (click)="onedit(d.name)" color="primary" type="button">edit</button>-->
+                    <button mat-button id="modal_toggle3" type="button"  color="primary" data-toggle="modal" attr.data-target="#modal{{d.name}}">Delete</button>
+                    <div class="modal fade" attr.id="modal{{d.name}}">
+                        <div class="modal-dialog"> 
+                          <div class="modal-content">
+                            
+                            <mat-card> 
+                            <mat-card-title>
+                            <span id="title"><b>Delete {{d.name}} ?? </b></span>              
+                            </mat-card-title>
+                            <mat-card-actions class="modal-footer">
+                                <button mat-button (click)="ondelete(d.name)"color="primary" data-dismiss="modal" type="button">delete</button>
+                              <button  mat-button type="button"  color="primary" type="button" data-dismiss="modal">Cancel</button>
+                            </mat-card-actions>
+                        </mat-card>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      
+                   
     </mat-card-actions> 
          
 </mat-card>   

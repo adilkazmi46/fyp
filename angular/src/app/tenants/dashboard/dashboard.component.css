@@ -14,43 +14,28 @@ mat-chip {
   color: white;
 }
 
-.side_nav{
-    height: 100%;
-    
-    position: fixed;
-}
 
-.sidenav a:hover {
-  color: #3F51B5;
-  cursor: pointer;
-}
 a:hover {
   
   cursor: pointer;
 }
  
-.sidenav a { 
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-   color: #212121;
-  display: block;
 
-}
 
-.sidenav {
-  height: 100%;
-  width: 100%;
-  position: relative;
-  z-index: 1; 
-  top: 0;
-  left: 0;
-   
-  overflow-x: hidden;
-  padding-top: 20px;
-}
 
 
 .spacer {
   flex: 1 1 auto;
+}
+
+mat-sidenav,mat-sidenav-content{
+  height: 100vh;
+  
+
+}
+
+mat-sidenav{
+  flex-direction: column;
+  display: flex;
+  width: 250px; 
 }
