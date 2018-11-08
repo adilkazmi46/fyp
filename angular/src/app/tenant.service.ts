@@ -83,7 +83,8 @@ export class TenantService {
  
     logout_tenant() 
     {
-      localStorage.removeItem('name');  
+      localStorage.removeItem('tenant_name');  
+      console.log(localStorage.getItem('tenant_name'))
       this.router.navigate([localStorage.getItem('email')]); 
     } 
   
@@ -98,8 +99,19 @@ export class TenantService {
    this.tenants=res; 
    }
   tenant_get(){
-    console.log(this.tenants)
+    console.log(this.tenants) 
     return this.tenants;
+  }
+
+  isAuthenticated()
+  {
+    console.log(localStorage.getItem('tenant_name'))
+    if(localStorage.getItem('tenant_name')==null||localStorage.getItem('tenant_name')==''){
+      return false; 
+    }
+    else{
+      return true;
+    }
   }
    
     

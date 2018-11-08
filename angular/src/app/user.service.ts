@@ -21,7 +21,7 @@ export class UserService {
     // true or false
     return !this.jwtHelper.isTokenExpired(token); 
   } 
-   authenticate(user:User) 
+   authenticate(user:User)  
    {   
      return this.http.post('http://localhost:8000/api/user_authenticate',user).subscribe(  
       (res:Response) => 
@@ -35,7 +35,7 @@ export class UserService {
           this.set_email(res);
         },
         (err:Error)=>console.log(err)
-
+ 
       );
     this.router.navigate([localStorage.getItem('email')]); 
         

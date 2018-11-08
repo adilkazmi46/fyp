@@ -17,6 +17,7 @@ import { ImageGalleryComponent } from '../functionalities/image-gallery/image-ga
 import { EmailTemplatesComponent } from '../functionalities/email-templates/email-templates.component';
 import { EditEmailTemplateComponent } from '../functionalities/edit-email-template/edit-email-template.component';
 import { CampaignIndexComponent } from '../functionalities/campaign-index/campaign-index.component';
+import { TenantGuard } from '../tenant.guard';
 
 @NgModule({
   imports: [  
@@ -38,13 +39,13 @@ import { CampaignIndexComponent } from '../functionalities/campaign-index/campai
         component:EditTenantComponent,
         pathMatch:'full'
       }, 
-
+  
 
   
       {  
   path:':name',    
   component:DashboardComponent, 
-  canActivate:[AuthGuard],  
+  canActivate:[TenantGuard,AuthGuard],     
   
   children:[ 
        
