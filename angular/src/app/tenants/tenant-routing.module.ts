@@ -29,7 +29,8 @@ import { TenantGuard } from '../tenant.guard';
       { 
         path:'AddBusiness',
         component:TenantComponent,
-        pathMatch:'full'
+        pathMatch:'full',
+        canActivate:[AuthGuard],   
 
       },
       
@@ -37,7 +38,8 @@ import { TenantGuard } from '../tenant.guard';
       { 
         path:'EditBusiness',
         component:EditTenantComponent,
-        pathMatch:'full'
+        pathMatch:'full',
+        canActivate:[AuthGuard],   
       }, 
   
 
@@ -52,7 +54,7 @@ import { TenantGuard } from '../tenant.guard';
     {
       path:'image_gallery',  
       component:ImageGalleryComponent,
-    },
+    }, 
     { 
       path:'import_contacts',
       component:ImportContactComponent,  
@@ -68,7 +70,7 @@ import { TenantGuard } from '../tenant.guard';
     {
     path:'rss_to_emails',
     component:RssToEmailsComponent,
-    },
+    }, 
     {
       path:'insights',
       component:InsightsComponent,
@@ -92,7 +94,7 @@ import { TenantGuard } from '../tenant.guard';
     },
   ]
    } ,
-
+  
  { 
    path:'',
    component:AdminPanelComponent, 
