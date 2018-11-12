@@ -10,7 +10,7 @@ use Auth;
 use Illuminate\Support\Facades\Validator;  
 use App\Jobs\SendEmail;
 use DB;
-use App\Emails_list;
+use App\Emails_list; 
 use App\Insight; 
 use Mail; 
 class CampaignController extends Controller

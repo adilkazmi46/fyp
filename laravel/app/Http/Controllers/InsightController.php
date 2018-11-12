@@ -44,7 +44,7 @@ class InsightController extends Controller
    
     }
 
-
+ 
     public function update_rss($tenant_id,$rss_id)
     {            
         $tenant=Tenant::where('id','=',$tenant_id)->first();

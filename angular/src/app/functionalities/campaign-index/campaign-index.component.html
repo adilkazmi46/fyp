@@ -1,9 +1,5 @@
 <h1>Campaigns</h1>
 
-<button color="primary" (click)="oncreate()"  mat-button type="button">create new campaign</button>
-
-<br>
-
 <mat-card  class="template_card" *ngFor="let d of data">
     <mat-card-title class="over_flow">
       <a  color="primary" attr.id={{d.name}}>{{ d.name }}</a>

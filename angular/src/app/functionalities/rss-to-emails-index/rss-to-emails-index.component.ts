@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { RssFeedsService } from '../../rss-feeds.service';
 
 
@@ -21,47 +22,35 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }  
 @Component({
-  selector: 'app-rss-to-emails',
-  templateUrl: './rss-to-emails.component.html',
-  styleUrls: ['./rss-to-emails.component.css']
+  selector: 'app-rss-to-emails-index',
+  templateUrl: './rss-to-emails-index.component.html',
+  styleUrls: ['./rss-to-emails-index.component.css']
 })
-export class RssToEmailsComponent implements OnInit {
+export class RssToEmailsIndexComponent implements OnInit {
 
-  data:any;
-
-  value_name = '';
+  value_name = ''; 
   value_name_new = '';
   value_url = '';
   value_url_new = '';
   value_name_old='';
   value_url_old='';
-  url_regex='^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$';
-  rssform: FormGroup; 
   rss_edit_form: FormGroup; 
-  name:FormControl;  
-  url:FormControl;  
   name_new:FormControl;
   url_new:FormControl;
-
-  
+  data:any;
   constructor(private feed_service:RssFeedsService) { }
 
  
   ngOnInit() {
-    this.rssform= new FormGroup(
-      {
-        'name':new FormControl(null,[Validators.required,Validators.maxLength(25),Validators.minLength(3)]),
-        'url' : new FormControl(null,[Validators.required,Validators.pattern(this.url_regex)])
-      } 
-      );
+    
       this.rss_edit_form= new FormGroup(
         {
           'name_new':new FormControl(null,[Validators.required,Validators.maxLength(25),Validators.minLength(3)]),
-          'url_new' : new FormControl(null,[Validators.required,Validators.pattern(this.url_regex)])
+          'url_new' : new FormControl(null,[Validators.required]) 
         } 
         ); 
 
-        this.getData();
+        this.getData();  
   }
 
   ondelete(name)
@@ -79,7 +68,7 @@ this.feed_service.rss_feed_delete(name).subscribe(
 this.getData()
 
   }
- 
+  
   onedit()
   {
    this.feed_service.rss_feed_update(this.value_name_new,this.value_name_old,this.value_url_new,this.value_url_old).subscribe
@@ -96,54 +85,6 @@ this.getData()
    this.getData();
    
   } 
-
-  oncreate(name,url)
-  {
-    this.feed_service.rss_feed_create(name,url).subscribe(
-      (res:Response)=>
-      {
-        console.log(res)
-      },
-      (err:Error)=>{  
-        console.log(err)
-      }
-    ); 
-    this.rssform.reset();
-    this.getData();
-  }
-
-  
-  sendemails(name)
-  {
-    this.feed_service.rss_feed_reader(name).subscribe(
-      (res:Response)=>
-      {
-        console.log(res)
-      },
-      (err:Error)=>{
-        console.log(err)
-      }
-    );
-    
-  }
-
-
-  onSubmit()
-  {
-    this.feed_service.rss_feed_create(this.rssform.get('name').value,this.rssform.get('url').value).subscribe
-    (
-      (res:Response)=>{
-        console.log(res)
-      },
-      (err:Error)=>
-      {
-        console.log(err) 
-      }
-    );
-
-    this.getData();
-  }
-
 
   setvalue(name,url){
     this.value_name_old=name;
@@ -170,6 +111,18 @@ this.getData()
   
   }
 
-
+  sendemails(name)
+  {
+    this.feed_service.rss_feed_reader(name).subscribe(
+      (res:Response)=>
+      {
+        console.log(res)
+      },
+      (err:Error)=>{
+        console.log(err)
+      }
+    );
+    
+  }
 
 }

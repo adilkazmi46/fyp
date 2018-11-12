@@ -28,6 +28,10 @@ import { MyPipePipe } from '../my-pipe.pipe';
 
 import { EditEmailTemplateComponent } from '../functionalities/edit-email-template/edit-email-template.component';
 import { CampaignIndexComponent } from '../functionalities/campaign-index/campaign-index.component';
+import { SidenavItemsComponent } from '../sidenav-items/sidenav-items.component';
+import { InsightsRssComponent } from '../functionalities/insights-rss/insights-rss.component';
+import { RssToEmailsIndexComponent } from '../functionalities/rss-to-emails-index/rss-to-emails-index.component';
+import { ImageGalleryIndexComponent } from '../functionalities/image-gallery-index/image-gallery-index.component';
   
 
 
@@ -56,7 +60,9 @@ import { CampaignIndexComponent } from '../functionalities/campaign-index/campai
   exports:[ 
   TenantRoutingModule,
   ],
-  declarations: [TenantComponent, DashboardComponent, TenantIndexComponent, AdminPanelComponent, EditTenantComponent,  NavigationComponent, ImportContactComponent, EmailTemplateComponent, CampaignsComponent, RssToEmailsComponent, InsightsComponent, DashboardPanelComponent, ImageGalleryComponent, EmailTemplatesComponent, MyPipePipe, EditEmailTemplateComponent, CampaignIndexComponent, ]
+  
+  declarations: [TenantComponent, DashboardComponent, TenantIndexComponent, AdminPanelComponent, EditTenantComponent,  NavigationComponent, ImportContactComponent, EmailTemplateComponent, CampaignsComponent, RssToEmailsComponent, InsightsComponent, DashboardPanelComponent, ImageGalleryComponent, EmailTemplatesComponent, MyPipePipe, EditEmailTemplateComponent, CampaignIndexComponent, SidenavItemsComponent, InsightsRssComponent, RssToEmailsIndexComponent, ImageGalleryIndexComponent, ],
+  providers:[SidenavItemsComponent]
 })
 export class TenantsModule { }
  

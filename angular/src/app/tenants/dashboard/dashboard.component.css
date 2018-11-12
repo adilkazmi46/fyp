@@ -14,7 +14,11 @@ mat-chip {
   color: white;
 }
 
+.active-link{
+  color:#3F51B5;  
+}
 
+ 
 a:hover {
   
   cursor: pointer;
@@ -30,12 +34,23 @@ a:hover {
 
 mat-sidenav,mat-sidenav-content{
   height: 100vh;
-  
-
 }
+
+
 
 mat-sidenav{
   flex-direction: column;
   display: flex;
   width: 250px; 
 }
+
+
+svg{
+  margin: 8%;
+  
+}
+#email{
+  
+  text-align: center;
+}
+

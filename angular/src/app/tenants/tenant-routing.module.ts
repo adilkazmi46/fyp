@@ -18,6 +18,10 @@ import { EmailTemplatesComponent } from '../functionalities/email-templates/emai
 import { EditEmailTemplateComponent } from '../functionalities/edit-email-template/edit-email-template.component';
 import { CampaignIndexComponent } from '../functionalities/campaign-index/campaign-index.component';
 import { TenantGuard } from '../tenant.guard';
+import { SidenavGuard } from '../sidenav.guard';
+import { InsightsRssComponent } from '../functionalities/insights-rss/insights-rss.component';
+import { RssToEmailsIndexComponent } from '../functionalities/rss-to-emails-index/rss-to-emails-index.component';
+import { ImageGalleryIndexComponent } from '../functionalities/image-gallery-index/image-gallery-index.component';
 
 @NgModule({
   imports: [  
@@ -53,44 +57,71 @@ import { TenantGuard } from '../tenant.guard';
        
     {
       path:'image_gallery',  
-      component:ImageGalleryComponent,
-    }, 
+      component:ImageGalleryIndexComponent, 
+      
+    },
+    {
+      path:'image_upload',  
+      component:ImageGalleryComponent, 
+      
+    },  
+     
     { 
       path:'import_contacts',
-      component:ImportContactComponent,  
+      component:ImportContactComponent,     
+      
     },
     {
       path:'create_campaign', 
       component:CampaignsComponent,
+      
     } ,
     {
     path:'campaigns',
-    component:CampaignIndexComponent
+    component:CampaignIndexComponent,
+    
     },
     {
     path:'rss_to_emails',
-    component:RssToEmailsComponent,
-    }, 
+    component:RssToEmailsIndexComponent,
+    
+    },
+    {
+      path:'rss_to_emails_upload',
+      component:RssToEmailsComponent,
+      
+      }, 
     {
       path:'insights',
       component:InsightsComponent,
+      
     },
+    {
+      path:'insights_rss',
+      component:InsightsRssComponent,
+      
+    },
+    
     {
       path:'email_template_editor',
       component:EmailTemplateComponent,
+      
     },
     
     {
       path:'email_templates',
       component:EmailTemplatesComponent,
+      
     }, 
     {
       path: 'edit_email_template',
-      component : EditEmailTemplateComponent 
+      component : EditEmailTemplateComponent ,
+      
     },
-    { 
+    {  
       path:'dashboard-panel',
       component:DashboardPanelComponent,
+      
     },
   ]
    } ,

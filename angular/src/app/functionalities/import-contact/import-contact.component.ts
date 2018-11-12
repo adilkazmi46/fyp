@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImportContactsService } from '../../import-contacts.service';
+import { SidenavItemsService } from '../../sidenav-items.service';
 
 
 @Component({
-  selector: 'app-import-contact',
+  selector: 'app-import-contact', 
   templateUrl: './import-contact.component.html',
   styleUrls: ['./import-contact.component.css']
 })
@@ -15,10 +16,13 @@ export class ImportContactComponent implements OnInit {
   unique_emails_counter:any=0;  
   selected_file:File=null;
   loading:boolean=false;
-  constructor(private import_contact_service:ImportContactsService) { }
+  sidenav_items=new Array();
+  constructor(private import_contact_service:ImportContactsService,private nav_items:SidenavItemsService) { }
 
-  ngOnInit() {
-
+  ngOnInit() { 
+   
+    this.sidenav_items.push('upload');
+    this.nav_items.setData(this.sidenav_items);
     this.importform = new FormGroup({
       'contacts' : new FormControl(null,[Validators.required])
     }); 

@@ -55,3 +55,4 @@ Route::delete('image_delete/{tenant_name}/{name}',['uses' => 'ImageController@de
 Route::get('image_display/{tenant_name}/{name}',['uses' => 'ImageController@display_image']); 
 
 } );        
+ 
