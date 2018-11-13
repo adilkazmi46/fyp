@@ -8,12 +8,12 @@
     <button mat-button (click)="sendemails(d.name)" color="primary">Send Emails</button>
     <button (click)="setvalue(d.name,d.feed_url)"  id="modal_toggle1" type="button" mat-button color="primary" data-toggle="modal" data-target="#myModal1">
       Edit
-    </button>
-    
+    </button> 
+     
     <button mat-button id="modal_toggle3" type="button"  color="primary" data-toggle="modal" data-target="#myModal3">Delete</button>
     
      <!-- The Modal -->
-  <div class="modal fade" id="myModal3">
+  <div class="modal fade" data-backdrop="false" id="myModal3">
     <div class="modal-dialog">
       <div class="modal-content">
       
@@ -39,7 +39,7 @@
  </mat-card> 
 
  
-<div class="modal fade" id="myModal1">
+<div class="modal fade" data-backdrop="false" id="myModal1">
   <div class="modal-dialog">
     <div class="modal-content">
     

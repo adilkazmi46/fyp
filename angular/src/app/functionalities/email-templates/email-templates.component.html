@@ -1,18 +1,15 @@
-<h1>Email Templates</h1>
-
-<mat-card  class="template_card" *ngFor="let d of data">
-    
-    <mat-card-title class="over_flow">
-        {{ d.name }}
-    </mat-card-title>
-  
+<h1 style="color:#3F51B5;">Email Templates</h1>
  
+<mat-card  class="template_card" *ngFor="let d of data">    
+    <mat-card-title class="over_flow">
+        {{ d.name }} 
+    </mat-card-title>
     <mat-card-actions >  
-            <button  mat-button color="primary" attr.id={{d.name}} type="button"  data-toggle="modal" attr.data-target='#{{d.id}}'>
+            <button  mat-button color="primary" attr.id={{d.name}} type="button"  data-toggle="modal" attr.data-target='#{{d.id}}' >
                     open   
                   </button> 
                     
-                  <div class="modal" attr.id={{d.id}}>
+                  <div class="modal" data-backdrop="false" attr.id={{d.id}}>
                       <mat-card>  
                           <mat-card-title> 
                         <div class="modal__header">{{d.name}}</div>
@@ -21,7 +18,7 @@
                         <div class="modal__content">
                         <div id="html_content" [innerHTML]="d.html | myPipe"></div>
                         </div>
-                    </mat-card-content>
+                    </mat-card-content> 
                     <mat-card-actions>
                         <div class="modal__footer">
                                 <button  mat-button type="button"  color="primary" type="button" data-dismiss="modal">Close</button>
@@ -32,15 +29,15 @@
        
                     <!---- <button mat-button (click)="onedit(d.name)" color="primary" type="button">edit</button>-->
                     <button mat-button id="modal_toggle3" type="button"  color="primary" data-toggle="modal" attr.data-target="#modal{{d.name}}">Delete</button>
-                    <div class="modal fade" attr.id="modal{{d.name}}">
+                    <div class="modal fade" data-backdrop="false" attr.id="modal{{d.name}}">
                         <div class="modal-dialog"> 
                           <div class="modal-content">
                             
-                            <mat-card> 
+                            <mat-card>  
                             <mat-card-title>
                             <span id="title"><b>Delete {{d.name}} ?? </b></span>              
                             </mat-card-title>
-                            <mat-card-actions class="modal-footer">
+                            <mat-card-actions class="modal-footer">  
                                 <button mat-button (click)="ondelete(d.name)"color="primary" data-dismiss="modal" type="button">delete</button>
                               <button  mat-button type="button"  color="primary" type="button" data-dismiss="modal">Cancel</button>
                             </mat-card-actions>

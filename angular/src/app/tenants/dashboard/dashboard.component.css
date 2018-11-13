@@ -2,7 +2,7 @@ mat-list{
   margin-left: -1em;
   padding: 0%;
 } 
-
+ 
 
 mat-chip {
   max-width: 200px;
@@ -17,8 +17,6 @@ mat-chip {
 .active-link{
   color:#3F51B5;  
 }
-
- 
 a:hover {
   
   cursor: pointer;
@@ -49,8 +47,23 @@ svg{
   margin: 8%;
   
 }
-#email{
+#email{  
   
   text-align: center;
+}
+
+mat-sidenav{
+  
+  text-align: center;
+}
+.side_nav_item{
+  margin: 5%;
+}
+ 
+.logout{
+
+    margin: 0px;
+    margin-top: auto;
+  
 }
 

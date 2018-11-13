@@ -26,7 +26,7 @@
     margin-top: 10px;
 }
 
-mat-tab{
+mat-tab{  
     width: 100%;
     height: 100%;
 }
@@ -52,8 +52,8 @@ ck{
 img {
     border: 1px solid #ddd; /* Gray border */
     border-radius: 4px;  /* Rounded border */
-    padding: 5px; /* Some padding */
-    width: 150px; /* Set a small width */
+    
+    width: 130px; /* Set a small width */
     display: inline-block;
     margin: 0.5em;
 }
