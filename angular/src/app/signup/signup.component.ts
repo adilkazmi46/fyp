@@ -15,7 +15,7 @@ import { UserService } from '../user.service';
 import {
   AuthService,
   FacebookLoginProvider,
-  GoogleLoginProvider
+  GoogleLoginProvider 
 } from 'angular-6-social-login';
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -28,7 +28,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'] 
+  styleUrls: ['./signup.component.scss'] 
 })
 export class SignupComponent implements OnInit  {
 

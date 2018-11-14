@@ -11,12 +11,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched));
   
   }
-}
+} 
 
 @Component({
   selector: 'app-edit-tenant',
   templateUrl: './edit-tenant.component.html',
-  styleUrls: ['./edit-tenant.component.css']
+  styleUrls: ['./edit-tenant.component.scss'] 
 })
 export class EditTenantComponent implements OnInit {
 

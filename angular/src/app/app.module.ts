@@ -15,6 +15,7 @@ import { AuthGuard } from './auth.guard';
 import { UserService } from './user.service';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import {TranslateModule} from '@ngx-translate/core';
 import {
   SocialLoginModule,
   AuthServiceConfig,
@@ -51,6 +52,7 @@ export function getAuthServiceConfigs() {
      
   ], 
   imports: [
+    TranslateModule.forRoot(),
     SocialLoginModule,
     HttpClientModule,
     JwtModule.forRoot({ 
@@ -113,6 +115,7 @@ export function getAuthServiceConfigs() {
     MatGridListModule,
     MatCardModule,
     MatMenuModule, 
+    TranslateModule,
     
   ],
   providers: [AuthGuard,UserService, {

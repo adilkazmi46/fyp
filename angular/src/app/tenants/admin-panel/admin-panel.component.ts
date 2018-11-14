@@ -6,14 +6,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
-  styleUrls: ['./admin-panel.component.css']
+  styleUrls: ['./admin-panel.component.scss']
 })
 export class AdminPanelComponent implements OnInit {
 
   constructor(private user_service:UserService,private tenant_service:TenantService,private router:Router) { }
 
   ngOnInit() {
-  }
+  }  
 
 
   onLogout()

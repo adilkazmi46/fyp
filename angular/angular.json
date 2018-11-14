@@ -4,11 +4,11 @@
   "newProjectRoot": "projects",
   "projects": {
     "angular": {
-      "root": "",
+      "root": "", 
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {}, 
+      "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -22,11 +22,11 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "src/styles.css"
+            "styles": [ 
+              "src/styles.scss"  
             ],
             "scripts": []
-          },  
+          },
           "configurations": {
             "production": {
               "fileReplacements": [
@@ -123,5 +123,10 @@
       }
     }
   },
-  "defaultProject": "angular"
+  "defaultProject": "angular",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

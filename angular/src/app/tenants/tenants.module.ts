@@ -33,8 +33,11 @@ import { InsightsRssComponent } from '../functionalities/insights-rss/insights-r
 import { RssToEmailsIndexComponent } from '../functionalities/rss-to-emails-index/rss-to-emails-index.component';
 import { ImageGalleryIndexComponent } from '../functionalities/image-gallery-index/image-gallery-index.component';
   
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { TopnavComponent } from './topnav/topnav.component';
+import {TranslateModule} from '@ngx-translate/core';
 
-
+import {TranslateService} from '@ngx-translate/core';
 
   
 @NgModule({
@@ -55,14 +58,15 @@ import { ImageGalleryIndexComponent } from '../functionalities/image-gallery-ind
     MatToolbarModule, 
     MatSidenavModule,
     MatListModule, 
+    TranslateModule,
     
   ],     
   exports:[ 
   TenantRoutingModule,
   ],
   
-  declarations: [TenantComponent, DashboardComponent, TenantIndexComponent, AdminPanelComponent, EditTenantComponent,  NavigationComponent, ImportContactComponent, EmailTemplateComponent, CampaignsComponent, RssToEmailsComponent, InsightsComponent, DashboardPanelComponent, ImageGalleryComponent, EmailTemplatesComponent, MyPipePipe, EditEmailTemplateComponent, CampaignIndexComponent, SidenavItemsComponent, InsightsRssComponent, RssToEmailsIndexComponent, ImageGalleryIndexComponent, ],
-  providers:[SidenavItemsComponent]
-})
+  declarations: [TenantComponent, DashboardComponent, TenantIndexComponent, AdminPanelComponent, EditTenantComponent,  NavigationComponent, ImportContactComponent, EmailTemplateComponent, CampaignsComponent, RssToEmailsComponent, InsightsComponent, DashboardPanelComponent, ImageGalleryComponent, EmailTemplatesComponent, MyPipePipe, EditEmailTemplateComponent, CampaignIndexComponent, SidenavItemsComponent, InsightsRssComponent, RssToEmailsIndexComponent, ImageGalleryIndexComponent,SidebarComponent,TopnavComponent],
+  providers:[SidenavItemsComponent] 
+}) 
 export class TenantsModule { }
  

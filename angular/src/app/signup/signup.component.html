@@ -1,36 +1,38 @@
-<mat-card class="signupdiv" >
-<mat-card-header> 
-  <mat-card-title>
-     <span id="title"><b> Singup </b></span>
-  </mat-card-title> 
-</mat-card-header>
-<mat-card-content>
-<form [formGroup]="signupform" (ngSubmit)="onSubmit()" class="form-container" >
-        <mat-form-field> 
-          <input matInput placeholder="Name"  id="name" formControlName="name"  [(ngModel)]="value_name" [errorStateMatcher]="matcher">
-          <button mat-button *ngIf="value_name" matSuffix mat-icon-button aria-label="Clear" (click)="value_name=''">
-              <mat-icon>close</mat-icon> 
-   
-            </button>   
-            <mat-error *ngIf="signupform.controls['name'].hasError('required')">
-                    name is <strong>required</strong>
-                  </mat-error> 
-                  <mat-error *ngIf="signupform.controls['name'].hasError('minlength') && !signupform.controls['name'].hasError('required')">
-                        Please enter a name of min 3 characters 
-                      </mat-error> 
-                       
+<div class="login-page">
+    <div class="content">
+        <!-- <h1 class="app-name">Sb Admin Material</h1> -->
+        <form class="login-form" [formGroup]="signupform" (ngSubmit)="onSubmit()">
+            <div class="text-center">
+                <h2 class="app-name">Email Marketing</h2>
+            </div>
+            <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlexFill>
+                    <mat-form-field class="w-100"> 
+                        
+                        <input matInput placeholder="Name"  id="name" formControlName="name"  [(ngModel)]="value_name" [errorStateMatcher]="matcher">
+                        <button mat-button *ngIf="value_name" matSuffix mat-icon-button aria-label="Clear" (click)="value_name=''">
+                            <mat-icon>close</mat-icon> 
+                 
+                          </button>   
+                          <mat-error *ngIf="signupform.controls['name'].hasError('required')">
+                                  name is <strong>required</strong>
+                                </mat-error> 
+                                <mat-error *ngIf="signupform.controls['name'].hasError('minlength') && !signupform.controls['name'].hasError('required')">
+                                      Please enter a name of min 3 characters 
+                                    </mat-error> 
+                                     
+                                
+                                    <mat-error *ngIf="signupform.controls['name'].hasError('maxlength') && !signupform.controls['name'].hasError('required')">
+                                          Please enter a name of max 20 characters 
+                                        </mat-error> 
                   
-                      <mat-error *ngIf="signupform.controls['name'].hasError('maxlength') && !signupform.controls['name'].hasError('required')">
-                            Please enter a name of max 20 characters 
-                          </mat-error> 
-  
-
-
-
-    </mat-form-field>
-     
-    <mat-form-field class="form-field"> 
-        <input matInput placeholder="Email" 
+                    </mat-form-field>
+                </div> 
+            </div> 
+            <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlexFill>
+                    <mat-form-field class="w-100">
+                        <input matInput placeholder="Email" 
          id="email"  formControlName="email" 
           [(ngModel)]="value_email" [errorStateMatcher]="matcher">
          
@@ -48,13 +50,13 @@
             <mat-error *ngIf="signupform.controls['email'].hasError('required')">
               Email is <strong>required</strong>
             </mat-error>
- 
-          
-
-  </mat-form-field>   
-  
-  <mat-form-field>
-      <input  matInput placeholder="password" type="password" id="pwd" formControlName="password" [(ngModel)]="value_pwd" [errorStateMatcher]="matcher">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlexFill>
+                    <mat-form-field class="w-100"> 
+                        <input  matInput placeholder="password" type="password" id="pwd" formControlName="password" [(ngModel)]="value_pwd" [errorStateMatcher]="matcher">
       <button mat-button *ngIf="value_pwd" matSuffix mat-icon-button aria-label="Clear" (click)="value_pwd=''">
           <mat-icon>close</mat-icon>
         </button>  
@@ -67,10 +69,13 @@
                 password is <strong>required</strong>
               </mat-error>
   
-</mat-form-field> 
-
-<mat-form-field>
-    <input  matInput placeholder="Confirm password" type="password"  id="pwdc" formControlName="password_confirmation" [(ngModel)]="value_pwdc" [errorStateMatcher]="matcher">
+                    </mat-form-field>
+                </div> 
+            </div> 
+            <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlexFill>
+                    <mat-form-field class="w-100"> 
+                        <input  matInput placeholder="Confirm password" type="password"  id="pwdc" formControlName="password_confirmation" [(ngModel)]="value_pwdc" [errorStateMatcher]="matcher">
     <button  mat-button *ngIf="value_pwdc" matSuffix mat-icon-button aria-label="Clear" (click)="value_pwdc=''">
         <mat-icon>close</mat-icon>
       </button>    
@@ -82,24 +87,38 @@
                     </mat-error>   
                     
     
- 
-</mat-form-field>
+                    </mat-form-field>
+                </div> 
+            </div>  
+            
 
-</form> 
-</mat-card-content>
-<mat-card-actions>
-<mat-label>  
-        <a mat-button  (click)="ngOnDestroy()" routerLink="">Already have an account?</a>
-        <button [disabled]="!signupform.valid"  mat-button color="primary" type="button" (click)="onSubmit()"> signup</button>
-        
-       <button mat-button color="primary" (click)="socialSignup('facebook')">Connect with Facebook</button>
-       <button mat-button color="primary" (click)="socialSignup('google')">Connect with Google</button> 
-</mat-label>
- 
-</mat-card-actions> 
-</mat-card>
+            <div fxFlex fxLayout="row" fxLayout.lt-md="column" style="margin: 20px 0 30px 0">
+                
+                <div fxFlex fxLayoutAlign="end"> 
+                    <a   (click)="ngOnDestroy()" routerLink="">Already have an account?</a>
+                </div>
+            </div>
+            <div fxFlex fxLayout="row" fxLayout.lt-md="column"> 
+                <div fxFlexFill>
+                    <button style="margin:2%" mat-raised-button color="primary" class="w-100" 
+                    [disabled]="!signupform.valid" 
+          (click)="onSubmit()">Signup</button>
+                    <button style="margin:2%" mat-raised-button color="primary" class="w-100" 
+                    (click)="socialSignup('facebook')" >Connect with Google</button>
+                    <button style="margin:2%" mat-raised-button color="primary" class="w-100" 
+                    (click)="socialSignup('google')" >Connect with Facebook</button>
+                </div>
+            </div>
+   
+        </form>
+    </div>
+</div>
 
 
-  
-  
-  
+
+
+
+
+
+
+

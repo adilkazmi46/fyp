@@ -27,7 +27,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({ 
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
   signinform: FormGroup;
@@ -71,7 +71,7 @@ export class SigninComponent implements OnInit {
     this.user_service.authenticate(this.user);      
   
   }
-
+ 
    
   public socialSignIn(socialPlatform : string) {
     let socialPlatformProvider;

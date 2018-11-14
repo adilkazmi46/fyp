@@ -1,19 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { TenantService } from '../../tenant.service';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Router, NavigationExtras, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
-
+import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { Navigation } from 'selenium-webdriver';
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit { 
+
+  isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(
+    Breakpoints.Handset
+);
+
   dashboard:string; 
   email:string;
   data=new Array();
-  constructor(private tenant_service:TenantService,private router:Router,private route: ActivatedRoute,) { }
+ 
+  constructor(private breakpointObserver: BreakpointObserver,private tenant_service:TenantService,private router:Router,private route: ActivatedRoute,) { }
 
   ngOnInit() {
 
