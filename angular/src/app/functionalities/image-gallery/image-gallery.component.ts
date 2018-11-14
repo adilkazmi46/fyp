@@ -18,7 +18,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-image-gallery',
   templateUrl: './image-gallery.component.html', 
-  styleUrls: ['./image-gallery.component.css']
+  styleUrls: ['./image-gallery.component.scss']
 })
 export class ImageGalleryComponent implements OnInit { 
 

@@ -1,5 +1,49 @@
-<app-topnav></app-topnav>
-<app-sidebar></app-sidebar>
-<div class="main-container"> 
-    <router-outlet></router-outlet>
+<mat-toolbar color="primary" class="fix-nav">
+    <button type="button" mat-icon-button class="visible-md" (click)="toggleSidebar()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <div class="nav-brand"> 
+        {{tenant_name|titlecase}} 
+    </div>
+
+    <div style="padding-left:3%" *ngFor="let x of data">
+        <a  attr.id="{{x}}"  (click)="side_nav(x)" >{{x}}</a>
+        <span class="nav-spacer"></span>
+    </div>
+    
+   </mat-toolbar>
+    
+   <div id="sidebar">
+    <mat-nav-list>
+        <a mat-list-item (click)="dashboard_panel()">
+            <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Dashboard' | translate }}
+        </a>
+        <a mat-list-item (click)="campaigns()">
+            <mat-icon class="sidenav-icon">contact_mail</mat-icon> {{ 'Campaign' | translate }}
+        </a>      
+        <a mat-list-item (click)="email_templates_editor()">
+            <mat-icon class="sidenav-icon">perm_media</mat-icon> {{ 'Email Template' | translate }}
+        </a>
+        <a mat-list-item (click)="insights()">
+            <mat-icon class="sidenav-icon">bar_chart</mat-icon> {{ 'Insight' | translate }}
+        </a>
+        <a mat-list-item (click)="import_contacts()">
+            <mat-icon class="sidenav-icon">import_contacts</mat-icon> {{ 'Import Contacts' | translate }}
+        </a>
+        <a mat-list-item (click)="image_gallery()">
+            <mat-icon class="sidenav-icon">images</mat-icon> {{ 'Images' | translate }}
+        </a>
+        <a mat-list-item (click)="rss_to_emails()">
+            <mat-icon class="sidenav-icon">rss_feed</mat-icon> {{ 'RSS Feeds' | translate }}
+        </a>
+ 
+        <a mat-list-item  (click)="ontenant_logout()">
+            <mat-icon class="sidenav-icon">logout</mat-icon> {{ 'Logout' | translate }}
+        </a>
+ 
+           </mat-nav-list>
 </div>
+       
+<div class="main-container" >  
+    <router-outlet ></router-outlet> 
+</div> 

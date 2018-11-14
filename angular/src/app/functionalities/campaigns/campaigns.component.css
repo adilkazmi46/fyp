@@ -1,17 +1,10 @@
 a:hover{
-cursor: pointer; 
-text-decoration: underline;    
-}
-
-.template_card{
-    width: 500px;
-    height:100px;
-    margin-bottom: 5px;
-}
-mat-horizontal-stepper{
-background-color: #FAFAFA;
-  
-text-align: center;
-margin-left: 7%;
-margin-right: 7%;
-}
+    cursor: pointer;
+    text-decoration: underline;    
+    }
+    
+    .template_card{
+        width: 500px;
+        height:100px;
+        margin-bottom: 5px;
+    }

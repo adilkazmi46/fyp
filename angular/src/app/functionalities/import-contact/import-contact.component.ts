@@ -7,14 +7,14 @@ import { SidenavItemsService } from '../../sidenav-items.service';
 @Component({
   selector: 'app-import-contact', 
   templateUrl: './import-contact.component.html',
-  styleUrls: ['./import-contact.component.css']
+  styleUrls: ['./import-contact.component.scss']
 })
 export class ImportContactComponent implements OnInit {
 
   contacts:FormControl;
   importform:FormGroup;
   unique_emails_counter:any=0;  
-  selected_file:File=null;
+  selected_file:File=null;  
   loading:boolean=false;
   sidenav_items=new Array();
   constructor(private import_contact_service:ImportContactsService,private nav_items:SidenavItemsService) { }
@@ -27,7 +27,7 @@ export class ImportContactComponent implements OnInit {
       'contacts' : new FormControl(null,[Validators.required])
     }); 
   }
- 
+  
   uploadcontacts()
   {
     this.loading=true;
@@ -43,7 +43,7 @@ export class ImportContactComponent implements OnInit {
       },  
       (err:Error)=>
       { 
-        this.loading=false; 
+        this.loading=false;  
         console.log(err)   
       }
     );  

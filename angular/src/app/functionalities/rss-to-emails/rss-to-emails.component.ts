@@ -23,7 +23,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-rss-to-emails',
   templateUrl: './rss-to-emails.component.html',
-  styleUrls: ['./rss-to-emails.component.css']
+  styleUrls: ['./rss-to-emails.component.scss']
 })
 export class RssToEmailsComponent implements OnInit {
 

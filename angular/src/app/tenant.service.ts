@@ -83,7 +83,7 @@ export class TenantService {
  
     logout_tenant() 
     {
-      localStorage.removeItem('tenant_name');  
+      localStorage.removeItem('tenant_name');     
       console.log(localStorage.getItem('tenant_name'))
       this.router.navigate([localStorage.getItem('email')]); 
     } 

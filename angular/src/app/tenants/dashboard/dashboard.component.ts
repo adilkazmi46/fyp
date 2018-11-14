@@ -16,12 +16,19 @@ export class DashboardComponent implements OnInit {
   isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(
     Breakpoints.Handset
 );
-
-  dashboard:string; 
+pushRightClass: string = 'push-right';
+  tenant_name:string; 
   email:string;
   data=new Array();
  
-  constructor(private breakpointObserver: BreakpointObserver,private tenant_service:TenantService,private router:Router,private route: ActivatedRoute,) { }
+  constructor(private breakpointObserver: BreakpointObserver,private tenant_service:TenantService,private router:Router,private route: ActivatedRoute,) {
+    this.router.events.subscribe(val => {
+      if (val instanceof NavigationEnd && window.innerWidth <= 992 && this.isToggled()) {
+          this.toggleSidebar();
+      }
+  });
+
+   }
 
   ngOnInit() {
 
@@ -59,7 +66,7 @@ export class DashboardComponent implements OnInit {
         this.data.push("Upload RSS Feed");
         this.data.push("RSS Feeds");
       }
-       
+        
       else if(this.router.url=='/'+localStorage.getItem('email')+'/'+localStorage.getItem('tenant_name')+'/image_gallery'||this.router.url=='/'+localStorage.getItem('email')+'/'+localStorage.getItem('tenant_name')+'/image_upload')
       {
         this.data.push("Upload Image");
@@ -72,8 +79,8 @@ export class DashboardComponent implements OnInit {
     this.getdata();
     this.email=localStorage.getItem('email')
  
-    this.dashboard=localStorage.getItem('tenant_name');
-    console.log(this.dashboard)
+    this.tenant_name=localStorage.getItem('tenant_name');
+    
     this.router.navigate(['dashboard-panel'], 
     { relativeTo: this.route});
 
@@ -82,6 +89,16 @@ export class DashboardComponent implements OnInit {
 {  
   console.log(this.router.url)
 } 
+
+toggleSidebar() {
+  const dom: any = document.querySelector('body');
+  dom.classList.toggle(this.pushRightClass);
+}
+isToggled(): boolean {
+  const dom: Element = document.querySelector('body');
+  return dom.classList.contains(this.pushRightClass);
+}
+
 
   ontenant_logout() 
   {

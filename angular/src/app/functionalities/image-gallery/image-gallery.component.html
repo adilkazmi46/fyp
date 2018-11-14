@@ -1,43 +1,64 @@
-<h1 style="color:#3F51B5;">Image Upload</h1>
-
-<form [formGroup]="image_form" (ngSubmit)="onupload()" 
-      class="form-container" id="image_form_div"> 
-          <mat-form-field class="form-field">   
-            <input formControlName="image_name" matInput placeholder="Name"  id="image_name"     
-            [(ngModel)]="image_name_value" [errorStateMatcher]="matcher">
-            
-            <button mat-button *ngIf="image_name_value" 
-            matSuffix mat-icon-button aria-label="Clear"  
-            (click)="image_name_value=''"> 
-              <mat-icon>close</mat-icon>         
-            </button>   
-                 
-                <mat-error *ngIf="image_form.controls['image_name'].hasError('required') ">
-                  Name is <strong>required</strong>
-                </mat-error>
-                 <mat-error *ngIf="image_form.controls['image_name'].hasError('minlength') && 
-                !image_form.controls['image_name'].hasError('required') ">
-                enter a name of at least 3 characters 
-                </mat-error> 
-             
-                <mat-error *ngIf="image_form.controls['image_name'].hasError('maxlength') && 
-                !image_form.controls['image_name'].hasError('required') ">
-                enter a name of at most 25 characters 
-                </mat-error> 
-            
-           
-          </mat-form-field>   
+<div class="login-page">
+  <div class="content">
+      <!-- <h1 class="app-name">Sb Admin Material</h1> -->
+      <form class="login-form" [formGroup]="image_form" (ngSubmit)="onupload()" >
+          <div class="text-center">
+              <h2 class="app-name">Upload Image</h2>
+          </div> 
+          <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+               <div fxFlexFill>
+                  <mat-form-field class="w-100"> 
+                    <input formControlName="image_name" matInput placeholder="Name"  id="image_name"     
+                    [(ngModel)]="image_name_value" [errorStateMatcher]="matcher">
+                    
+                    <button mat-button *ngIf="image_name_value" 
+                    matSuffix mat-icon-button aria-label="Clear"  
+                    (click)="image_name_value=''"> 
+                      <mat-icon>close</mat-icon>         
+                    </button>   
+                         
+                        <mat-error *ngIf="image_form.controls['image_name'].hasError('required') ">
+                          Name is <strong>required</strong>
+                        </mat-error>
+                         <mat-error *ngIf="image_form.controls['image_name'].hasError('minlength') && 
+                        !image_form.controls['image_name'].hasError('required') ">
+                        enter a name of at least 3 characters 
+                        </mat-error> 
+                     
+                        <mat-error *ngIf="image_form.controls['image_name'].hasError('maxlength') && 
+                        !image_form.controls['image_name'].hasError('required') ">
+                        enter a name of at most 25 characters 
+                        </mat-error> 
+                    
+                   
+                  </mat-form-field>
+              </div> 
+          </div> 
           
-        
-          <input type="file"
-          accept="image/*"
-           (change)="onFileSelected($event)" 
-           formControlName="image_file" 
-           id="image_file"/>
-             
-  
-          <button [disabled]="!image_form.valid"   
-          mat-button color="primary" type="button"
-           (click)="onupload()">upload</button> 
-         
-        </form>
+          <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+              <div fxFlexFill>
+                  <input type="file"
+                  style="margin:2%" mat-raised-button color="primary" class="w-100"
+                  accept="image/*"
+                   (change)="onFileSelected($event)" 
+                   formControlName="image_file" 
+                   id="image_file"/>
+                
+                   <button style="margin:2%" mat-raised-button color="primary" class="w-100" [disabled]="!image_form.valid"   (click)="onupload()">Upload Image</button>
+                  
+              </div>
+          </div>
+ 
+      </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+

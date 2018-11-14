@@ -47,7 +47,7 @@ constructor(private image_service:ImagesService,private template_service:EmailTe
     this.image_service.get_images().
     subscribe(
       (res:Response)=> 
-      { 
+      {  
       this.data=Object.entries(res[0]);
       
       console.log(this.data)
@@ -65,7 +65,7 @@ constructor(private image_service:ImagesService,private template_service:EmailTe
     DecoupledEditor 
     .create( document.querySelector( '#editor' ) ,
   {     
-        
+    removePlugins: [ 'Insert Image' ],
     ckfinder: {       
     uploadUrl: 'http://localhost:8000/ckfinder/connector?command=QuickUpload&type=Images',   
     //uploadUrl: 'https://cksource.com/weuy2g4ryt278ywiue/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'  
