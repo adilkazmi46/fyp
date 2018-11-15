@@ -41,7 +41,7 @@
           <a  color="primary" attr.id={{d.name}}   data-toggle="modal" attr.data-target='#{{d.id}}'>{{ d.name }}</a>
         
         </mat-card-title>
-        <div class="modal" attr.id={{d.id}}>
+        <div class="modal" data-backdrop="false" attr.id={{d.id}}>
                      <mat-card>
                               <mat-card-title> 
                             <div class="modal__header">{{d.name}}</div>
@@ -49,7 +49,7 @@
                         <mat-card-content>
                             <div class="modal__content">
                             <div class="html_content" [innerHTML]="d.html | myPipe"></div>
-                            </div>
+                             </div>
                         </mat-card-content>
                         <mat-card-actions>
                             <div class="modal__footer">

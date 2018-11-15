@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Tenant;
 use App\Campaign;
 use App\Insight;    
+use App\Rss_feed;
 use Auth;
 class InsightController extends Controller
 {
@@ -60,7 +61,7 @@ class InsightController extends Controller
    
     }
     
-    public function index(Request $request) 
+    public function index_campaign(Request $request) 
     { 
         //return response()->json([$request->tenant_name]);
         $tenant=Tenant::where([
@@ -70,8 +71,9 @@ class InsightController extends Controller
   
     
 
-        $insights=Insight::where(
-            'tenant_id','=',$tenant->id 
+        $insights=Insight::where([
+            ['tenant_id','=',$tenant->id ],
+            ['rss_feed_id','=',null]]  
         )->get(); 
          
         $campaign_names=array();
@@ -84,6 +86,32 @@ class InsightController extends Controller
         return response()->json([$insights]); 
          
     }
+
+    public function index_rss(Request $request) 
+    { 
+        //return response()->json([$request->tenant_name]);
+        $tenant=Tenant::where([
+            ['name','=',$request->tenant_name],
+            ['user_email','=',Auth::User()->email]
+            ])->first(); 
+  
+    
+
+        $insights=Insight::where([  
+            ['tenant_id','=',$tenant->id ],
+            ['campaign_id','=',null]]  
+        )->get();   
+         
+        $rss_names=array();
+        foreach($insights as $value){ 
+         $value->rss_feed_id=Rss_feed::select('name')->where('id','=',$value->rss_feed_id)->first();
+        }    
+       // $campaign=Campaign::where('id','=',$insights->campaign_id)->first();   
+        //return $insights;
+        
+        return response()->json([$insights]); 
+         
+    } 
 
     public function get_insight(Request $request)
     {

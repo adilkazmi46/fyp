@@ -13,6 +13,7 @@ import { filter } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit { 
 
+  showMenu: string = ''; 
   isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(
     Breakpoints.Handset
 );
@@ -20,6 +21,7 @@ pushRightClass: string = 'push-right';
   tenant_name:string; 
   email:string;
   data=new Array();
+  
  
   constructor(private breakpointObserver: BreakpointObserver,private tenant_service:TenantService,private router:Router,private route: ActivatedRoute,) {
     this.router.events.subscribe(val => {
@@ -143,15 +145,25 @@ isToggled(): boolean {
   insights() 
   {
     
-    this.router.navigate(['insights'],
+    this.router.navigate(['insights_campaigns'],
     { relativeTo: this.route});
   }
-  
-  rss_to_emails() 
+  insights_rss() 
   {
+    
+    this.router.navigate(['insights_rss'],
+    { relativeTo: this.route});
+  }
+  rss_to_emails() 
+  { 
     
     this.router.navigate(['rss_to_emails'],
     { relativeTo: this.route});
+  }
+  upload_rss_feed(){
+    this.router.navigate(['rss_to_emails_upload'],{
+      relativeTo:this.route
+    });
   }
  
   
@@ -160,22 +172,29 @@ isToggled(): boolean {
     this.router.navigate(['image_gallery'],
     { relativeTo: this.route});
   }
-  dashboard_panel() 
+  upload_image()
   {
-    
+   
+    this.router.navigate(['image_upload'],{
+      relativeTo:this.route
+    });
+
+  }
+  dashboard_panel() 
+  {  
     this.router.navigate(['dashboard-panel'],
     { relativeTo: this.route}); 
   }
 
   getdata()
   {
-     
-
     if(this.router.url=='/ali@test.com/sample/dashboard-panel')
     {
       console.log("yes")
     }
+
   }
+
 
  
  side_nav(name)
@@ -266,7 +285,15 @@ isToggled(): boolean {
       relativeTo:this.route
     }); 
   }
- } 
+ }
+ 
+ addExpandClass(element: any) {
+  if (element === this.showMenu) {
+      this.showMenu = '0';
+  } else {
+      this.showMenu = element;
+  }
+}
 }
   
   

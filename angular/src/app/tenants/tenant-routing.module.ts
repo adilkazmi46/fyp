@@ -91,8 +91,8 @@ import { ImageGalleryIndexComponent } from '../functionalities/image-gallery-ind
       component:RssToEmailsComponent,
       
       }, 
-    {
-      path:'insights',
+    { 
+      path:'insights_campaigns',
       component:InsightsComponent,
       
     },

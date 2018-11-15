@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InsightsService } from '../../insights.service';
-import { forEach } from '@angular/router/src/utils/collection';
+
 
 
 @Component({ 

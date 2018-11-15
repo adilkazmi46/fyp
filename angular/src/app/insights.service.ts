@@ -17,5 +17,14 @@ export class InsightsService {
 
   }
 
+  get_index_rss(name)
+  {   
+    let data={
+      tenant_name:name
+    };
+  return this.http.post("http://localhost:8000/api/get_insights_rss",data);
+
+  }
+
     
 }

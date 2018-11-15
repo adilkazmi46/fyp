@@ -1,3 +1,9 @@
-<p>
-  insights-rss works!
-</p>
+<mat-card  class="template_card" *ngFor="let d of data">
+    
+    <mat-card-title class="over_flow"> 
+        {{d.rss_feed_id.name}} 
+    </mat-card-title>
+  <mat-card-content>
+    Open Rates {{d.open_rate}}
+  </mat-card-content>
+  </mat-card> 

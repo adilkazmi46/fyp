@@ -58,7 +58,7 @@ class CampaignController extends Controller
      $insight->tenant_id=$tenant->id;
      $insight->campaign_id=$campaign->id;
      $insight->open_rate=0; 
-     $insight->img_click=0; 
+     
      $insight->save();
     
      

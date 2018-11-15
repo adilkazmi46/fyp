@@ -16,14 +16,13 @@ class CreateInsightsTable extends Migration
         Schema::create('insights', function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('open_rate');
-            $table->bigInteger('img_click');
             $table->unsignedInteger('campaign_id')->nullable();
             $table->foreign('campaign_id')->references('id')->on('campaigns');
             $table->unsignedInteger('rss_feed_id')->nullable();
             $table->foreign('rss_feed_id')->references('id')->on('rss_feeds');
             $table->unsignedInteger('tenant_id'); 
             $table->foreign('tenant_id')->references('id')->on('tenants');
-            $table->timestamps();   
+            $table->timestamps();     
         });
     }  
  

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Auth;
 use App\Jobs\SendEmail;
 use App\Emails_list; 
+use App\Insight;
 class RssFeedController extends Controller
 {  
     // 
@@ -40,6 +41,12 @@ class RssFeedController extends Controller
             ['tenant_id','=',$tenant->id]
         ])->first();
   
+        $insight=new Insight();
+        $insight->tenant_id=$tenant->id;
+        $insight->rss_feed_id=$rss->id;  
+        $insight->open_rate=0; 
+        $insight->save();
+       
         
         $feed = Feeds::make($rss->feed_url,true); // if RSS Feed has invalid mime types, force to read
         $data = array(
