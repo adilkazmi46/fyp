@@ -67,7 +67,7 @@ class CampaignController extends Controller
       return response()->json([
         $template->html 
           ]);*/
-     $template->save();    
+     
  
      $html=$template->html;
      $campaign_name=$campaign->name;

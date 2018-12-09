@@ -13,7 +13,9 @@ import { EmailTemplateService } from '../../email-template.service';
 import { ImagesService } from '../../images.service';
 
  
+import * as $ from 'jquery';
 
+import 'jquery-ui/ui/widgets/draggable';
   
 
 
@@ -38,7 +40,9 @@ export class EmailTemplateComponent implements OnInit {
   templateform:FormGroup;
   name:FormControl;  
   data:any; 
-constructor(private image_service:ImagesService,private template_service:EmailTemplateService,private route:ActivatedRoute,private router:Router)  { } 
+constructor(private image_service:ImagesService,private template_service:EmailTemplateService,private route:ActivatedRoute,private router:Router)  { 
+  
+} 
   
 
     
@@ -57,7 +61,7 @@ constructor(private image_service:ImagesService,private template_service:EmailTe
       }
 
     );
-   // $( ".draggable" ).draggable();
+    
     this.templateform=new FormGroup({  
       'name' :new FormControl(null,[Validators.required,Validators.minLength(3),Validators.maxLength(25)])
         });
@@ -93,7 +97,13 @@ constructor(private image_service:ImagesService,private template_service:EmailTe
         console.error( error );
 
     } );  
+
     
+    $("#ck_img").draggable ({
+      helper : "clone"
+      
+   }); 
+   console.log("hello")
   }
 
 

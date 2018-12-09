@@ -27,23 +27,6 @@ class InsightController extends Controller
     }
 
 
-    public function update_campaign_image($tenant_id,$campaign_name)
-    {            
-        $tenant=Tenant::where('id','=',$tenant_id)->first();
-        $campaign=Campaign::where([
-            ['tenant_id','=',$tenant->id],
-            ['name','=',$campaign_name]
-            ])->first();
-        $insight=Insight::where([
-            ['tenant_id','=',$tenant->id],
-            ['campaign_id','=',$campaign->id]
-        ])->first();
-        $count=$insight->img_click; 
-        $count=$count+1;   
-        $insight->img_click=$count; 
-        $insight->save(); 
-   
-    }
 
  
     public function update_rss($tenant_id,$rss_id)
@@ -99,7 +82,8 @@ class InsightController extends Controller
 
         $insights=Insight::where([  
             ['tenant_id','=',$tenant->id ],
-            ['campaign_id','=',null]]  
+            ['campaign_id','=',null],
+            ]  
         )->get();   
          
         $rss_names=array();
