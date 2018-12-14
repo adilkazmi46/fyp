@@ -16,6 +16,7 @@ use App\Emails_list;
 */
 Route::post('user_authenticate','UserController@authenticate'); 
 Route::post('user_registration',['uses'=>'UserController@register']);
+
 Route::get('insights_update_campaign/{tenant_id}/{campaign_id}',['uses'=>'InsightController@update_campaign']);
 Route::get('insights_update_campaign_image/{tenant_id}/{campaign_name}',['uses'=>'InsightController@update_campaign_image']);
 Route::get('insights_update_rss/{tenant_id}/{rss_id}',['uses'=>'InsightController@update_rss']);

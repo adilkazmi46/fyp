@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root'  
 })
 export class UserService {
 
@@ -14,8 +14,9 @@ export class UserService {
    
   } 
 
-  public isAuthenticated(): boolean {
+  public isAuthenticated() {
     const token = JSON.stringify(localStorage.getItem('access_token'));
+
     console.log(token);
     // Check whether the token is expired and return
     // true or false
@@ -23,50 +24,13 @@ export class UserService {
   } 
    authenticate(user:User)  
    {   
-     return this.http.post('http://localhost:8000/api/user_authenticate',user).subscribe(  
-      (res:Response) => 
-    {  
-      this.set_token(res);
-      console.log(res); 
-      this.http.get('http://localhost:8000/api/get_email').subscribe
-      (
-        (res:Response)=>
-        {
-          this.set_email(res);
-        },
-        (err:Error)=>console.log(err)
- 
-      );
-    this.router.navigate([localStorage.getItem('email')]); 
-        
-  }    
-      ,  
-      (err:Error) => console.log(err), 
-    ); 
+     return this.http.post('http://localhost:8000/api/user_authenticate',user);
    }
 
     register(user:User)
    { 
     
-    return this.http.post('http://localhost:8000/api/user_registration',user).subscribe(  
-      (res : Response) =>   { 
-        this.set_token(res);     
-        
-        this.http.get('http://localhost:8000/api/get_email').subscribe
-        (
-          (res:Response)=>
-          { 
-            this.set_email(res);
-          },
-          (err:Error)=>console.log(err)
-  
-        );
-      console.log(res); 
-      this.router.navigate([localStorage.getItem('email')]);
-  },  
-      (err: Error) => console.log(JSON.stringify(err)) 
-         
-    ); 
+    return this.http.post('http://localhost:8000/api/user_registration',user);
    
    }
    
@@ -85,6 +49,18 @@ export class UserService {
    {
      console.log(email);
      localStorage.setItem('email',email); 
+   }
+   get_email()
+   {
+    this.http.get('http://localhost:8000/api/get_email').subscribe
+    (
+      (res:Response)=>
+      { 
+        this.set_email(res);
+      },
+      (err:Error)=>console.log(err)
+
+    );
    }
   
    social_auth(user) 
@@ -112,4 +88,14 @@ export class UserService {
    
    }
 
+   public isAuthenticated1() {
+    
+    if(localStorage.getItem('access_token')!=null&&localStorage.getItem('email')!=null&&this.jwtHelper.isTokenExpired(localStorage.getItem('access_token'))!=true)
+    {
+    return true;
+  }  
+  else{
+  return false; 
+  } 
+   }
 }

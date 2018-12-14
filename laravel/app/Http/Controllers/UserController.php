@@ -15,7 +15,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
- 
+   
+
+
+     
  
     public function authenticate(Request $request)
     {
@@ -30,10 +33,9 @@ class UserController extends Controller
 
             if ($validator->fails()) 
          { 
-            return response()->json([ 
-                $validator->errors() ,422 
-                
-            ]);
+            return response()->json([  
+              'error'=>  $validator->errors(),
+            ],422);
         }
  
     else{
@@ -45,7 +47,7 @@ class UserController extends Controller
 
             if(!$token){
 
-                return response()->json(['error'=>'invalid_credentials'],401);
+                return response()->json(['Invalid Credentials'],401);
                 
         	}  
 
@@ -53,7 +55,7 @@ class UserController extends Controller
         }
         catch(JWTException $e)
         {
-        	return response()->json(['error'=>'somthing_went_wrong'],500);
+        	return response()->json(['Somthing Went Wrong'],500);
         } 
       
    
@@ -85,24 +87,21 @@ class UserController extends Controller
             'password' => 'required|min:6|max:25|confirmed',  
   
             ]);
-
-        if ($validator->fails()) 
+  
+        if ($validator->fails())   
          { 
-            return response()->json([ 
-                $validator->errors() ,422
-                
-            ]);
+            return response()->json([$validator->errors()],401);
         }
         else{ 
       $email =$request->email;
       $name= $request->name;
       $password=bcrypt($request->password);
-
+ 
       
       try{
 
         $user =User::create([
-
+ 
             'name'=>$name, 
             'email'=>$email, 
             'password'=> $password,
@@ -111,13 +110,13 @@ class UserController extends Controller
         $token =JWTAuth::fromUser($user);
        
         if(!$token){
-            return response()->json(['error'=>'invalid_credentials'],401);
+            return response()->json(['invalid_credentials'],401);
         }
-
-       
+    
+        
        }catch(JWTException $e)      
         { 
-        	return response()->json(['error'=>'somthing_went_wrong'],500);
+        	return response()->json(['somthing_went_wrong'],500);
         
  
        }

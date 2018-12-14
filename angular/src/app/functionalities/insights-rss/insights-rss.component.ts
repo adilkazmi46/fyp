@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InsightsService } from '../../insights.service';
+import { Route } from '@angular/compiler/src/core';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-insights-rss',
   templateUrl: './insights-rss.component.html',
@@ -9,7 +11,7 @@ export class InsightsRssComponent implements OnInit {
 
   data:any;
   data1:any;
-  constructor(private insights_service:InsightsService) { }
+  constructor(private insights_service:InsightsService,private router:Router,private route:ActivatedRoute) { }
   
   ngOnInit() {
     
@@ -28,6 +30,13 @@ export class InsightsRssComponent implements OnInit {
       }
 
   );
+  }
+
+  onrss()
+  {
+  this.router.navigate(['rss_to_emails'],{
+    relativeTo:this.route.parent
+  });
   }
 
 }

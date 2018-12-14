@@ -40,6 +40,7 @@ export class EmailTemplateComponent implements OnInit {
   templateform:FormGroup;
   name:FormControl;  
   data:any; 
+  save_message:string='';
 constructor(private image_service:ImagesService,private template_service:EmailTemplateService,private route:ActivatedRoute,private router:Router)  { 
   
 } 
@@ -98,24 +99,21 @@ constructor(private image_service:ImagesService,private template_service:EmailTe
 
     } );  
 
-    
-    $("#ck_img").draggable ({
-      helper : "clone"
-      
-   }); 
-   console.log("hello")
   }
 
 
   
  
-    
    
   
   matcher = new MyErrorStateMatcher(); 
 
+  drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
 get_data()
 {
+  
 this.email_template ={  
    name:this.templateform.get('name').value,
 html:this.ckeditor_data.getData(),
@@ -140,7 +138,23 @@ subscribe(
 
 
 
+image_upload()
+{
+document.getElementById('modal_toggle').click();
 
+}   
+img_nav(x)
+{ 
+  if(x==true)
+  {
+    this.router.navigate(['image_upload'],
+    {relativeTo:this.route.parent});  
+  
+  }
+  else if(x==false)
+  {
+   }
+}
 }
 
   

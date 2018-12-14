@@ -37,7 +37,7 @@ import { ImageGalleryIndexComponent } from '../functionalities/image-gallery-ind
         canActivate:[AuthGuard],   
 
       },
-      
+        
       
       { 
         path:'EditBusiness',

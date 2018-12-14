@@ -5,3 +5,9 @@ mat-card{
     
     display: inline-block; 
 } 
+
+#c_n_c{
+    display:block;
+                 margin: 5%;
+                 margin-left:35%;
+}

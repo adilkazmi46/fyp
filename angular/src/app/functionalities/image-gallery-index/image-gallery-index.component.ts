@@ -104,4 +104,12 @@ getData()
      
 }
 
+
+onupload()
+{
+  this.router.navigate(['image_upload'],{
+    relativeTo:this.route.parent
+  });
 }
+}
+ 

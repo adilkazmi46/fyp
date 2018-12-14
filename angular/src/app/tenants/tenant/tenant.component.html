@@ -61,4 +61,36 @@
 </div>
 
 
+<button  style="display:none;"
+id="modal_toggle_err" type="button" class="btn btn-primary" 
+data-toggle="modal" data-target="#myModal">
+   Open modal
+ </button>      
 
+<div class="modal fade " id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <mat-card> 
+        <mat-card-title> 
+            <h3>Error</h3>
+        </mat-card-title>      
+       <mat-card-content> 
+           <p><strong>{{error_message}}</strong> </p><br>
+           <p><strong>{{error_message1}}</strong> </p>
+           
+       </mat-card-content>
+        <mat-card-actions class="modal-footer">
+          <button  mat-button type="button"  color="primary" type="button" data-dismiss="modal">Close</button>
+        </mat-card-actions>
+    </mat-card>  
+    
+      </div>
+    </div> 
+  </div>
+  
+ 
+
+
+
+
+  <mat-spinner style="margin:0 auto;" data-backdrop="true" data-back *ngIf="loader"></mat-spinner> 

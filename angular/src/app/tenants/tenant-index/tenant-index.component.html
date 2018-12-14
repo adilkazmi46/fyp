@@ -4,12 +4,46 @@
     
         <div *ngIf="show">          
           <mat-card  style="margin:2em;" id="index"  *ngFor="let tenant of tenants_collection">
-            <mat-card-header *ngIf="show">{{ tenant | titlecase }}</mat-card-header>
-    <mat-card-actions > 
-      <button mat-button color="primary" type="button" (click)="onOpen(tenant)">open</button>
-      <button mat-button color="primary" type="button" (click)="onDelete(tenant)">delete</button>  
-      <button mat-button color="primary" type="button" (click)="onEdit(tenant)">edit</button>
-    </mat-card-actions>
+            
+              
+    <mat-card-content *ngIf="show" > 
+        <a    color="primary" style="cursor:pointer;" (click)="onOpen(tenant)">{{ tenant | titlecase }}</a>
+    </mat-card-content>
+<mat-card-actions>
+          
+<button  mat-button id="modal_toggle" data-toggle="modal" data-target="#myModal" color="primary" type="button" ><mat-icon>delete</mat-icon></button>  
+
+<button  mat-button color="primary" type="button" (click)="onEdit(tenant)"><mat-icon>edit</mat-icon></button>
+
+</mat-card-actions>    
+       <!-- Button to Open the Modal -->
+  <button  style="display:none;" >
+      Open modal 
+    </button>       
+    <!-- The Modal -->
+    <div class="modal fade" data-backdrop="false" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        
+          <mat-card> 
+          <mat-card-title>
+              <h3>Delete Business</h3>
+          </mat-card-title>
+         <mat-card-content> 
+             Do you want to delete {{tenant | titlecase}} ??
+         </mat-card-content>
+  
+          
+          <mat-card-actions class="modal-footer">
+              <button (click)="onDelete(tenant)"  mat-button type="button"  color="primary" type="button" data-dismiss="modal">yes</button>
+            <button  mat-button type="button"  color="primary" type="button" data-dismiss="modal">no</button>
+          </mat-card-actions>
+      </mat-card>
+       
+        </div>
+      </div>
+    </div>
+    
         </mat-card>
       </div>
      

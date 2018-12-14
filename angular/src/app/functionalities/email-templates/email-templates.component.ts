@@ -79,5 +79,10 @@ this.getData();
 
  }
 
+ oncreate()
+ {
+   this.router.navigate(['email_template_editor'],
+   {relativeTo:this.route.parent})
+ }
 
 }

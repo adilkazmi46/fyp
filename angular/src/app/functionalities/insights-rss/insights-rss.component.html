@@ -1,3 +1,6 @@
+<h1>
+  RSS Feed Insights
+</h1>
 <mat-card  class="template_card" *ngFor="let d of data">
     
     <mat-card-title class="over_flow"> 
@@ -7,3 +10,5 @@
     Open Rates {{d.open_rate}}
   </mat-card-content>
   </mat-card> 
+
+  <button id="c_n_c" (click)="onrss()" mat-button color="primary">Rss feeds</button>

@@ -24,6 +24,7 @@ import {
 } from "angular-6-social-login";
 
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
+import { Auth1Guard } from './auth1.guard';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig( 
@@ -72,12 +73,14 @@ export function getAuthServiceConfigs() {
     RouterModule.forRoot([
     {
       path:'signin',
-      component:SigninComponent
-
+      component:SigninComponent,
+      canActivate:[Auth1Guard]
+      
     }, 
     {
       path:'signup',
-      component:SignupComponent
+      component:SignupComponent,
+      canActivate:[Auth1Guard]
 
     },  
     { 
@@ -114,8 +117,9 @@ export function getAuthServiceConfigs() {
     MatListModule,
     MatGridListModule,
     MatCardModule,
-    MatMenuModule, 
+    MatMenuModule,   
     TranslateModule,
+    MaterialModule
     
   ],
   providers: [AuthGuard,UserService, {

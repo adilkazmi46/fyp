@@ -18,7 +18,8 @@
             padding: 40px;
             background: #fff;
             width: 500px;
-            box-shadow: 0 0 10px #ddd;
+            max-height: 550px;
+            box-shadow: 0 0 10px #ddd; 
             input:-webkit-autofill {
                 -webkit-box-shadow: 0 0 0 30px white inset;
             }

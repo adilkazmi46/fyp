@@ -6,12 +6,13 @@ import { FormControl, FormGroup, Validators, Validator} from '@angular/forms';
 import { FormGroupDirective, NgForm } from '@angular/forms';
 
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 
 import {AbstractControl} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import { JsonPipe } from '@angular/common';
 
 
 
@@ -42,12 +43,14 @@ export class RssToEmailsComponent implements OnInit {
   url:FormControl;  
   name_new:FormControl;
   url_new:FormControl;
-
+  error_message:any;
+  show:boolean=false;
   
-  constructor(private feed_service:RssFeedsService) { }
+  constructor(private feed_service:RssFeedsService,private router:Router,private route:ActivatedRoute) { }
 
  
   ngOnInit() {
+    this.show=true;
     this.rssform= new FormGroup(
       {
         'name':new FormControl(null,[Validators.required,Validators.maxLength(25),Validators.minLength(3)]),
@@ -62,86 +65,48 @@ export class RssToEmailsComponent implements OnInit {
         ); 
 
         this.getData();
-  }
-
-  ondelete(name)
-  {
-this.feed_service.rss_feed_delete(name).subscribe(
-  (res:Response)=>
-  {
-    console.log(res)
-  },
-  (err:Error)=>{
-    console.log(err)
-  }
-);
-
-this.getData()
-
-  }
- 
-  onedit()
-  {
-   this.feed_service.rss_feed_update(this.value_name_new,this.value_name_old,this.value_url_new,this.value_url_old).subscribe
-   (
-     (res:Response)=>{
-       console.log(res)  
-     },
-     (err:Response)=>{
-       console.log(err)
-     } 
-   );
-
-   
-   this.getData();
-   
-  } 
-
-  oncreate(name,url)
-  {
-    this.feed_service.rss_feed_create(name,url).subscribe(
-      (res:Response)=>
-      {
-        console.log(res)
-      },
-      (err:Error)=>{  
-        console.log(err)
-      }
-    ); 
-    this.rssform.reset();
-    this.getData();
+        this.show=false;
   }
 
   
-  sendemails(name)
-  {
-    this.feed_service.rss_feed_reader(name).subscribe(
-      (res:Response)=>
-      {
-        console.log(res)
-      },
-      (err:Error)=>{
-        console.log(err)
-      }
-    );
-    
-  }
-
 
   onSubmit()
   {
+    this.show=true;
     this.feed_service.rss_feed_create(this.rssform.get('name').value,this.rssform.get('url').value).subscribe
     (
-      (res:Response)=>{
-        console.log(res)
-      },
+      (res)=>{
+        if(res==true)
+        {
+       this.router.navigate(['rss_to_emails'],{
+         relativeTo:this.route.parent
+       })
+        }
+        else{
+          if(res[0].feed_url!=null)
+          {
+          this.error_message=res[0].feed_url;
+          } 
+          else{
+            this.error_message="something went wrong";
+          }
+      
+          document.getElementById("modal_toggle").click();
+                
+              }
+              console.log(res[0].feed_url)
+},
       (err:Error)=>
-      {
-        console.log(err) 
+      {  
+        
+        this.error_message=err;
+        document.getElementById("modal_toggle").click();
       }
     );
 
+    this.rssform.reset();
     this.getData();
+    this.show=false;
   }
 
 
@@ -169,7 +134,7 @@ this.getData()
     );
   
   }
-
+ 
 
 
 }

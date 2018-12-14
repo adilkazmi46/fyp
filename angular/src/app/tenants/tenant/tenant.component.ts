@@ -27,11 +27,14 @@ export class TenantComponent implements OnInit {
   value_name='';
   tenant:Tenant; 
   url="/"+localStorage.getItem('email');
+  error_message:any;
+  error_message1:any;
+  loader:boolean=false;
   constructor(private router:Router,private tenant_service:TenantService,private user_service:UserService) { }
 
  
   ngOnInit() { 
-     
+     this.loader=false;
     this.tenant_form=new FormGroup( 
       {
           'name':new FormControl(null,[Validators.required,
@@ -49,11 +52,35 @@ export class TenantComponent implements OnInit {
    
   onAdd_Business()
    {
+     this.loader=true;
     this.tenant ={ name:this.tenant_form.get('name').value};
-    this.tenant_service.create_tenant(this.tenant);  
+    this.tenant_service.create_tenant(this.tenant).subscribe(
+      (res:Response)=> 
+      {
+        this.loader=false;
+          this.tenant_service.set_tenant(res);
+          this.router.navigate([localStorage.getItem('email'),localStorage.getItem('tenant_name')]);
+
+      },
+      (err) => {
+       
+        this.loader=false;  
+        if(err.error[0].name!=undefined||err.error[0].name!=null)
+        {   
+        this.error_message1=err.error[0].name;
+        }    
+       
+        if(typeof(err)!='object')
+        {
+          console.log(typeof(err))   
+          this.error_message=err;
+        }
+        document.getElementById('modal_toggle_err').click();
+      }
+    );;  
 
 }
-onBack()
+onBack() 
 {
   this.router.navigate([localStorage.getItem('email')]);
 }
@@ -61,7 +88,7 @@ onBack()
   onLogout()
   {
     console.log("a ")
-    this.user_service.logout();
+    this.user_service.logout(); 
   }
   
   tenant_signout() 

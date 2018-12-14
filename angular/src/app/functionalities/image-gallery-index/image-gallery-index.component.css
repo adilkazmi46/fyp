@@ -16,4 +16,8 @@ mat-spinner {
     text-align: left;
   }  
 
-  
+  #c_n_c{
+    display:block;
+                 margin: 5%;
+                 margin-left:35%;
+}

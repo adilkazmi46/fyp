@@ -24,6 +24,9 @@ export class EditTenantComponent implements OnInit {
   tenant_name:FormControl; 
   value_name='';
   tenant:Tenant; 
+  error_message:any;
+  error_message1:any;
+  loader:boolean=false;
   url="/"+localStorage.getItem('email');
   constructor(private router:Router,
     private tenant_service:TenantService,
@@ -53,7 +56,31 @@ export class EditTenantComponent implements OnInit {
 
     this.tenant ={ name:this.tenant_form.get('name').value};
 
-    this.tenant_service.update_tenant(this.tenant);
+    this.tenant_service.update_tenant(this.tenant).
+    subscribe(
+      (res:Response)=>
+      { 
+        console.log(res)
+        localStorage.setItem('tenant_name',this.tenant.name);  
+        this.router.navigate([localStorage.getItem('email')]);
+         
+      },
+      (err)=>
+      {
+        this.loader=false;  
+        if(err.error[0].name!=undefined||err.error[0].name!=null)
+        {   
+        this.error_message1=err.error[0].name;
+        }    
+       
+        if(typeof(err)!='object')
+        {
+          console.log(typeof(err))   
+          this.error_message=err;
+        }
+        document.getElementById('modal_toggle_err').click();
+      }
+    ); 
 
 }
 

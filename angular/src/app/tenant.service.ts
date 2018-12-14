@@ -16,19 +16,9 @@ export class TenantService {
 
   create_tenant(tenant:Tenant)
   {
-    return this.http.post('http://localhost:8000/api/tenant_create',tenant).
-    subscribe(
-      (res:Response)=> 
-      {
-          this.set_tenant(res);
-          this.router.navigate([localStorage.getItem('email'),localStorage.getItem('tenant_name')]);
-
-      },
-      (err:Error) => console.log(err),   
-
-    );
+    return this.http.post('http://localhost:8000/api/tenant_create',tenant);
   }
-
+   
   get_tenant_dashboard(tenant:Tenant)
   {
     return this.http.post('http://localhost:8000/api/tenant_read',tenant).
@@ -47,18 +37,7 @@ export class TenantService {
     {
       var tenant:Tenant;
       tenant=new_name;
-      return this.http.put('http://localhost:8000/api/tenant_update/'+localStorage.getItem('old_name'),tenant).
-      subscribe(
-        (res:Response)=>
-        { 
-          console.log(new_name) 
-          localStorage.setItem('tenant_name',new_name);  
-          this.router.navigate([localStorage.getItem('email')]);
-           
-        },
-        (err:Error)=>console.log(err)
-      ); 
-   
+      return this.http.put('http://localhost:8000/api/tenant_update/'+localStorage.getItem('old_name'),tenant);
     }
     delete_tenant(tenant_name)   
     {

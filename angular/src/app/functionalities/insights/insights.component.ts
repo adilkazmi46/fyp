@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { InsightsService } from '../../insights.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
-
+ 
 @Component({ 
   selector: 'app-insights',
   templateUrl: './insights.component.html',
@@ -12,7 +13,7 @@ export class InsightsComponent implements OnInit {
  data:any;
  data1:any;
  
-  constructor(private insights_service:InsightsService) { }
+  constructor(private insights_service:InsightsService,private router:Router,private route:ActivatedRoute) { }
   
   ngOnInit() {
     
@@ -33,4 +34,10 @@ export class InsightsComponent implements OnInit {
   );
   }
 
+oncampaign()
+{
+  this.router.navigate(['create_campaign'],{
+    relativeTo:this.route.parent
+  });
+}
 }

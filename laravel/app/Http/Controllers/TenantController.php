@@ -8,6 +8,14 @@ use App\Tenant;
 use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Emails_list;
+use App\EmailTemplate;
+
+use App\Insight;
+use App\Rss_feed;
+use App\Campaign;
+use App\Image;
+
  
 class TenantController extends Controller
 {
@@ -64,7 +72,7 @@ class TenantController extends Controller
             return response()->json([ 
                 $validator->errors() ,
                 
-            ]);
+            ],422);
         }
   else{ 
         
@@ -74,7 +82,7 @@ class TenantController extends Controller
         $tenant->save(); 
         return response()->json([$tenant->name]);
  
-    }
+    } 
 
 }
 
@@ -86,7 +94,7 @@ class TenantController extends Controller
      */
     public function read(Request $request)
     {  
-  
+   
         $tenant=Tenant::where([
             ['name','=',$request->name],
             ['user_email','=',Auth::User()->email]
@@ -115,9 +123,9 @@ class TenantController extends Controller
                if ($validator->fails()) 
             { 
                return response()->json([ 
-                   $validator->errors() ,422   
+                   $validator->errors()    
                    
-               ]);
+               ],422);
            }
 
            else{  
@@ -147,9 +155,36 @@ class TenantController extends Controller
             ['name','=',$name],
             ['user_email','=',Auth::User()->email]
         ])->first();
-        $tenant->delete();
+        
+        Insight::where([
+            ['tenant_id','=',$tenant->id]
+            ])->delete();    
+        Campaign::where([
+        ['tenant_id','=',$tenant->id],
+        ])->delete();
+        
+        Emails_list::where([
+            ['tenant_id','=',$tenant->id]
+            ])->delete();
+        
+        EmailTemplate::where([
+                ['tenant_id','=',$tenant->id]
+                ])->delete();    
+                
+        
+        Image::where([
+                    ['tenant_id','=',$tenant->id]
+                    ])->delete();  
+         
+                        
+        
+        Rss_feed::where([
+                            ['tenant_id','=',$tenant->id]
+                            ])->delete();
+
+                            $tenant->delete();
         return response()->json(["deleted successfully"]);
  
     }
 }
-   
+    

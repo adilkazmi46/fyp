@@ -51,14 +51,18 @@ export class SignupComponent implements OnInit  {
   password:FormControl;
   password_confirmation:FormControl;
   user:User;
-     
+  error_message:any;
+  error_message1:any;
+  error_message2:any;
+  error_message3:any;
+loader:boolean=false;     
   constructor(private socialAuthService: AuthService,private router:Router,private user_service:UserService) { }
   
  
  
   
   ngOnInit() {
-
+this.loader=false;
     this.signupform = new FormGroup({
 
       'name' :new FormControl(null,[Validators.required,Validators.minLength(3),Validators.maxLength(25)]),
@@ -84,6 +88,7 @@ export class SignupComponent implements OnInit  {
  
  ngOnDestroy()    
  {
+   this.loader=true;
    this.router.navigate(['signin'])
   }
 
@@ -93,7 +98,11 @@ export class SignupComponent implements OnInit  {
  
   onSubmit()
   {
-
+  this.loader=true;
+  if(this.value_pwd!=this.value_pwdc){
+    this.error_message="password missmatch with password confirmation";
+    return true;  
+  }
     this.user ={
     name:this.signupform.get('name').value ,
     email:this.signupform.get('email').value, 
@@ -101,11 +110,44 @@ export class SignupComponent implements OnInit  {
     password_confirmation:this.signupform.get('password_confirmation').value,
     };
 
-     console.log(this.user.email);
-     console.log(this.user.password); 
-     console.log(this.user.name); 
+    
        
-    this.user_service.register(this.user);
+    this.user_service.register(this.user).subscribe(  
+      (res:Response) =>   { 
+        this.loader=false;
+        this.user_service.set_token(res);     
+      this.user_service.get_email();
+      this.router.navigate([localStorage.getItem('email')]);
+      },  
+      (err) => {
+        console.log(err.error[0]);
+        this.loader=false;  
+        if(err.error[0].email!=undefined||err.error[0].email!=null)
+        {   
+        this.error_message1=err.error[0].email;
+        }
+        if(err.error[0].name!=undefined||err.error[0].name!=null)
+        {   
+        this.error_message2=err.error[0].name;
+        }
+        if(err.error[0].password!=undefined||err.error[0].password!=null)
+        {   
+        this.error_message3=err.error[0].password;
+        }
+        if(typeof(err)!='object')
+        {
+          console.log(typeof(err))  
+          this.error_message=err;
+        }
+          
+           
+
+            
+           document.getElementById('modal_toggle').click();
+            
+      } ,
+         
+    ); 
     
   } 
   

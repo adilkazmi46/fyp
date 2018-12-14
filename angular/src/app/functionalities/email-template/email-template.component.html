@@ -1,4 +1,6 @@
+<h1>Template Editor</h1>
 <div class="row">
+
 <div class="col-md-10 ">
  
   <div id="toolbar-container"></div>
@@ -10,19 +12,21 @@
     </div>
     
     <div class="col-md-2" > 
-    <h1 color="primary">Images</h1>
-<br>
-    <div  class="draggable" *ngFor="let d of data" 
-    id="ck_img"  >      
-      <img src="http://localhost:8000{{d[1]}}" />
+    <h1 color="primary">Images</h1>     
+<br> 
+    <div   *ngFor="let d of data" 
+     >      
+      <img class="draggable" 
+       id="ck_img"  src="http://localhost:8000{{d[1]}}" />
     </div>
+    <a mat-button (click)="image_upload()" style="cursor: pointer;">upload image</a>
 
   </div>
   
   <div class="col-md-12"></div>
   <div class="col-md-12"></div>
   <div class="col-md-12"></div> 
-  <div class="col-md-12"></div>
+  <div class="col-md-12"></div> 
   <div class="col-md-12"></div>  
 
 <div class="col-md-6 " style="margin:1%;">
@@ -56,5 +60,29 @@
           </div>
 
      
+   
  
-  
+          <button  style="display:none;" id="modal_toggle" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+              Open modal
+            </button>       
+            <!-- The Modal --> 
+            <div class="modal fade" data-backdrop="false" id="myModal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                
+                  <mat-card> 
+                  <mat-card-title>
+                      <h3>Do you want to continue without saving it??</h3>
+                  </mat-card-title>
+               
+                  
+                  <mat-card-actions class="modal-footer">
+                    <button  mat-button type="button" (click)="img_nav(true)" color="primary" type="button" data-dismiss="modal">Yes</button>
+                    <button  mat-button type="button" (click)="img_nav(false)" color="primary" type="button" data-dismiss="modal">No</button>
+                  </mat-card-actions>
+              </mat-card>
+              
+                </div>
+              </div>
+            </div>
+            

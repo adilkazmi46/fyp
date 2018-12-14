@@ -90,8 +90,8 @@ class RssFeedController extends Controller
         if($validator->fails())
         {
             return response()->json([
-              $validator->errors()
-            ]);
+              $validator->errors()    
+            ]); 
         }
         else{
         $tenant=Tenant::where([

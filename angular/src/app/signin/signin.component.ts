@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl,FormGroup,Validators } from '@angular/forms';
 
 
-import { Router } from '@angular/router';
-
+import { Router,NavigationStart } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import {AbstractControl} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 
@@ -16,6 +16,7 @@ import {
   FacebookLoginProvider,
   GoogleLoginProvider
 } from 'angular-6-social-login';
+import { error } from 'protractor';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -32,8 +33,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class SigninComponent implements OnInit {
   signinform: FormGroup;
   user:User; 
- 
-   
+  loader:boolean=true;
+  error_message:any;
   email:FormControl;
   password:FormControl;
   
@@ -46,7 +47,8 @@ export class SigninComponent implements OnInit {
   constructor(private socialAuthService: AuthService,private router:Router,private user_service:UserService) { }
 
   ngOnInit() {
- 
+   
+    this.loader=false;
     this.signinform = new FormGroup({
       
       'email' :new FormControl(null,[Validators.required,Validators.email]),
@@ -62,14 +64,31 @@ export class SigninComponent implements OnInit {
   
   ngOnDestroy()
   {
-    this.router.navigate(['signup'])
+    this.loader=true;
+    this.router.navigate(['signup']);
   }
   onSubmit()
   {  
     
+    this.loader=true;
     this.user ={ email:this.signinform.get('email').value, password:this.signinform.get('password').value};
-    this.user_service.authenticate(this.user);      
-  
+    this.user_service.authenticate(this.user).subscribe(  
+      (res:Response) => 
+    {   
+    
+      this.user_service.set_token(res);
+      
+      this.user_service.get_email();
+    this.router.navigate([localStorage.getItem('email')]); 
+       }   ,  
+      (err) => {
+        console.log(err.error)
+        this.loader=false;
+        this.error_message=err.error;
+        document.getElementById("modal_toggle").click();
+      },  
+    ); 
+         
   }
  
    

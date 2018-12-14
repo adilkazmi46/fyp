@@ -21,6 +21,32 @@ export class TenantIndexComponent implements OnInit {
   
   ngOnInit() {
     
+      this.getdata();
+  }
+  
+  onOpen(tenant)
+  {   
+  localStorage.setItem('tenant_name',tenant);
+  this.router.navigate([localStorage.getItem('email'),localStorage.getItem('tenant_name')])
+  }
+   
+  onDelete(tenant)
+  {  
+    
+    this.tenant_service.delete_tenant(tenant);
+    this.getdata();
+     
+
+  }
+
+  onEdit(tenant)
+  {
+    localStorage.setItem('old_name',tenant); 
+   this.router.navigate([localStorage.getItem('email'),'EditBusiness']);
+  }
+ 
+  getdata()
+  {
     this.tenant_service.tenant_index().subscribe(
       (tenants :Tenant)=>
       {  
@@ -34,28 +60,8 @@ export class TenantIndexComponent implements OnInit {
         } 
         console.log(this.tenants_collection); 
       }, 
-    )  
-  }
-  
-  onOpen(tenant)
-  {   
-  localStorage.setItem('tenant_name',tenant);
-  this.router.navigate([localStorage.getItem('email'),localStorage.getItem('tenant_name')])
-  }
-   
-  onDelete(tenant)
-  {  
-    console.log(tenant);
-    this.tenant_service.delete_tenant(tenant);
-     this.ngOnInit();
-
-  }
-
-  onEdit(tenant)
-  {
-    localStorage.setItem('old_name',tenant); 
-   this.router.navigate([localStorage.getItem('email'),'EditBusiness']);
-  }
+    )
+  } 
 
 }
    

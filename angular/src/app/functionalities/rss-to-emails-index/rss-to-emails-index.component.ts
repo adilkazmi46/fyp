@@ -7,7 +7,7 @@ import { FormControl, FormGroup, Validators, Validator} from '@angular/forms';
 import { FormGroupDirective, NgForm } from '@angular/forms';
 
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 
@@ -38,7 +38,7 @@ export class RssToEmailsIndexComponent implements OnInit {
   name_new:FormControl;
   url_new:FormControl;
   data:any;
-  constructor(private feed_service:RssFeedsService) { }
+  constructor(private feed_service:RssFeedsService,private router:Router,private route:ActivatedRoute) { }
 
  
   ngOnInit() {
@@ -125,4 +125,10 @@ this.getData()
     
   }
 
+  onupload()
+{
+  this.router.navigate(['rss_to_emails_upload'],{
+    relativeTo:this.route.parent
+  });
+}
 }
