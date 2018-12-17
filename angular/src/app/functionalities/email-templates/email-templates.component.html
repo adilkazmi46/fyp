@@ -5,28 +5,15 @@
         {{ d.name }} 
     </mat-card-title>
     <mat-card-actions >  
-            <button  mat-button color="primary" attr.id={{d.name}} type="button"  data-toggle="modal" attr.data-target='#{{d.id}}' >
+            <!--------button  mat-button color="primary" attr.id={{d.name}} type="button"  data-toggle="modal" attr.data-target='#{{d.id}}' >
                     open   
-                  </button> 
+                  </button---> 
                     
-                  <div class="modal" data-backdrop="false" attr.id={{d.id}}>
-                      <mat-card>  
-                          <mat-card-title> 
-                        <div class="modal__header">{{d.name}}</div>
-                    </mat-card-title>  
-                    <mat-card-content>
-                        <div class="modal__content">
-                        <div id="html_content" [innerHTML]="d.html | myPipe"></div>
-                        </div>
-                    </mat-card-content> 
-                    <mat-card-actions>
-                        <div class="modal__footer">
-                                <button  mat-button type="button"  color="primary" type="button" data-dismiss="modal">Close</button>
-                        </div>
-                    </mat-card-actions>
-                    </mat-card>  
-                    </div>
-       
+            <a  mat-button color="primary" (click)="view_template(d.name)" >
+                    open   
+            </a> 
+            
+        
                     <!---- <button mat-button (click)="onedit(d.name)" color="primary" type="button">edit</button>-->
                     <button mat-button id="modal_toggle3" type="button"  color="primary" data-toggle="modal" attr.data-target="#modal{{d.name}}">Delete</button>
                     <div class="modal fade" data-backdrop="false" attr.id="modal{{d.name}}">
@@ -53,3 +40,30 @@
 </mat-card>   
 
 <button id="c_n_c" (click)="oncreate()" mat-button color="primary">create new template</button>
+<button  style="display:none;"
+ id="modal_toggle_err" type="button" class="btn btn-primary" 
+ data-toggle="modal" data-target="#myModal_err">
+    Open modal
+  </button>      
+  <!-- The Modal -->
+  <div class="modal fade " data-backdrop="false"  id="myModal_err">
+    <div class="modal-dialog">
+      <div class="modal-content">  
+        <mat-card> 
+        <mat-card-title> 
+            <h3>Error</h3>
+        </mat-card-title>   
+       <mat-card-content> 
+           <p><strong>{{error_message}}</strong> </p>
+       </mat-card-content>
+        <mat-card-actions class="modal-footer"> 
+          <button  mat-button type="button"  color="primary" type="button" data-dismiss="modal">Close</button>
+        </mat-card-actions>
+    </mat-card>
+    
+      </div>
+    </div>
+  </div>
+  
+
+            

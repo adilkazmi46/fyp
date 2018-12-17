@@ -26,16 +26,24 @@ class RssFeedController extends Controller
         {
             return response()->json([
               $validator->errors()
-            ]); 
+            ],422); 
         }
         else{ 
              
-    $tenant=Tenant::where([
+    if(Tenant::where([
+                ['name','=',$request->tenant_name],
+                ['user_email','=',Auth::User()->email]
+            ])->exists()==false)
+{
+    return response()->json(['Invalid Business'],422);
+}    
+             
+            $tenant=Tenant::where([
                 ['name','=',$request->tenant_name],
                 ['user_email','=',Auth::User()->email]
             ])->first();
     
-        
+            
         $rss=Rss_feed::where([
             ['name','=',$request->name],
             ['tenant_id','=',$tenant->id]
@@ -91,14 +99,40 @@ class RssFeedController extends Controller
         {
             return response()->json([
               $validator->errors()    
-            ]); 
+            ],422); 
         }
         else{
+            if(Tenant::where([
+                ['name','=',$request->tenant_name],
+                ['user_email','=',Auth::User()->email]
+            ])->exists()==false)
+{
+    return response()->json(['Invalid Business'],422);
+}    
+    
+
         $tenant=Tenant::where([
             ['name','=',$request->tenant_name],
             ['user_email','=',Auth::User()->email]
         ])->first();
 
+        
+if(Rss_feed::where([
+    ['name','=',$request->name],
+    ['tenant_id','=',$tenant->id]
+])->exists()==true)
+{
+return response()->json(['Rss Feed name already exits'],422);
+}
+
+
+if(Rss_feed::where([
+    ['feed_url','=',$request->feed_url],
+    ['tenant_id','=',$tenant->id]
+])->exists()==true)
+{
+return response()->json(['Rss Feed url already exits'],422);
+} 
         $rss_feed=new Rss_feed;
         $rss_feed->tenant_id=$tenant->id;
         $rss_feed->feed_url=$request->feed_url;
@@ -113,7 +147,14 @@ class RssFeedController extends Controller
     }
     public function rss_read($tenant_name)
     {
-        
+        if(Tenant::where([
+            ['name','=',$tenant_name],
+            ['user_email','=',Auth::User()->email]
+        ])->exists()==false)
+{
+return response()->json(['Invalid Business'],422);
+}    
+
  
         $tenant=Tenant::where([
             ['name','=',$tenant_name],
@@ -132,6 +173,14 @@ class RssFeedController extends Controller
 
     public function rss_update(Request $request)
     {
+        if(Tenant::where([
+            ['name','=',$request->tenant_name],
+            ['user_email','=',Auth::User()->email]
+        ])->exists()==false)
+{
+return response()->json(['Invalid Business'],422);
+}    
+
         $validator=Validator::make($request->all(),[
             'tenant_name' => 'required',
             'feed_url_old'    =>  'required|url',
@@ -145,9 +194,18 @@ class RssFeedController extends Controller
         {
             return response()->json([
               $validator->errors()
-            ]);
+            ],422);
         }
         else{
+            
+            if(Tenant::where([
+                ['name','=',$request->tenant_name],
+                ['user_email','=',Auth::User()->email]
+            ])->exists()==false)
+{
+    return response()->json(['Invalid Business'],422);
+}    
+ 
         $tenant=Tenant::where([
             ['name','=',$request->tenant_name],
             ['user_email','=',Auth::User()->email]
@@ -176,6 +234,14 @@ class RssFeedController extends Controller
     public function rss_delete(Request $request)
     {
        
+        if(Tenant::where([
+            ['name','=',$request->tenant_name],
+            ['user_email','=',Auth::User()->email]
+        ])->exists()==false)
+{
+return response()->json(['Invalid Business'],422);
+}    
+
         $tenant=Tenant::where([
             ['name','=',$request->tenant_name],
             ['user_email','=',Auth::User()->email]
@@ -185,7 +251,19 @@ class RssFeedController extends Controller
             ['tenant_id','=',$tenant->id],
             ['name','=',$request->name]
         ])->first();
-        
+
+         if(Insight::where([
+            ['tenant_id','=',$tenant->id],
+            ['rss_feed_id','=',$rss_feed->id]
+        ])->exists()==true
+)
+{        $insight=Insight::where([
+            ['tenant_id','=',$tenant->id],
+            ['rss_feed_id','=',$rss_feed->id]
+        ])->first();
+
+        $insight->delete();
+}
         $rss_feed->delete(); 
          
         return response()->json([

@@ -76,30 +76,15 @@ export class RssToEmailsComponent implements OnInit {
     this.feed_service.rss_feed_create(this.rssform.get('name').value,this.rssform.get('url').value).subscribe
     (
       (res)=>{
-        if(res==true)
-        {
+        
        this.router.navigate(['rss_to_emails'],{
          relativeTo:this.route.parent
-       })
-        }
-        else{
-          if(res[0].feed_url!=null)
-          {
-          this.error_message=res[0].feed_url;
-          } 
-          else{
-            this.error_message="something went wrong";
-          }
-      
-          document.getElementById("modal_toggle").click();
-                
-              }
-              console.log(res[0].feed_url)
-},
-      (err:Error)=>
+       });
+        },
+      (err)=>
       {  
         
-        this.error_message=err;
+        this.error_message=err.error;
         document.getElementById("modal_toggle").click();
       }
     );
@@ -110,8 +95,8 @@ export class RssToEmailsComponent implements OnInit {
   }
 
 
-  setvalue(name,url){
-    this.value_name_old=name;
+  setvalue(name,url){ 
+    this.value_name_old=name; 
     this.value_url_old=url;
     this.value_name_new=name;
     this.value_url_new=url;

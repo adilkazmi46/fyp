@@ -3,7 +3,7 @@
 <mat-card    *ngFor="let d of data"  class="image">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{d[0]}}</mat-card-title>
+    <mat-card-title style="color:#3F51B5;">{{d[0]}}</mat-card-title>
   </mat-card-header> 
 
 <img mat-card-image id="output" style="object-fit:cover; " src="http://localhost:8000{{d[1]}}" /> 
@@ -11,7 +11,7 @@
   <mat-card-actions>        
     <button (click)="onDelete_modal(d[0])"  mat-button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Delete</button>
   </mat-card-actions>  
-</mat-card> 
+</mat-card>  
 
 <div class="modal fade" data-backdrop="false" id="myModal">
     <div class="modal-dialog">

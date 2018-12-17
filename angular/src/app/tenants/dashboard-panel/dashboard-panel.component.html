@@ -1,1 +1,112 @@
-<h1>dashboard</h1>
+<h1 style="color:#3F51B5;">Dashboard</h1>
+
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title >Email Templates</mat-card-title>
+      
+    </mat-card-header>
+    
+    <mat-card-content>
+      <p>
+       Design and save your email templates and send them through email
+       by strating an campaign
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button color="primary" (click)="templates()">Email Templates</a>
+      <a mat-button color="primary" (click)="template_editor()">Email Template Editor</a>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Campaign</mat-card-title>
+      
+    </mat-card-header>
+    
+    <mat-card-content>
+      <p>
+     Select your email template and  send your emails to the all the contacts .
+
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button color="primary" (click)="campaigns()">Campaigns</a>
+      <a mat-button color="primary" (click)="new_campaigns()">Create New Campaign</a>
+      
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Rss Feed</mat-card-title>
+      
+    </mat-card-header>
+    
+    <mat-card-content>
+      <p>
+       Upload  rss feed url of website and send the latest website content to all the contacts 
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button color="primary" (click)="rss_feeds()">RSS Feeds</a>
+      <a mat-button color="primary" (click)="upload_rss()">Upload RSS Feed URL</a>
+      
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Insights</mat-card-title>
+      
+    </mat-card-header>
+    
+    <mat-card-content>
+      <p>
+       Insights will tell you that how many users opened your emails
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button color="primary" (click)="campaigns_insights()">Campaigns</a>
+      <a mat-button color="primary" (click)="rss_insights()()">RSS Feeds</a>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title >Import Contacts</mat-card-title>
+      
+    </mat-card-header>
+    
+    <mat-card-content>
+      <p>
+       Import the emails contact to which you want 
+       to send your emails 
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button color="primary" (click)="import_contacts()">Import Contacts</a>
+      
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title >Images</mat-card-title>
+      
+    </mat-card-header>
+    
+    <mat-card-content>
+      <p>
+       Upload  the images so that you 
+       can use them in your email templates
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button color="primary" (click)="upload_images()">Upload Image</a>
+      <a mat-button color="primary" (click)="images()">Images</a>
+    </mat-card-actions>
+  </mat-card>

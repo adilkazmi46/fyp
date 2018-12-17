@@ -22,6 +22,7 @@ import { SidenavGuard } from '../sidenav.guard';
 import { InsightsRssComponent } from '../functionalities/insights-rss/insights-rss.component';
 import { RssToEmailsIndexComponent } from '../functionalities/rss-to-emails-index/rss-to-emails-index.component';
 import { ImageGalleryIndexComponent } from '../functionalities/image-gallery-index/image-gallery-index.component';
+import { ViewtemplateComponent } from '../functionalities/viewtemplate/viewtemplate.component';
 
 @NgModule({
   imports: [  
@@ -105,12 +106,17 @@ import { ImageGalleryIndexComponent } from '../functionalities/image-gallery-ind
     {
       path:'email_template_editor',
       component:EmailTemplateComponent,
-      
+       
     },
     
     {
       path:'email_templates',
       component:EmailTemplatesComponent,
+      
+    }, 
+    {
+      path:'email_template/:name',
+      component:ViewtemplateComponent,
       
     }, 
     {

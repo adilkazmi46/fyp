@@ -1,16 +1,53 @@
 <h1 style="color:#3F51B5;">Campaigns</h1>
 
 <mat-card  class="template_card" *ngFor="let d of data">
-    <mat-card-title class="over_flow">
-      <a  color="primary" attr.id={{d.name}}>{{ d.name }}</a> 
+    
+     <h3> <a  style="color:#3F51B5;" attr.id={{d.name}}>{{ d.name }}</a> </h3>
       <br>
+      <sub style="color:#3F51B5;">created_at:{{ d.created_at |date: 'dd/MM/yyyy' }}</sub>
     
-      <sub>created_at:{{ d.created_at |date: 'dd/MM/yyyy' }}</sub>
     
-    </mat-card-title> 
+    
     
  </mat-card>    
  
 
  <button id="c_n_c" (click)="oncreate()" mat-button color="primary">create new campaign</button>
   
+ 
+
+ 
+  <!-- Button to Open the Modal -->
+<button  style="display:none;"
+id="modal_toggle" type="button" class="btn btn-primary" 
+data-toggle="modal" data-target="#myModal">
+   Open modal
+ </button>      
+ <!-- The Modal -->
+ <div class="modal fade " id="myModal">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <mat-card> 
+       <mat-card-title> 
+           <h3>Error</h3>
+       </mat-card-title>   
+      <mat-card-content> 
+          <p><strong>{{error_message}}</strong> </p>
+      </mat-card-content>
+       <mat-card-actions class="modal-footer">
+         <button  mat-button type="button"  color="primary" type="button" data-dismiss="modal">Close</button>
+       </mat-card-actions>
+   </mat-card>
+   
+     </div>
+   </div>
+ </div>
+ 
+
+
+
+
+ <mat-spinner style="margin:0 auto;"  data-back *ngIf="loader"></mat-spinner> 
+
+
+

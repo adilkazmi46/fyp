@@ -30,17 +30,32 @@ class ImageController extends Controller
          if ($validator->fails()) {
         return response()->json([ 
          $validator->errors()
-        ]); 
+        ],422); 
         }
 
         else{   
-
+  
         
         $tenant=DB::table('tenants')->where([['name','=',$request->tenant_name],['user_email','=',Auth::User()->email]])->exists();
         
         if($tenant==true)  
         {
-            $tenant_id=DB::table('tenants')->where([['name','=',$request->tenant_name],['user_email','=',Auth::User()->email]])->first();
+            $tenant_id=DB::table('tenants')->where([
+                ['name','=',$request->tenant_name],
+            ['user_email','=',Auth::User()->email]])->first();
+    
+
+                  
+            if(Image::where([
+                ['name','=',$request->name.'.'.$request->image_file->extension() ], 
+               ['tenant_id','=',$tenant_id->id] 
+               ])->exists()!=false)
+               {  
+                   return response()->json(['Image name already exists'],422);
+               }    
+   
+    
+
 
         $path = ''.'/public/images/'.Auth::User()->email.'/'.$request->tenant_name ;
         
@@ -73,8 +88,8 @@ class ImageController extends Controller
     }             
     else if($tenant==false){
         return response()->json([
-          "tenant not found"
-        ]);
+          "Invalid Business"
+        ],422);  
     }
 
 }
@@ -159,8 +174,8 @@ class ImageController extends Controller
          $path = ''.'/public/images/'.Auth::User()->email.'/'.$tenant_name.'/'.$name ;
          $image=Image::where('name','=',$name)->first();
          $image->delete();
-        Storage::delete($path);    
-    }  
+        Storage::delete($path);     
+    }     
 }  
     
 

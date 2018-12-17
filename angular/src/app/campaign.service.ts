@@ -15,14 +15,7 @@ export class CampaignService {
      template_name:templatename,
      tenant_name:localStorage.getItem('tenant_name')
     };
-return this.http.post('http://localhost:8000/api/create_campaign',campaign).subscribe(
-  (res:Response)=>{
-    console.log(res)
-  },
-  (err:Error)=>{
-    console.log(err)
-  }
-);
+return this.http.post('http://localhost:8000/api/create_campaign',campaign);
   }
  
   campaign_index(name)

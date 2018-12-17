@@ -1,7 +1,7 @@
-<h1>Rss Feeds</h1>
+<h1 style="color:#3F51B5;">Rss Feeds</h1>
 <mat-card  *ngFor="let d of data" id="feed_list">
   
-  <mat-card-title><h4 mat-line>{{d.name}}</h4></mat-card-title>  
+  <mat-card-title style="color:#3F51B5;"><h4 mat-line>{{d.name}}</h4></mat-card-title>  
     
   <mat-card-content><p mat-line> {{d.feed_url }} </p></mat-card-content>
   <mat-card-actions>
@@ -17,7 +17,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
       
-        <mat-card> 
+        <mat-card>  
         <mat-card-title>
           <span id="title"><b>Delete {{d.name}} ?? </b></span> 
          

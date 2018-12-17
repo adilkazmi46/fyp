@@ -3,14 +3,14 @@
       <!-- <h1 class="app-name">Sb Admin Material</h1> -->
       <form class="login-form" [formGroup]="image_form" (ngSubmit)="onupload()" >
           <div class="text-center">
-              <h2 class="app-name">Upload Image</h2>
+              <h2 class="app-name" style="color:#3F51B5;">Upload Image</h2>
           </div> 
           <div fxFlex fxLayout="row" fxLayout.lt-md="column">
                <div fxFlexFill>
                   <mat-form-field class="w-100"> 
                     <input formControlName="image_name" matInput placeholder="Name"  id="image_name"     
                     [(ngModel)]="image_name_value" [errorStateMatcher]="matcher">
-                    
+                     
                     <button mat-button *ngIf="image_name_value" 
                     matSuffix mat-icon-button aria-label="Clear"  
                     (click)="image_name_value=''"> 
@@ -57,6 +57,32 @@
 
 
 
+ 
+<button  style="display:none;"
+ id="modal_toggle_err" type="button" class="btn btn-primary" 
+ data-toggle="modal" data-target="#myModal_err">
+    Open modal
+  </button>      
+  <!-- The Modal -->
+  <div class="modal fade " data-backdrop="false"  id="myModal_err">
+    <div class="modal-dialog">
+      <div class="modal-content">  
+        <mat-card> 
+        <mat-card-title> 
+            <h3>Error</h3>
+        </mat-card-title>   
+       <mat-card-content> 
+           <p><strong>{{error_message}}</strong> </p>
+       </mat-card-content>
+        <mat-card-actions class="modal-footer"> 
+          <button  mat-button type="button"  color="primary" type="button" data-dismiss="modal">Close</button>
+        </mat-card-actions>
+    </mat-card>
+    
+      </div>
+    </div>
+  </div>
+  
 
 
 

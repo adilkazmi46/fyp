@@ -35,10 +35,11 @@ export class ImageGalleryComponent implements OnInit {
    delete_status:boolean=false;
    loading:boolean=false; 
    data:any; 
+   error_message:any;
   ngOnInit() {
 
     
-    this.getData();
+    
     this.image_form= new FormGroup({
 
       'image_name' : new FormControl(null,[Validators.required,Validators.minLength(3),Validators.maxLength(25)]),
@@ -49,7 +50,7 @@ export class ImageGalleryComponent implements OnInit {
   }
 
   matcher = new MyErrorStateMatcher();  
- 
+  
   onupload()
 {
   this.loading=true;
@@ -64,13 +65,16 @@ export class ImageGalleryComponent implements OnInit {
          this.image_form.reset();
         console.log(res)         
       },          
-      (err:Error)=>
+      (err)=>
       {
         this.loading=false;
-        console.log("err"+err.message) 
+        this.error_message=err.error;
+        console.log(err.error) ;
+        document.getElementById("modal_toggle_err").click();     
+        
       }  
     );
-   this.getData();
+   
 }   
 
 
@@ -81,23 +85,6 @@ onDelete_modal(name)
    
 }
 
-onDelete()
-{
-  this.delete_status=true;
-  if(this.delete_status)
-  {
-  this.image_service.delete_image(this.delete_image_name).subscribe(
-    (res:Response)=>{
-     
-      console.log(res)
-    },(err:Error)=>{ 
-      console.log(err)
-    }
-  );     
-  }
-  this.getData();
-  console.log(this.delete_image_name)
-}
 onCencel()
 {
   this.delete_status=false;
@@ -112,23 +99,6 @@ onFileSelected(event)
   
 }
 
-getData()
-{
-  this.image_service.get_images().
-    subscribe(
-      (res:Response)=> 
-      {  
-      this.data=Object.entries(res[0]);
-
-      console.log(this.data)
-      },  
-      (err:Error)=>{
-       console.log(err);      
-      }
-    );
-
-     
-}
 
 }
 

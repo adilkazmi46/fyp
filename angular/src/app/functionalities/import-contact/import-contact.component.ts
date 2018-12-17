@@ -17,6 +17,7 @@ export class ImportContactComponent implements OnInit {
   selected_file:File=null;  
   loading:boolean=false;
   sidenav_items=new Array();
+  error_message:any;
   constructor(private import_contact_service:ImportContactsService,private nav_items:SidenavItemsService) { }
 
   ngOnInit() { 
@@ -41,10 +42,12 @@ export class ImportContactComponent implements OnInit {
             this.importform.reset();
             document.getElementById('modal_toggle').click();
       },  
-      (err:Error)=>
+      (err)=>
       { 
         this.loading=false;  
-        console.log(err)   
+        this.error_message=err.error;
+        document.getElementById("modal_toggle").click(); 
+         
       }
     );  
   }

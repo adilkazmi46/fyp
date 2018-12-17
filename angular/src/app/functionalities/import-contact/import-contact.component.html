@@ -3,7 +3,7 @@
         <!-- <h1 class="app-name">Sb Admin Material</h1> -->
         <form class="login-form" [formGroup]="importform" (ngSubmit)="uploadcontacts()" >
             <div class="text-center">
-                <h2 class="app-name">Import Contacts</h2>
+                <h2 class="app-name" style="color:#3F51B5;">Import Contacts</h2>
                 <p>
                     uppload a csv file that contains the emails contacts.
                  </p>
@@ -32,7 +32,7 @@
         </form>
     </div>
 </div>
-<mat-spinner *ngIf="loading"></mat-spinner>
+<mat-spinner style="margin:0 auto;" *ngIf="loading"></mat-spinner>
 
   <!-- Button to Open the Modal -->
   <button  style="display:none;" id="modal_toggle" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -61,3 +61,31 @@
     </div>
   </div>
   
+
+  <button  style="display:none;"
+ id="modal_toggle" type="button" class="btn btn-primary" 
+ data-toggle="modal" data-target="#myModal">
+    Open modal
+  </button>      
+  <!-- The Modal -->
+  <div class="modal fade " data-backdrop="false"  id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <mat-card> 
+        <mat-card-title> 
+            <h3>Error</h3>
+        </mat-card-title>   
+       <mat-card-content> 
+           <p><strong>{{error_message}}</strong> </p>
+       </mat-card-content>
+        <mat-card-actions class="modal-footer">
+          <button  mat-button type="button"  color="primary" type="button" data-dismiss="modal">Close</button>
+        </mat-card-actions>
+    </mat-card>
+    
+      </div>
+    </div>
+  </div>
+  
+
+

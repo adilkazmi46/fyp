@@ -30,7 +30,7 @@ class EmailTemplateController extends Controller
             return response()->json([ 
                 $validator->errors()  
                 
-            ]); 
+            ],422); 
         }
  
         else{ 
@@ -41,7 +41,24 @@ class EmailTemplateController extends Controller
          ['user_email','=',Auth::User()->email],  
       ])->first();  
       
+      if(Tenant::where([  
+        ['name','=',$request->tenant_name], 
+        ['user_email','=',Auth::User()->email],  
+     ])->exists()==false) 
+     {
+        return response()->json(['Invalid business'],422);
+     } 
+     
 
+
+
+      if(DB::table('email_templates')->where([
+        ['name','=',$request->name],
+        ['tenant_id','=',$tenant->id]
+     ])->exists()==true)
+     {
+         return response()->json(['Temaplate name already exits'],422);
+     } 
       $template->name=$request->name;
       $template->html=$request->html;
       
@@ -55,6 +72,15 @@ class EmailTemplateController extends Controller
 
     public function index($tenant_name)
     { 
+            
+        if(Tenant::where([  
+            ['name','=',$tenant_name], 
+            ['user_email','=',Auth::User()->email],  
+         ])->exists()==false) 
+         {
+            return response()->json(['Invalid business'],422);
+         } 
+      
         $tenant=Tenant::where([
             ['name','=',$tenant_name], 
             ['user_email','=',Auth::User()->email],  
@@ -71,8 +97,16 @@ class EmailTemplateController extends Controller
     public function read($name,$tenant_name)
     {
         
-
-              
+    
+        if(Tenant::where([  
+            ['name','=',$tenant_name], 
+            ['user_email','=',Auth::User()->email],  
+         ])->exists()==false) 
+         {
+            return response()->json(['Invalid business'],422);
+         } 
+     
+                
         $tenant=Tenant::where([
             ['name','=',$tenant_name], 
             ['user_email','=',Auth::User()->email],  
@@ -85,13 +119,22 @@ class EmailTemplateController extends Controller
              ])->first();
 
          return response()->json([ 
-             $template 
+             $template->html   
          ]);   
   
     }
     public function update(Request $request)
     {
     
+            
+        if(Tenant::where([  
+            ['name','=',$request->tenant_name], 
+            ['user_email','=',Auth::User()->email],  
+         ])->exists()==false) 
+         {
+            return response()->json(['Invalid business'],422);
+         } 
+     
         $validator=Validator::make($request->all(),[
         'name' => 'required|min:3|max:25',
         'html' => 'required',
@@ -126,6 +169,15 @@ class EmailTemplateController extends Controller
 
     public function delete($tenant_name,$name)
     {
+            
+        if(Tenant::where([   
+            ['name','=',$tenant_name], 
+            ['user_email','=',Auth::User()->email],  
+         ])->exists()==false) 
+         {
+            return response()->json(['Invalid business'],422);
+         } 
+     
         
         $tenant=Tenant::where([   
             ['name','=',$tenant_name], 
@@ -135,7 +187,7 @@ class EmailTemplateController extends Controller
          $email_template=EmailTemplate::where([
              ['name','=',$name],
              ['tenant_id','=',$tenant->id], 
-         ])->first();         
+         ])->first();           
       
          if(Campaign::where([
             ['tenant_id','=',$tenant->id],
@@ -166,7 +218,7 @@ class EmailTemplateController extends Controller
     return response()->json([
      "done"
     ]);
-
+ 
    
           
 

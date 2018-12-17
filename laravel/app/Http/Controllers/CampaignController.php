@@ -28,10 +28,10 @@ class CampaignController extends Controller
         'tenant_name' => 'required',
         'template_name' => 'required',   
         ]);
-
+ 
         if($validator->fails())
         { 
-            return response()->json([$validator->errors()]);
+            return response()->json([$validator->errors()],422);
         }
         else{
       $tenant=DB::table('tenants')->where([
@@ -39,9 +39,18 @@ class CampaignController extends Controller
          ['user_email','=',Auth::User()->email]
       ])->first(); 
 
-             
+      if(DB::table('campaigns')->where([
+        ['name','=',$request->name],
+        ['tenant_id','=',$tenant->id]
+     ])->exists()==true)
+     {
+         return response()->json(['Campaign name already exits'],422);
+     } 
+       
+
       //$emails=DB::table('emails_lists')->where('tenant_id','=',$tenant->id)->get(['email']);
      
+
 
       $template=EmailTemplate::where([
         ['name','=',$request->template_name],
@@ -96,7 +105,7 @@ public function index(Request $request)
 
         if($validator->fails())
         { 
-            return response()->json([$validator->errors()]);
+            return response()->json([$validator->errors()],422);
         }  
         else{
  
@@ -117,4 +126,4 @@ public function index(Request $request)
 
 
 }
-    
+     

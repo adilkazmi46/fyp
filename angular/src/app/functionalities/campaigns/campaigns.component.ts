@@ -33,10 +33,13 @@ export class CampaignsComponent implements OnInit {
   value_name:string=''; 
   value_template_name:'';
   elem_id='';
+  error_message:any;
+  loader:boolean=false;
   
   constructor(private router:Router,private route:ActivatedRoute,private template_service:EmailTemplateService,private campaign_service:CampaignService) {}
 
   ngOnInit() {
+    this.loader=true;
     this.NameFormGroup = new FormGroup({  
       'name' : new FormControl(null,[Validators.required,Validators.minLength(3),Validators.maxLength(25)]),
 
@@ -53,7 +56,7 @@ export class CampaignsComponent implements OnInit {
         
         this.data=(res[0]);  
          
-
+          this.loader=false;
         
       console.log(this.data)               
       }  ,
@@ -75,19 +78,34 @@ export class CampaignsComponent implements OnInit {
   {
     
     console.log(this.value_template_name)
-    this.campaign_service.start_campaign(this.value_name,this.value_template_name);
-    this.router.navigate(['campaigns'],{
-      relativeTo:this.route.parent
-    });
+    this.campaign_service.start_campaign(this.value_name,this.value_template_name).subscribe(
+      (res:Response)=>{
+        this.router.navigate(['campaigns'],{
+          relativeTo:this.route.parent
+        });
+      },  
+      (err)=>{
+        this.loader=false;  
+        this.error_message=err.error;
+        console.log(err)
+        document.getElementById("modal_toggle").click(); 
+      }
+    );
+    
   }    
 
-  oncheck(name,id){ 
-    this.elem_id=id;
+  oncheck(name,id){  
+    this.elem_id=id; 
 
 
     this.value_template_name=name;
   }
-
+  view_template(name){
+    this.router.navigate(['email_template',name],  
+    {
+      relativeTo:this.route.parent
+    });  
+  }
 
 }
    

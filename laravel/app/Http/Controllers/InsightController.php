@@ -13,6 +13,7 @@ class InsightController extends Controller
     //
     public function update_campaign($tenant_id,$campaign_id)
     {            
+        
         $tenant=Tenant::where('id','=',$tenant_id)->first();
         $campaign=Campaign::where('id','=',$campaign_id)->first();
         $insight=Insight::where([
@@ -46,6 +47,15 @@ class InsightController extends Controller
     
     public function index_campaign(Request $request) 
     { 
+            
+        if(Tenant::where([      
+            ['name','=',$request->tenant_name], 
+            ['user_email','=',Auth::User()->email],  
+         ])->exists()==true) 
+         {
+            return response()->json(['Invalid business'],422);
+         } 
+     
         //return response()->json([$request->tenant_name]);
         $tenant=Tenant::where([
             ['name','=',$request->tenant_name],
@@ -72,6 +82,15 @@ class InsightController extends Controller
 
     public function index_rss(Request $request) 
     { 
+            
+        if(Tenant::where([  
+            ['name','=',$request->tenant_name], 
+            ['user_email','=',Auth::User()->email],  
+         ])->exists()==false) 
+         {
+            return response()->json(['Invalid business'],422);
+         } 
+     
         //return response()->json([$request->tenant_name]);
         $tenant=Tenant::where([
             ['name','=',$request->tenant_name],
@@ -97,8 +116,17 @@ class InsightController extends Controller
          
     } 
 
-    public function get_insight(Request $request)
+    public function get_insight(Request $request) 
     {
+            
+        if(Tenant::where([  
+            ['name','=',$request->tenant_name], 
+            ['user_email','=',Auth::User()->email],  
+         ])->exists()==false) 
+         {
+            return response()->json(['Invalid business'],422);
+         } 
+     
     
     $tenant=Tenant::where([  
             ['name','=',$request->tenant_name], 
@@ -118,7 +146,7 @@ class InsightController extends Controller
             ['campaign_id','=',$campaign->id],
             ] 
         )->first(); 
-       
+         
         
         return response()->json([
             $insight  

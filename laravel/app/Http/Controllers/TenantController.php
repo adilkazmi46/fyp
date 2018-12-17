@@ -102,7 +102,7 @@ class TenantController extends Controller
         return response()->json([$tenant]);   
 
     }
-
+ 
     /**
      * Update the specified resource in storage.
      *

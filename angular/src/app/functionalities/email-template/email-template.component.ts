@@ -41,6 +41,8 @@ export class EmailTemplateComponent implements OnInit {
   name:FormControl;  
   data:any; 
   save_message:string='';
+  loader:boolean=false;
+  error_message:any;
 constructor(private image_service:ImagesService,private template_service:EmailTemplateService,private route:ActivatedRoute,private router:Router)  { 
   
 } 
@@ -48,7 +50,7 @@ constructor(private image_service:ImagesService,private template_service:EmailTe
 
     
   ngOnInit() {      
-    
+    this.loader=true;
     this.image_service.get_images().
     subscribe(
       (res:Response)=> 
@@ -56,9 +58,14 @@ constructor(private image_service:ImagesService,private template_service:EmailTe
       this.data=Object.entries(res[0]);
       
       console.log(this.data)
+      this.loader=false;
       },
-      (err:Error)=>{  
-       console.log(err);      
+      (err)=>{  
+       console.log(err);
+       this.loader=false;  
+        this.error_message=err.error; 
+        console.log(err)
+        document.getElementById("modal_toggle").click();       
       }
 
     );
@@ -96,7 +103,10 @@ constructor(private image_service:ImagesService,private template_service:EmailTe
     .catch( error => { 
 
         console.error( error );
-
+        this.loader=false;  
+        this.error_message=error;
+        
+        document.getElementById("modal_toggle").click(); 
     } );  
 
   }
@@ -113,7 +123,7 @@ constructor(private image_service:ImagesService,private template_service:EmailTe
   }
 get_data()
 {
-  
+  this.loader=true;
 this.email_template ={  
    name:this.templateform.get('name').value,
 html:this.ckeditor_data.getData(),
@@ -129,13 +139,16 @@ subscribe(
     this.router.navigate(['email_templates'],
     {relativeTo:this.route.parent}); 
   },
-  (err:Error) =>
+  (err) =>
   { 
-    console.log(err)
+    this.loader=false;  
+        this.error_message=err.error;
+        console.log(err) ;
+        document.getElementById("modal_toggle_err").click(); 
   }
-); 
-}
-
+);   
+}  
+  
 
 
 image_upload()

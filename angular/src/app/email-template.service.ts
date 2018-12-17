@@ -9,7 +9,7 @@ export class EmailTemplateService {
 
   constructor(private http:HttpClient) { }  
 
-
+ 
   save_template(email_template:EmailTemplate)
   {  
  return this.http.post('http://localhost:8000/api/create_ckeditor_content',email_template);

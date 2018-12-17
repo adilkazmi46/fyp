@@ -18,6 +18,7 @@ export class EmailTemplatesComponent implements OnInit {
   deleted:boolean;
   error:boolean;  
   error_message:any;
+  loader:boolean=false;
 
   constructor(private template_service:EmailTemplateService,private router:Router,private route:ActivatedRoute) {
     
@@ -69,20 +70,30 @@ this.getData();
     console.log(this.data)               
     }  ,
 
-    (err:Error)=>
+    (err)=>
     { 
-      console.log(err); 
+      this.loader=false;  
+      this.error_message=err.error;
+      console.log(err) ;
+      document.getElementById("modal_toggle_err").click(); 
     }
 
 );  
 
 
- }
+ } 
 
  oncreate()
  {
    this.router.navigate(['email_template_editor'],
    {relativeTo:this.route.parent})
+ }
+
+ view_template(name){ 
+   this.router.navigate(['email_template',name],  
+   {
+     relativeTo:this.route.parent
+   });  
  }
 
 }
