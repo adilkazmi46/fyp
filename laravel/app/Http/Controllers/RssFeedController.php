@@ -131,7 +131,7 @@ return response()->json(['Rss Feed url already exits'],422);
         $rss_feed=new Rss_feed;
         $rss_feed->tenant_id=$tenant->id;
         $rss_feed->feed_url=$request->feed_url;
-        $rss_feed->name=$request->name;
+        $rss_feed->name=$request->name; 
         $rss_feed->save();
 
         $insight=new Insight();

@@ -43,8 +43,8 @@ export class RssToEmailsComponent implements OnInit {
   url:FormControl;  
   name_new:FormControl;
   url_new:FormControl;
-  error_message:any;
-  show:boolean=false;
+  error_message:any; 
+  show:boolean=false; 
   
   constructor(private feed_service:RssFeedsService,private router:Router,private route:ActivatedRoute) { }
 
