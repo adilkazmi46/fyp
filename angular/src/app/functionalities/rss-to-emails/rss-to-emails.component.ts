@@ -38,7 +38,7 @@ export class RssToEmailsComponent implements OnInit {
   value_url_old='';
   url_regex='^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$';
   rssform: FormGroup; 
-  rss_edit_form: FormGroup; 
+  rss_edit_form: FormGroup;   
   name:FormControl;  
   url:FormControl;  
   name_new:FormControl;

@@ -38,6 +38,7 @@ export class RssToEmailsIndexComponent implements OnInit {
   name_new:FormControl;
   url_new:FormControl;
   data:any;
+  loader:boolean=false;
   constructor(private feed_service:RssFeedsService,private router:Router,private route:ActivatedRoute) { }
 
  
@@ -113,9 +114,14 @@ this.getData()
 
   sendemails(name)
   {
+    this.loader=true;
     this.feed_service.rss_feed_reader(name).subscribe(
       (res:Response)=>
       {
+        
+        this.router.navigate(['insights_rss'],{
+          relativeTo:this.route.parent
+        })
         console.log(res)
       },
       (err:Error)=>{

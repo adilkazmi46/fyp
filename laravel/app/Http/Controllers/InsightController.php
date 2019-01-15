@@ -47,11 +47,11 @@ class InsightController extends Controller
     
     public function index_campaign(Request $request) 
     { 
-            
+             
         if(Tenant::where([      
             ['name','=',$request->tenant_name], 
             ['user_email','=',Auth::User()->email],  
-         ])->exists()==true) 
+         ])->exists()==false) 
          {
             return response()->json(['Invalid business'],422);
          } 

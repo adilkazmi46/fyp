@@ -41,7 +41,7 @@ export class RssFeedsService {
   }
 
   rss_feed_create(na,url){
-    let data={
+    let data={ 
       name:na,
       feed_url:url, 
       tenant_name:localStorage.getItem('tenant_name')

@@ -38,7 +38,7 @@ export class ImageGalleryComponent implements OnInit {
    error_message:any;
   ngOnInit() {
 
-    
+     
     
     this.image_form= new FormGroup({
 

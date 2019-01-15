@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 25),
+    'port' => env('MAIL_PORT', 2525),
 
     /*
     |--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'adilkazmi46@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'hello'),  
+        'name' => env('MAIL_FROM_NAME', 'example'),  
     ],
 
     /*
@@ -98,7 +98,7 @@ return [
     | been provided here, which will work well on most of your systems.
     |
     */
-
+ 
     'sendmail' => '/usr/sbin/sendmail -bs',
 
     /* 
@@ -110,7 +110,7 @@ return [
     | theme and component paths here, allowing you to customize the design
     | of the emails. Or, you may simply stick with the Laravel defaults!
     |
-    */
+    */ 
 
     'markdown' => [
         'theme' => 'default',

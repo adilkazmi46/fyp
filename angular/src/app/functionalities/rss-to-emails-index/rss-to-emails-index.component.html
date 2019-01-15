@@ -118,12 +118,9 @@
   </mat-card-actions> 
 
 </mat-card>  
-  
-  
-   
     </div>
   </div>
 </div>
  
 <button id="c_n_c" (click)="onupload()" mat-button color="primary">upload  RSS Feed URL</button>
-  
+<mat-spinner style="margin:0 auto;"  data-back *ngIf="loader"></mat-spinner> 

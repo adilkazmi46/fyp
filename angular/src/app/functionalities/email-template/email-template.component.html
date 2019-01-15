@@ -1,4 +1,4 @@
-<h1 style="color:#3F51B5;">Template Editor</h1>
+
 <div class="row">
 
 <div class="col-md-10 ">
@@ -27,11 +27,11 @@
   <div class="col-md-12"></div>
   <div class="col-md-12"></div> 
   <div class="col-md-12"></div> 
-  <div class="col-md-12"></div>  
+  <div class="col-md-12"></div>   
 
-<div class="col-md-6 " style="margin:1%;">
+<div class="col-md-6 " style="margin:5%;">
 
-    <form [formGroup]="templateform" (ngSubmit)="get_data()" class="form-container" >
+    <form [formGroup]="templateform" (ngSubmit)="get_data" class="form-container" >
             <mat-form-field> 
                     <input matInput placeholder="Name"  id="name" formControlName="name"  [(ngModel)]="value_name" [errorStateMatcher]="matcher">
                     <button mat-button *ngIf="value_name" matSuffix mat-icon-button aria-label="Clear" (click)="value_name=''">
@@ -40,7 +40,7 @@
                       </button>   
                       <mat-error *ngIf="templateform.controls['name'].hasError('required')">
                               name is <strong>required</strong>
-                            </mat-error> 
+                             </mat-error> 
                             <mat-error *ngIf="templateform.controls['name'].hasError('minlength') && !templateform.controls['name'].hasError('required')">
                                   Please enter a name of min 3 characters 
                                 </mat-error> 

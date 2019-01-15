@@ -49,12 +49,7 @@ class RssFeedController extends Controller
             ['tenant_id','=',$tenant->id]
         ])->first();
   
-        $insight=new Insight();
-        $insight->tenant_id=$tenant->id;
-        $insight->rss_feed_id=$rss->id;  
-        $insight->open_rate=0; 
-        $insight->save();
-       
+        
         
         $feed = Feeds::make($rss->feed_url,true); // if RSS Feed has invalid mime types, force to read
         $data = array(
@@ -79,7 +74,7 @@ class RssFeedController extends Controller
         $emails=Emails_list::select('email')->where('tenant_id', $tenant->id)->pluck('email')->toArray();
          
         dispatch(new SendEmail($emails,$contents1,$rss->name));
-   
+    
         return response()->json([ 
             "done" 
         ]); 
@@ -132,12 +127,20 @@ if(Rss_feed::where([
 ])->exists()==true)
 {
 return response()->json(['Rss Feed url already exits'],422);
-} 
+}   
         $rss_feed=new Rss_feed;
         $rss_feed->tenant_id=$tenant->id;
         $rss_feed->feed_url=$request->feed_url;
         $rss_feed->name=$request->name;
         $rss_feed->save();
+
+        $insight=new Insight();
+        $insight->tenant_id=$tenant->id;
+        $insight->rss_feed_id=$rss_feed->id;    
+        $insight->open_rate=0;   
+        $insight->save();
+       
+        
 
         return response()->json([
             true
